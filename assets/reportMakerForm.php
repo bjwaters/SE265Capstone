@@ -11,8 +11,8 @@
 
     Reporting form: <br><br>
 
-    Nature of problem: <input type="text" name="ReportType" /> <br>
-    Details: <input type="text" name="ReportComment" /><br><br>
+    Nature of problem: <input type="text" name="ReportType" /> <br><br>
+    Details:<br> <textarea name="details" rows="5" cols="40"></textarea><br><br>
 
     <input type = "submit" name = "action" value = "Report" /><br><br>
     <input type = "submit" name = "action" value = "Back to User Page" />

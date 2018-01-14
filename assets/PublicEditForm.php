@@ -19,7 +19,7 @@
     Rates: <input type="text" name="MusicRates" /><br>
     Time Needed: <input type="text" name="MusicAvailability" /><br>
 
-    Comments: <input type="text" name="MusicComments" /><br><br>
+    Comments:<br> <textarea name="comments" rows="5" cols="40"></textarea><br><br>
     Picture Upload here <br><br>
 
     <input type = "submit" name = "action" value = "Main Page" />
