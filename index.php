@@ -34,6 +34,7 @@ switch($action){
         break;
     case 'Logout':
         include_once("assets/homePage.php");
+        break;
 
     case 'Edit Profile':
         include_once("assets/PublicEditForm.php");
