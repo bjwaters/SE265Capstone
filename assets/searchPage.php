@@ -13,7 +13,6 @@ This will be a proper search page in the future.
 
     <br>
     Public Name: <input type="text" name="MusicName" /> <br>
-    Email: <input type="text" name="MusicEmail" /><br>
     Location: <input type="text" name="MusicLocation" />
     Radius: <input type="text" name="MusicRadius" /><br>
     Type: <input type="text" name="MusicType" /> <br>
@@ -31,3 +30,4 @@ Using a radius might not be possible, based on future complications.
 The result of the search will be displayed on the same page, beneath this information.
 Ideally, it will be a list of links to click, possibly with the musicians's picture also
 on the page-->
+<!--Rates will ideally be two numbers to search between for valid responses. Dropdowns might be best -->
