@@ -12,9 +12,11 @@
     <br>
 
     <input type = "submit" name = "action" value = "Login/Sign Up Page" /><br><br>
-    <input type="text" name="newUserPassword" value="Search text here"/><input type = "submit" name = "action" value = "Search Page" />
+    <input type="text" name="newUserPassword" value="Musician Name here"/><input type = "submit" name = "action" value = "Search Page" />
     <br>
 
 </form>
 
-<!-- A lot of this page will be pictures and eye candy. This is just the most basic functionality -->
+<!-- A lot of this page will be pictures and eye candy. This is just the most basic functionality
+ Search will only be by name, here. At least for now. It will bring up the
+ standard search page, with results by name already filled in.-->

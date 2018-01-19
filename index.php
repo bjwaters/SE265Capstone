@@ -17,7 +17,7 @@ switch($action){
         break;
 
     case 'Search Page':
-        include_once("assets/searchPage.php");
+        include_once("assets/searchForm.php");
         break;
     case 'Search':
         break;
@@ -27,10 +27,10 @@ switch($action){
         break;
 
     case 'Login':
-        include_once("assets/goodLoginPageForm.php");
+        include_once("assets/ControlPanelForm.php");
         break;
     case 'Sign Up':
-        include_once("assets/goodLoginPageForm.php");
+        include_once("assets/ControlPanelForm.php");
         break;
     case 'Logout':
         include_once("assets/homePage.php");
@@ -40,18 +40,24 @@ switch($action){
         include_once("assets/PublicEditForm.php");
         break;
     case 'Profile Edit Complete':
-        include_once("assets/goodLoginPageForm.php");
+        include_once("assets/ControlPanelForm.php");
+        break;
+    case 'Public Profile':
+        include_once("assets/PublicProfileForm.php");
         break;
 
     case 'Pending Requests':
-        include_once("assets/requestPage.php");
+        include_once("assets/requestReviewForm.php");
+        break;
+    case 'Request this user':
+        include_once("assets/MakeRequestPage.php");
         break;
 
     case 'Report Issues':
         include_once("assets/reportMakerForm.php");
         break;
     case 'Back to User Page':
-        include_once("assets/goodLoginPageForm.php");
+        include_once("assets/ControlPanelForm.php");
         break;
 
     default:
