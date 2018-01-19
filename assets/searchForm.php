@@ -12,12 +12,13 @@ This will be a proper search page in the future.
 <form method = 'get' action = "#">
 
     <br>
-    Public Name: <input type="text" name="MusicName" /> <br>
-    Location: <input type="text" name="MusicLocation" />
-    Radius: <input type="text" name="MusicRadius" /><br>
-    Type: <input type="text" name="MusicType" /> <br>
-    Rates: <input type="text" name="MusicRates" /><br>
-    Availability: <input type="text" name="MusicAvailability" /><br>
+    Public Name: <input type="text" name="name" /> <br>
+    Email: <input type="text" name="email" />Phone: <input type="text" name="phone" /><br>
+    Location: <input type="text" name="location" />
+    Radius: <input type="text" name="radius" /><br>
+    Type: <input type="text" name="musicType" /> <br>
+    Rates: <input type="text" name="payRate" /><br>
+    Time Needed: <input type="text" name="Availability" /><br>
     <input type = "submit" name = "action" value = "Search" /><br><br>
 
     <input type = "submit" name = "action" value = "Main Page" />
@@ -30,4 +31,6 @@ Using a radius might not be possible, based on future complications.
 The result of the search will be displayed on the same page, beneath this information.
 Ideally, it will be a list of links to click, possibly with the musicians's picture also
 on the page-->
-<!--Rates will ideally be two numbers to search between for valid responses. Dropdowns might be best -->
+
+<!--Need to discuss rates: one number or a range?
+ Need to discuss availability: new table or another system?-->
