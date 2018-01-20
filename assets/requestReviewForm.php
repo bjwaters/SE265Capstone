@@ -6,11 +6,8 @@
  * Time: 1:20 PM
  */
 ?>
-This page will have the pending requests to or from another user.
-For now, it is empty.
-<br><br>
-When it is full, it will have links to the applicable user, their latest comment.
 
+<br><br>
 
 <form method = 'get' action = "#">
 

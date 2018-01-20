@@ -6,6 +6,9 @@
  * Time: 12:08 PM
  */
 
+require_once("assets/functions.php");
+include_once("assets/header.php");
+
 
 $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ??
     filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING) ?? NULL;
@@ -20,6 +23,8 @@ switch($action){
         include_once("assets/searchForm.php");
         break;
     case 'Search':
+        include_once("assets/searchForm.php");
+        echo searchTable();
         break;
 
     case 'Main Page':
@@ -47,6 +52,7 @@ switch($action){
         break;
 
     case 'Pending Requests':
+        echo requestTable();
         include_once("assets/requestReviewForm.php");
         break;
     case 'Request this user':
