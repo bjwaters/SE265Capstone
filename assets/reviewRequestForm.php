@@ -13,4 +13,12 @@
     Location: <input type="text" name="location" /> <br>
     Comments:<br> <textarea name="comments" rows="5" cols="40"></textarea><br><br>
 
+
+
+    Once a request is completed, it will be possible to rate their service.<br>
+    Otherwise, the button will be hidden.<br><br>
+
+    <input type = "submit" name = "action" value = "Rate User" /> <br>
+    <input type = "submit" name = "action" value = "Back to User Page" />
+
 </form>

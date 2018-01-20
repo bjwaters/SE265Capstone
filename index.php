@@ -53,14 +53,24 @@ switch($action){
 
     case 'Pending Requests':
         echo requestTable();
-        include_once("assets/requestReviewForm.php");
+        include_once("assets/PendingRequestForm.php");
         break;
     case 'Request this user':
         include_once("assets/MakeRequestPage.php");
         break;
+    case 'Make a Request':
+        echo requestTable();
+        include_once("assets/PendingRequestForm.php");
+        break;
+    case 'Rate this User':
+        include_once("assets/RateUserForm.php");
+        break;
 
     case 'Report Issues':
         include_once("assets/reportMakerForm.php");
+        break;
+    case 'Report':
+        include_once("assets/ControlPanelForm.php");
         break;
     case 'Back to User Page':
         include_once("assets/ControlPanelForm.php");

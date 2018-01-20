@@ -23,8 +23,8 @@ function requestTable()
 {
     $table = "<table><br>";
 
-    $table .= "<thead><th>Requests</th><th>User</th><th>Request</th></thead>";
-    $table .= "<tr><td>Bob </td><td>This will be a link to Bob's profile. </td><td><?php include_once(\"assets/reviewRequestForm.php\"); ?></td></tr>";
+    $table .= "<thead><th>Requests</th><th>User</th><th>Rate</th></thead>";
+    $table .= "<tr><td>Bob </td><td>This will be a link to Bob's profile. </td><td> <input type = 'submit' name = 'action' value = 'Rate this User' /> </td></tr>";
     $table .= "<tr><td>Joe </td><td>This will be a link to Joe's profile. </td></tr>";
     $table .= "</table>";
 
