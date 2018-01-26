@@ -8,17 +8,16 @@
 ?>
 
 
-<form method = 'get' action = "#">
+<form method = 'post' action = "#">
 
     Sign In: <br>
 
-    Email Address: <input type="text" name="EmailLogin" /> <br>
-    Password: <input type="text" name="Password" /><br>
+    Email Address: <input type="text" name="signInEmail" /> <br>
+    Password: <input type="text" name="signInPassword" /><br>
     <input type = "submit" name = "action" value = "Forgot Password?" /><input type = "submit" name = "action" value = "Login" />
     <br><br>
 
     Sign Up! <br>
-    Name: <input type="text" name="newUserName" /><br>
     Email Address: <input type="text" name="newUserEmail" /><br>
     Password: <input type="text" name="newUserPassword" /><br>
     Password Verify: <input type="text" name="newUserPassword2" /><br>
