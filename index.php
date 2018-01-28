@@ -6,9 +6,11 @@
  * Time: 12:08 PM
  */
 
+session_start();
+
 require_once("assets/dbconnect.php");
 require_once("assets/functions.php");
-require_once("assets/loginCode.php");
+require_once("assets/functions/loginSignupCode.php");
 include_once("assets/header.php");
 
 $db = dbConnect();
@@ -35,10 +37,14 @@ switch($action){
         break;
 
     case 'Login':
-        $valid = signinTest($db);
+
+        $validID = signinTest($db);  //This calls the login testing code
+
         //This is where the session will start, when I write the code. Note: add session here.
-        if($valid != "")
+        if($validID != "")
         {
+            $userType = grabUserType($db, $validID); //This grabs the user type with their id
+            loginSession($validID);                  //This starts a session varible with the user id and type stored
             include_once('assets/forms/ControlPanelForm.php');
             echo("Login successful!");
         }

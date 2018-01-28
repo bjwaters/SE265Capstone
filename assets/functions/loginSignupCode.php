@@ -65,8 +65,7 @@ function signupTest($db, $found)
                     }
                     else{
                         $hashedPassword = password_hash($password1, PASSWORD_DEFAULT);
-                        //If everything is good, finally add!
-                        add_user($db, $hashedPassword, $email, $user_type);
+                        addUser($db, $hashedPassword, $email, $user_type); //If everything is good, finally add the user to the user table
                     }
                 } else {
                     include_once("assets/forms/LoginForm.php");
@@ -75,7 +74,7 @@ function signupTest($db, $found)
             }
             else {
                 include_once("assets/forms/LoginForm.php");
-                echo("<br> Password needed.");
+                echo("<br> Error. Password needed.");
             }
         }
         else
@@ -88,7 +87,7 @@ function signupTest($db, $found)
 
 //This is used by the sign up button
 //Called by the passwordTest function, if the passwords match
-function add_user($db, $password, $user, $user_type)
+function addUser($db, $password, $user, $user_type)
 {
     try{
         $stmt = $db->prepare("INSERT INTO users VALUES (null, :email, :password, :user_type, NOW())");
@@ -111,8 +110,6 @@ function signinTest($db)
     $successfulLogin = "";
     $email = $_POST['signInEmail'];
     $password = $_POST['signInPassword'];
-    //var_dump($_POST['signInEmail']);
-    //var_dump($_POST['signInPassword']);
 
     try {
         $stmt = $db->prepare("SELECT * FROM users");
@@ -121,16 +118,12 @@ function signinTest($db)
         if ($stmt->execute() && $stmt->rowCount() > 0) {
 
             $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            //var_dump($users);
             foreach ($users as $user) {
+
                 if ($user['email'] == $email && password_verify($password, $user['password']))
                 {
                     $successfulLogin = $user['user_id'];
                 }
-                var_dump($user['email']);
-                var_dump($email);
-                var_dump(password_verify($password, $user['password']));
-                var_dump($password);
             }
         } else
             echo("No users in list <br>");
@@ -138,4 +131,39 @@ function signinTest($db)
     } catch (PDOException $e) {
         die("Grabbing the user list didn't work.");
     }
+}
+
+//This grabs the user type with their id
+function grabUserType($db, $ID)
+{
+    $userType = "";
+
+    try {
+        $stmt = $db->prepare("SELECT * FROM users");
+        $users = array();
+
+        if ($stmt->execute() && $stmt->rowCount() > 0) {
+
+            $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($users as $user) {
+
+                if ($user['user_id'] == $ID)
+                {
+                    $userType = $user['type'];
+                }
+            }
+        } else
+            echo("No users in list <br>");
+        return ($userType);
+    } catch (PDOException $e) {
+        die("Grabbing the user list didn't work.");
+    }
+}
+
+//This starts a session
+function loginSession($ID, $type)
+{
+    $_SESSION['userID'] = $ID;
+    $_SESSION['userType'] = $type;
+
 }

@@ -12,16 +12,17 @@
 <form method = 'get' action = "#">
 
     Public Name: <input type="text" name="name" /> <br>
-    Email: <input type="text" name="email" />Phone: <input type="text" name="phone" /><br>
     Location: <input type="text" name="location" />
     Radius: <input type="text" name="radius" /><br>
     Type: <input type="text" name="musicType" /> <br>
-    Rates: <input type="text" name="payRate" /><br>
-    Time Needed: <input type="text" name="Availability" /><br>
+    Pay Rate: <input type="text" name="payRate" /><br>
+    Phone: <input type="text" name="phone" /><br>
+    Availability: <input type="text" name="Availability" /><br>
 
     Comments:<br> <textarea name="comments" rows="5" cols="40"></textarea><br><br>
-    Picture Upload here <br><br>
 
+    Picture Upload here <br><br>
+    Video Link: <input type="text" name="videoLink" /><br><br>
 
     Profile status: Locked
     <input type="radio" name="profileStatus" value = "Locked">
