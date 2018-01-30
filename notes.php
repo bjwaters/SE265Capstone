@@ -6,18 +6,22 @@
  * Time: 2:06 PM
  */
 
-//Basic Functionality and moving through the site
-//Css nonexistent
-//Lots of details to hash out for later
-//A lot of functionality requires making the tables
-    //Tables to be made
-        //Login - user id, email, hashed pw, user type
-        //Profile - user type, name, address, phone, availability, comments, pay, etc
-                //*Unless this can be put into something like a notepad file and it's more efficient
-                //Everyone (non admin) can have the same profile type, with info blank if not needed
-        //Uploaded files for each user (if we allow more than 1)
-        //Ratings given by others, w/their comments
-        //Report table with comments from other users to admin
-            //The comment, the comment source, resolved/unresolved
 
-//Testing for merging
+//Ben
+//Work on Edit Profile
+//Tinkering with profile creation
+//User adding/checking/deleting//account details
+//Searching (profile search) advanced/simple
+//reports
+    //tables - users, profiles, reports
+
+
+
+//John
+//Public profile
+//Searching (Messages/booking)
+//Conversation code first
+    //Booking code
+    //comment code
+        //Tables - bookings/comments/conversation edit
+                //pulling from user/profile tables

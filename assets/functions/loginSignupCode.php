@@ -65,7 +65,9 @@ function signupTest($db, $found)
                     }
                     else{
                         $hashedPassword = password_hash($password1, PASSWORD_DEFAULT);
-                        addUser($db, $hashedPassword, $email, $user_type); //If everything is good, finally add the user to the user table
+                        $newest_id = addUser($db, $hashedPassword, $email, $user_type); //If everything is good,add the user
+                        addProfile($db, $newest_id);    //Add the new profile to the user's id too
+                        return $newest_id;
                     }
                 } else {
                     include_once("assets/forms/LoginForm.php");
@@ -87,6 +89,7 @@ function signupTest($db, $found)
 
 //This is used by the sign up button
 //Called by the passwordTest function, if the passwords match
+//returns the last id added
 function addUser($db, $password, $user, $user_type)
 {
     try{
@@ -95,8 +98,10 @@ function addUser($db, $password, $user, $user_type)
         $stmt->bindParam(':password', $password);
         $stmt->bindParam(':user_type', $user_type);
         $stmt->execute();
+        $lastID = $db->lastInsertID();
         include_once("assets/forms/LoginForm.php");
         echo("User added.");
+        return $lastID;
     }catch(PDOException $e)
     {
         die("<br>Adding a user did not work");

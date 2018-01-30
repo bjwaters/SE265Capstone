@@ -9,20 +9,21 @@
 
 <h3>Public Profile (Editing)</h3>
 
-<form method = 'get' action = "#">
+<form method = 'post' action = "#">
 
-    Public Name: <input type="text" name="name" /> <br>
-    Location: <input type="text" name="location" />
-    Radius: <input type="text" name="radius" /><br>
-    Type: <input type="text" name="musicType" /> <br>
-    Pay Rate: <input type="text" name="payRate" /><br>
-    Phone: <input type="text" name="phone" /><br>
-    Availability: <input type="text" name="Availability" /><br>
+    user_id: <input type="hidden" name="id" value="<?php echo $editUserID;?>"/> <br>
+    Public Name: <input type="text" name="name" value="<?php echo $editUserName;?>"/> <br>
+    Location: <input type="text" name="location" value="<?php echo $editLocation;?>" />
+    Radius: <input type="text" name="radius" value="<?php echo $editRadius;?>"/><br>
+    Type: <input type="text" name="genre" value="<?php echo $editGenre;?>"/> <br>
+    Pay Rate: <input type="text" name="payRate" value="<?php echo $editPay;?>"/><br>
+    Phone: <input type="text" name="phone" value="<?php echo $editPhone;?>"/><br>
+    Availability: <input type="text" name="Availability" value="<?php echo $editAvailability;?>"/><br>
 
-    Comments:<br> <textarea name="comments" rows="5" cols="40"></textarea><br><br>
+    Comments:<br> <textarea name="comments" rows="5" cols="40" value="<?php echo $editComments;?>"></textarea><br><br>
 
     Picture Upload here <br><br>
-    Video Link: <input type="text" name="videoLink" /><br><br>
+    Video Link: <input type="text" name="videoLink" value="<?php echo $editVideoLink;?>"/><br><br>
 
     Profile status: Locked
     <input type="radio" name="profileStatus" value = "Locked">

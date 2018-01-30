@@ -10,7 +10,9 @@ session_start();
 
 require_once("assets/dbconnect.php");
 require_once("assets/functions.php");
+require_once("assets/functions/profileCode.php");
 require_once("assets/functions/loginSignupCode.php");
+require_once("assets/functions/profileCode.php");
 include_once("assets/header.php");
 
 $db = dbConnect();
@@ -40,11 +42,11 @@ switch($action){
 
         $validID = signinTest($db);  //This calls the login testing code
 
-        //This is where the session will start, when I write the code. Note: add session here.
+        //This is where the session will start,
         if($validID != "")
         {
             $userType = grabUserType($db, $validID); //This grabs the user type with their id
-            loginSession($validID);                  //This starts a session varible with the user id and type stored
+            loginSession($validID, $userType);                  //This starts a session varible with the user id and type stored
             include_once('assets/forms/ControlPanelForm.php');
             echo("Login successful!");
         }
@@ -56,20 +58,22 @@ switch($action){
 
         break;
     case 'Sign Up':
-        //Test if the email exists in the database
-        $user_found = discoverUser($db);
+        $user_found = discoverUser($db); //Test if the email exists in the database
+        $newest_id = signupTest($db, $user_found); //If the email doesn't exist, validate and add the user and their profile. Also return their id
 
-        //If the email doesn't exist, validate and add
-        signupTest($db, $user_found);
+        //MAKE A SESSION, have edit page pop up
         break;
     case 'Logout':
         include_once("assets/homePage.php");
         break;
 
     case 'Edit Profile':
+        grabProfile($db, $_SESSION['userID']);
         include_once("assets/forms/PublicEditForm.php");
         break;
     case 'Profile Edit Complete':
+        editProfile($db, $editUserID, $editUserName, $editLocation, $editRadius, $editGenre, $editPay, $editPhone, $editAvailability,
+            $editComments, $editPicture, $editVideoLink, $editProfileStatus);
         include_once("assets/forms/ControlPanelForm.php");
         break;
     case 'Public Profile':
