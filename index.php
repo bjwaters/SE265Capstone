@@ -11,6 +11,7 @@ session_start();
 require_once("assets/dbconnect.php");
 require_once("assets/functions.php");
 require_once("assets/functions/profileCode.php");
+require_once("assets/functions/reportCode.php");
 require_once("assets/functions/loginSignupCode.php");
 require_once("assets/functions/profileCode.php");
 include_once("assets/header.php");
@@ -118,8 +119,10 @@ switch($action){
         echo requestTable();
         include_once("assets/forms/PendingRequestForm.php");
         break;
-    case 'Request this user':
+    case 'Request Booking':
         include_once("assets/forms/MakeRequestForm.php");
+        break;
+    case 'Message User':
         break;
     case 'Make a Request':
         echo requestTable();
@@ -133,6 +136,7 @@ switch($action){
         include_once("assets/forms/reportMakerForm.php");
         break;
     case 'Report':
+        addReport($db);
         include_once("assets/forms/ControlPanelForm.php");
         break;
     case 'Back to User Page':

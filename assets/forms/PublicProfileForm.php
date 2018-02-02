@@ -19,9 +19,17 @@
     <label for="available">availability: <?php echo $editAvailability?> </label><br><br>
 
     Video Link: <br> <br>
-    <input type = "submit" name = "action" value = "Request this user" /><br> <br>
+    <input type = "submit" name = "action" value = "Request Booking" /><br>
+    <input type = "submit" name = "action" value = "Message User" /><br>
 
-    Ratings will go here, if there are any. Considering a collapseable area here.
+
+    Profile status: Locked
+    <input type='radio' name='profileStatus' <?php if($editProfileStatus == "Locked") echo "checked" ?> value = "Locked") />
+    Unlocked
+    <input type='radio' name='profileStatus' <?php if($editProfileStatus == "Unlocked") echo "checked" ?> value = "Unlocked" /><br>
+    This will only be shown for admins<br><br>
+
+    Ratings will go here, if there are any.
     <br>
 
     <input type = "submit" name = "action" value = "Back to User Page" /><br>

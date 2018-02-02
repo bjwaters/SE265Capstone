@@ -28,7 +28,9 @@
         <input type='radio' name='profileStatus' <?php if($editProfileStatus == "Locked") echo "checked" ?> value = "Locked") />
 
     Unlocked
-        <input type='radio' name='profileStatus' <?php if($editProfileStatus == "Unlocked") echo "checked" ?> value = "Unlocked" /> <br><br>
+        <input type='radio' name='profileStatus' <?php if($editProfileStatus == "Unlocked") echo "checked" ?> value = "Unlocked" /><br>
+    This will probably be gone in the final product on this page.
+    <br><br>
 
 
     <input type = "submit" name = "action" value = "Main Page" />

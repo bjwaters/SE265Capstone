@@ -7,15 +7,16 @@
  */
 ?>
 
-<form method = 'get' action = "#">
+<form method = 'post' action = "#">
 
     Reporting form: <br><br>
 
-    Nature of problem: <input type="text" name="ReportType" /> <br><br>
+    Nature of problem: <input type="text" name="reportType" /> <br><br>
     Details:<br> <textarea name="details" rows="5" cols="40"></textarea><br><br>
 
     <input type="checkbox" name="Resolved" value="Yes"> Resolved<br>
-    <input type = "submit" name = "action" value = "Report" /><br><br>
+    <input type = "submit" name = "action" value = "Report" /><br>
+    This will be invisible to all but admins.<br><br>
     <input type = "submit" name = "action" value = "Back to User Page" />
 
 </form>
