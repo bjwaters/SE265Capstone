@@ -9,7 +9,7 @@
 
 <form method = 'get' action = "#">
 
-    This is the page that appears at a successful login or signup.<br><br>
+    Your personal control panel.<br><br>
     <input type = "submit" name = "action" value = "Edit Profile" /> <input type = "submit" name = "action" value = "Public Profile" /><br>
     <input type = "submit" name = "action" value = "Pending Requests"/><br>
     <input type = "submit" name = "action" value = "Report Issues" /><br><br>

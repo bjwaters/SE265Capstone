@@ -11,23 +11,25 @@
 
 <form method = 'post' action = "#">
 
-    user_id: <input type="hidden" name="id" value="<?php echo $editUserID;?>"/> <br>
-    Public Name: <input type="text" name="name" value="<?php echo $editUserName;?>"/> <br>
+    user_id: <input type="hidden" name="user_id" value="<?php echo $editUserID;?>"/> <br>
+    Public Name: <input type="text" name="userName" value="<?php echo $editUserName;?>"/> <br>
     Location: <input type="text" name="location" value="<?php echo $editLocation;?>" />
     Radius: <input type="text" name="radius" value="<?php echo $editRadius;?>"/><br>
     Type: <input type="text" name="genre" value="<?php echo $editGenre;?>"/> <br>
-    Pay Rate: <input type="text" name="payRate" value="<?php echo $editPay;?>"/><br>
-    Phone: <input type="text" name="phone" value="<?php echo $editPhone;?>"/><br>
-    Availability: <input type="text" name="Availability" value="<?php echo $editAvailability;?>"/><br>
+    Pay Rate: <input type="text" name="pay" value="<?php echo $editPay;?>"/><br>
+    Availability: <input type="text" name="availability" value="<?php echo $editAvailability;?>"/><br>
 
-    Comments:<br> <textarea name="comments" rows="5" cols="40" value="<?php echo $editComments;?>"></textarea><br><br>
+    Comments:<br> <textarea name="comments" rows="5" cols="40"> <?php echo $editComments;?> </textarea><br><br>
 
-    Picture Upload here <br><br>
+    Picture Upload here <input type="text" name="picture" value="<?php echo $editPicture;?>" /> <br><br>
     Video Link: <input type="text" name="videoLink" value="<?php echo $editVideoLink;?>"/><br><br>
 
     Profile status: Locked
-    <input type="radio" name="profileStatus" value = "Locked">
-    Unlocked <input type="radio" name="profileStatus" value = "Unlocked"><br>
+        <input type='radio' name='profileStatus' <?php if($editProfileStatus == "Locked") echo "checked" ?> value = "Locked") />
+
+    Unlocked
+        <input type='radio' name='profileStatus' <?php if($editProfileStatus == "Unlocked") echo "checked" ?> value = "Unlocked" /> <br><br>
+
 
     <input type = "submit" name = "action" value = "Main Page" />
     <input type = "submit" name = "action" value = "Profile Edit Complete" />

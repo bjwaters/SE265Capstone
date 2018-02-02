@@ -20,6 +20,41 @@ $db = dbConnect();
 $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ??
     filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING) ?? NULL;
 
+
+$editUserID =filter_input(INPUT_POST, 'user_id', FILTER_SANITIZE_NUMBER_INT)
+    ?? filter_input(INPUT_GET, 'user_id', FILTER_SANITIZE_NUMBER_INT);
+
+$editUserName =filter_input(INPUT_POST, 'userName', FILTER_SANITIZE_STRING)
+    ?? filter_input(INPUT_GET, 'userName', FILTER_SANITIZE_STRING);
+
+$editLocation =filter_input(INPUT_POST, 'location', FILTER_SANITIZE_STRING)
+    ?? filter_input(INPUT_GET, 'location', FILTER_SANITIZE_STRING);
+
+$editRadius =filter_input(INPUT_POST, 'radius', FILTER_SANITIZE_NUMBER_INT)
+    ?? filter_input(INPUT_GET, 'radius', FILTER_SANITIZE_NUMBER_INT);
+
+$editGenre =filter_input(INPUT_POST, 'genre', FILTER_SANITIZE_STRING)
+    ?? filter_input(INPUT_GET, 'genre', FILTER_SANITIZE_STRING);
+
+$editPay =filter_input(INPUT_POST, 'pay', FILTER_SANITIZE_NUMBER_INT)
+    ?? filter_input(INPUT_GET, 'pay', FILTER_SANITIZE_NUMBER_INT);
+
+$editAvailability =filter_input(INPUT_POST, 'availability', FILTER_SANITIZE_STRING)
+    ?? filter_input(INPUT_GET, 'availability', FILTER_SANITIZE_STRING);
+
+$editComments =filter_input(INPUT_POST, 'comments', FILTER_SANITIZE_STRING)
+    ?? filter_input(INPUT_GET, 'comments', FILTER_SANITIZE_STRING);
+
+$editVideoLink =filter_input(INPUT_POST, 'videoLink', FILTER_SANITIZE_STRING)
+    ?? filter_input(INPUT_GET, 'videoLink', FILTER_SANITIZE_STRING);
+
+$editPicture =filter_input(INPUT_POST, 'picture', FILTER_SANITIZE_STRING)
+    ?? filter_input(INPUT_GET, 'picture', FILTER_SANITIZE_STRING);
+
+$editProfileStatus =filter_input(INPUT_POST, 'profileStatus', FILTER_SANITIZE_STRING)
+    ?? filter_input(INPUT_GET, 'profileStatus', FILTER_SANITIZE_STRING);
+
+
 switch($action){
 
     case 'Login/Sign Up Page':
@@ -48,7 +83,6 @@ switch($action){
             $userType = grabUserType($db, $validID); //This grabs the user type with their id
             loginSession($validID, $userType);                  //This starts a session varible with the user id and type stored
             include_once('assets/forms/ControlPanelForm.php');
-            echo("Login successful!");
         }
         else
         {
@@ -68,15 +102,15 @@ switch($action){
         break;
 
     case 'Edit Profile':
-        grabProfile($db, $_SESSION['userID']);
-        include_once("assets/forms/PublicEditForm.php");
+        grabProfileEdit($db, $_SESSION['userID']);  //Doesn't work Twice in a row?
         break;
     case 'Profile Edit Complete':
-        editProfile($db, $editUserID, $editUserName, $editLocation, $editRadius, $editGenre, $editPay, $editPhone, $editAvailability,
-            $editComments, $editPicture, $editVideoLink, $editProfileStatus);
+        editProfile($db, $editUserID, $editUserName, $editLocation, $editRadius, $editGenre, $editPay, $editAvailability,
+            $editComments, $editPicture, $editVideoLink, $editProfileStatus );
         include_once("assets/forms/ControlPanelForm.php");
         break;
     case 'Public Profile':
+        grabProfileLook($db, $_SESSION['userID']);
         include_once("assets/forms/PublicProfileForm.php");
         break;
 
