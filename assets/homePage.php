@@ -12,7 +12,7 @@
     <br>
 
     <input type = "submit" name = "action" value = "Login/Sign Up Page" /><br><br>
-    <input type="text" name="newUserPassword" value="Musician Name here"/><input type = "submit" name = "action" value = "Search Page" />
+    <input type="text" name="searchTerm" value="Location"/><input type = "submit" name = "action" value = "Search Page" />
     <br>
 
 </form>

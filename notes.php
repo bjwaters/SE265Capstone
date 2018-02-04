@@ -11,10 +11,11 @@
 //Work on Edit Profile                                  Works - not consecutively
 //Tinkering with profile creation                       Not much data validation yet, need to work on the picture/make a link
 //User adding/checking//account details                 Can add a user, profile created at same time. Need to have edit functions for pw and email
-//Searching (profile search) advanced/simple
+//Searching (profile search) advanced/simple            Got the simple search code in
 //reports                                               User-side done.
     //tables - users, profiles, reports
 
+//Need to set text/comment boxes to max table value.
 
 
 //John

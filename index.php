@@ -12,6 +12,7 @@ require_once("assets/dbconnect.php");
 require_once("assets/functions.php");
 require_once("assets/functions/profileCode.php");
 require_once("assets/functions/reportCode.php");
+require_once("assets/functions/searchCode.php");
 require_once("assets/functions/loginSignupCode.php");
 require_once("assets/functions/profileCode.php");
 include_once("assets/header.php");
@@ -63,7 +64,10 @@ switch($action){
         break;
 
     case 'Search Page':
-        include_once("assets/forms/searchForm.php");
+
+        $category = "location";
+        echo searchLoc($db, $category);
+        //include_once("assets/forms/searchForm.php");
         break;
     case 'Search':
         include_once("assets/forms/searchForm.php");
