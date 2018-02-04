@@ -7,18 +7,17 @@
  */
 ?>
 
-This will be a proper search page in the future.
+This is a very basic idea. Need to work on details for location, radius, and genre (dropdown?). <br>
 
-<form method = 'get' action = "#">
+<form method = 'post' action = "#">
 
     <br>
-    Public Name: <input type="text" name="name" /> <br>
-    Email: <input type="text" name="email" />Phone: <input type="text" name="phone" /><br>
-    Location: <input type="text" name="location" />
-    Radius: <input type="text" name="radius" /><br>
-    Type: <input type="text" name="musicType" /> <br>
-    Rates: <input type="text" name="payRate" /><br>
-    Time Needed: <input type="text" name="Availability" /><br>
+    Public Name: <input type="text" name="searchName" /> <br>
+    Location: <input type="text" name="searchLocation" />
+    Radius: <input type="text" name="searchRadius" /><br>
+    Type: <input type="text" name="searchGenre" /> <br>
+    Rates: <input type="text" name="searchPayRate1" /> to <input type="text" name="searchPayRate2" /><br><br>
+    Availability: <input type="text" name="searchAvailability" /><br>
     <input type = "submit" name = "action" value = "Search" /><br><br>
 
     <input type = "submit" name = "action" value = "Main Page" />

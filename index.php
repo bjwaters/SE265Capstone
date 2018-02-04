@@ -22,7 +22,7 @@ $db = dbConnect();
 $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ??
     filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING) ?? NULL;
 
-
+//Profile variables
 $editUserID =filter_input(INPUT_POST, 'user_id', FILTER_SANITIZE_NUMBER_INT)
     ?? filter_input(INPUT_GET, 'user_id', FILTER_SANITIZE_NUMBER_INT);
 
@@ -56,6 +56,25 @@ $editPicture =filter_input(INPUT_POST, 'picture', FILTER_SANITIZE_STRING)
 $editProfileStatus =filter_input(INPUT_POST, 'profileStatus', FILTER_SANITIZE_STRING)
     ?? filter_input(INPUT_GET, 'profileStatus', FILTER_SANITIZE_STRING);
 
+//Search variables
+$searchName =filter_input(INPUT_POST, 'searchName', FILTER_SANITIZE_STRING)
+    ?? filter_input(INPUT_GET, 'searchName', FILTER_SANITIZE_STRING);
+
+$searchLocation =filter_input(INPUT_POST, 'searchLocation', FILTER_SANITIZE_STRING)
+    ?? filter_input(INPUT_GET, 'searchLocation', FILTER_SANITIZE_STRING);
+$searchRadius =filter_input(INPUT_POST, 'searchRadius', FILTER_SANITIZE_NUMBER_INT)
+    ?? filter_input(INPUT_GET, 'searchRadius', FILTER_SANITIZE_NUMBER_INT);
+
+$searchGenre =filter_input(INPUT_POST, 'searchGenre', FILTER_SANITIZE_STRING)
+    ?? filter_input(INPUT_GET, 'searchGenre', FILTER_SANITIZE_STRING);
+
+$searchPayRate1 =filter_input(INPUT_POST, 'searchPayRate1', FILTER_SANITIZE_NUMBER_INT)
+    ?? filter_input(INPUT_GET, 'searchPayRate1', FILTER_SANITIZE_STRING);
+$searchPayRate2 =filter_input(INPUT_POST, 'searchPayRate2', FILTER_SANITIZE_NUMBER_INT)
+    ?? filter_input(INPUT_GET, 'searchPayRate2', FILTER_SANITIZE_STRING);
+
+$searchAvailability =filter_input(INPUT_POST, 'searchAvailability', FILTER_SANITIZE_STRING)
+    ?? filter_input(INPUT_GET, 'searchAvailability', FILTER_SANITIZE_STRING);
 
 switch($action){
 
@@ -64,14 +83,14 @@ switch($action){
         break;
 
     case 'Search Page':
-
+        //Right now, a basic search goes by location, but opens advanced options with the results
+        include_once("assets/forms/searchForm.php");
         $category = "location";
         echo searchLoc($db, $category);
-        //include_once("assets/forms/searchForm.php");
         break;
     case 'Search':
         include_once("assets/forms/searchForm.php");
-        echo searchTable();
+        echo searchAll($db, $searchName, $searchLocation, $searchRadius, $searchGenre, $searchAvailability);
         break;
 
     case 'Main Page':
@@ -108,6 +127,9 @@ switch($action){
 
     case 'Edit Profile':
         grabProfileEdit($db, $_SESSION['userID']);  //Doesn't work Twice in a row?
+        break;
+    case 'Account Settings':
+        include_once("assets/Forms/AccountForm.php");
         break;
     case 'Profile Edit Complete':
         editProfile($db, $editUserID, $editUserName, $editLocation, $editRadius, $editGenre, $editPay, $editAvailability,

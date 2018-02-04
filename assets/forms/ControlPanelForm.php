@@ -12,6 +12,7 @@
     Your personal control panel.<br><br>
     <input type = "submit" name = "action" value = "Edit Profile" /> <input type = "submit" name = "action" value = "Public Profile" /><br>
     <input type = "submit" name = "action" value = "Pending Requests"/><br>
+    <input type = "submit" name = "action" value = "Account Settings"/><br>
     <input type = "submit" name = "action" value = "Report Issues" /><br><br>
 
     <input type = "submit" name = "action" value = "Logout" /><br>
