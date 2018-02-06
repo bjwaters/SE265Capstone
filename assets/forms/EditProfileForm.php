@@ -9,7 +9,7 @@
 
 <h3>Public Profile (Editing)</h3>
 
-<form method = 'post' action = "#">
+<form method = 'post' action = "#" enctype = "multipart/form-data">
 
     user_id: <input type="hidden" name="user_id" value="<?php echo $editUserID;?>"/> <br>
     Public Name: <input type="text" name="userName" value="<?php echo $editUserName;?>"/> <br>
@@ -21,16 +21,11 @@
 
     Comments:<br> <textarea name="comments" rows="5" cols="40"> <?php echo $editComments;?> </textarea><br><br>
 
-    Picture Upload here <input type="text" name="picture" value="<?php echo $editPicture;?>" /> <br><br>
-    Video Link: <input type="text" name="videoLink" value="<?php echo $editVideoLink;?>"/><br><br>
+    Picture Upload here <input type = 'file' name = 'file'>
 
-    Profile status: Locked
-        <input type='radio' name='profileStatus' <?php if($editProfileStatus == "Locked") echo "checked" ?> value = "Locked") />
-
-    Unlocked
-        <input type='radio' name='profileStatus' <?php if($editProfileStatus == "Unlocked") echo "checked" ?> value = "Unlocked" /><br>
-    This will probably be gone in the final product on this page.
+    <!--<input type="text" name="picture" value="<?php echo $editPicture;?>" />-->
     <br><br>
+    Video Link: <input type="text" name="videoLink" value="<?php echo $editVideoLink;?>"/><br><br>
 
 
     <input type = "submit" name = "action" value = "Main Page" />

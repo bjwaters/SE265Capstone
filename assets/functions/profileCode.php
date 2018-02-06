@@ -19,7 +19,7 @@ function addProfile($db, $new_id)
     $phone = "123-456-7890";
     $availability = "Enter availability here";
     $comments = "Enter comments here.";
-    $picture = "Enter Picture here";
+    $picture = "None";
     $videoLink = "http://google.com";
     $profileStatus = "Unlocked";
 
@@ -69,7 +69,7 @@ function grabProfileEdit($db, $neededID)
                 $editPicture = $profile['picture'];
                 $editVideoLink = $profile['videoLink'];
                 $editProfileStatus = $profile['profileStatus'];
-                include_once("assets/forms/PublicEditForm.php");
+                include_once("assets/forms/EditProfileForm.php");
             }
         }
         else
@@ -120,30 +120,45 @@ function grabProfileLook($db, $neededID)
 function editProfile($db, $editUserID, $editUserName, $editLocation, $editRadius, $editGenre, $editPay, $editAvailability, $editComments, $editPicture, $editVideoLink, $editProfileStatus)
 {
 
-    //echo("Before Variables" . $editUserName . $editLocation . $editRadius . $editGenre . $editPay . $editAvailability . $editComments . $editPicture . $editVideoLink . $editProfileStatus . $editUserID . "<br>");
+    //Picture file
+    $name = $_FILES['file']['name'];
+    $tmp_name = $_FILES['file']['tmp_name'];
 
-    try{
-        $stmt = $db->prepare("UPDATE profiles SET userName=:userName, location=:location, radius=:radius, genre=:genre, pay=:pay,
-                availability=:availability, comments=:comments, picture=:picture, videoLink=:videoLink, profileStatus=:profileStatus WHERE user_id = :user_id");
-        $stmt->bindParam(':userName', $editUserName);
-        $stmt->bindParam(':location', $editLocation);
-        $stmt->bindParam(':radius', $editRadius);
-        $stmt->bindParam(':genre', $editGenre);
-        $stmt->bindParam(':pay', $editPay);
-        $stmt->bindParam(':availability', $editAvailability);
-        $stmt->bindParam(':comments', $editComments);
-        $stmt->bindParam(':picture', $editPicture);
-        $stmt->bindParam(':videoLink', $editVideoLink);
-        $stmt->bindParam(':profileStatus', $editProfileStatus);
-        $stmt->bindParam(':user_id', $editUserID);
-        $stmt->execute();
-
-        echo(" Variables values updated" . $editUserName . " " . $editLocation . " ". $editRadius . " ". $editGenre . " ". $editPay . " ". $editAvailability . " ". $editComments . " ". $editPicture . " ". $editVideoLink . " ". $editProfileStatus . " ". $editUserID . "<br>");
-        echo("Edit complete");
-    }catch(PDOException $e)
+    if(isset($name))
     {
-        $e->getMessage();
-        echo "<br>" . $e;
-        die("<br>Editing a user profile did not work.");
+        if(!empty($name))
+        {
+            $location = 'assets/Uploads/';
+            move_uploaded_file($tmp_name, $location.$name);
+        }
     }
+
+    if(!empty($name)) {
+        $editPicture = $_FILES['file']['name'];
+        try {
+            $stmt = $db->prepare("UPDATE profiles SET userName=:userName, location=:location, radius=:radius, genre=:genre, pay=:pay,
+                availability=:availability, comments=:comments, picture=:picture, videoLink=:videoLink, profileStatus=:profileStatus WHERE user_id = :user_id");
+            $stmt->bindParam(':userName', $editUserName);
+            $stmt->bindParam(':location', $editLocation);
+            $stmt->bindParam(':radius', $editRadius);
+            $stmt->bindParam(':genre', $editGenre);
+            $stmt->bindParam(':pay', $editPay);
+            $stmt->bindParam(':availability', $editAvailability);
+            $stmt->bindParam(':comments', $editComments);
+            $stmt->bindParam(':picture', $editPicture);
+            $stmt->bindParam(':videoLink', $editVideoLink);
+            $stmt->bindParam(':profileStatus', $editProfileStatus);
+            $stmt->bindParam(':user_id', $editUserID);
+            $stmt->execute();
+
+            echo(" Variables values updated" . $editUserName . " " . $editLocation . " " . $editRadius . " " . $editGenre . " " . $editPay . " " . $editAvailability . " " . $editComments . " " . $editPicture . " " . $editVideoLink . " " . $editProfileStatus . " " . $editUserID . "<br>");
+            echo("Edit complete");
+        } catch (PDOException $e) {
+            $e->getMessage();
+            echo "<br>" . $e;
+            die("<br>Editing a user profile did not work.");
+        }
+    }
+    else
+        die ("No file selected at add");
 }

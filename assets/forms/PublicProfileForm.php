@@ -5,30 +5,42 @@
  * Date: 1/17/2018
  * Time: 4:41 PM
  */
+
+//var_dump($_SESSION);
+var_dump($editPicture);
 ?>
 
 
 <form method = 'get' action = "#">
 
-    <label for="name">Name: <?php echo $editUserName?> </label> <br>
-    <label for="location">Location: <?php echo $editLocation?>    </label>
-    <label for="radius">Radius: <?php echo $editRadius?> </label><br>
-    <label for="type">Music genre: <?php echo $editGenre?> </label><br>
-    <label for="pay">Pay: <?php echo $editPay?> </label><br>
-    <label for="comment">Comments: <?php echo $editComments?> </label><br>
-    <label for="available">availability: <?php echo $editAvailability?> </label><br><br>
+    Name: <?php echo $editUserName?> <br>
+    Location: <?php echo $editLocation?> Radius: <?php echo $editRadius?><br>
+    Music genre: <?php echo $editGenre?> <br>
+    Pay: <?php echo $editPay?><br>
+    Comments: <?php echo $editComments?><br>
+    availability: <?php echo $editAvailability?><br><br>
 
-    Video Link: <br> <br>
+    <img src = 'assets/Uploads/<?php echo $editPicture?>' width='150'</td>
+    <br><br>
+
+    Video Link: <?php echo $editVideoLink?> <br> <br>
     <input type = "submit" name = "action" value = "Request Booking" /><br>
+
     <input type = "submit" name = "action" value = "Message User" /><br>
 
 
-    Profile status: Locked
-    <input type='radio' name='profileStatus' <?php if($editProfileStatus == "Locked") echo "checked" ?> value = "Locked") />
-    Unlocked
-    <input type='radio' name='profileStatus' <?php if($editProfileStatus == "Unlocked") echo "checked" ?> value = "Unlocked" /><br>
-    This will only be shown for admins<br><br>
 
+    <?php if($_SESSION['userType'] == "Admin") echo "Profile status: Locked";; ?>
+    <input type =
+           <?php if($_SESSION['userType'] == "Admin"){ echo "radio"; } else echo "hidden"; ?>
+           name='profileStatus' <?php if($editProfileStatus == "Locked") echo "checked" ?> value = "Locked") />
+
+    <?php if($_SESSION['userType'] == "Admin") echo "Unlocked"; ?>
+    <input type =
+           <?php if($_SESSION['userType'] == "Admin"){ echo "radio"; } else echo "hidden"; ?>
+           name='profileStatus' <?php if($editProfileStatus == "Unlocked") echo "checked" ?> value = "Unlocked" />
+
+    <br><br>
     Ratings will go here, if there are any.
     <br>
 

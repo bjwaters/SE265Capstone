@@ -8,8 +8,8 @@
 
 session_start();
 
-require_once("assets/dbconnect.php");
 require_once("assets/functions.php");
+require_once("assets/functions/dbconnect.php");
 require_once("assets/functions/profileCode.php");
 require_once("assets/functions/reportCode.php");
 require_once("assets/functions/searchCode.php");
@@ -76,6 +76,9 @@ $searchPayRate2 =filter_input(INPUT_POST, 'searchPayRate2', FILTER_SANITIZE_NUMB
 $searchAvailability =filter_input(INPUT_POST, 'searchAvailability', FILTER_SANITIZE_STRING)
     ?? filter_input(INPUT_GET, 'searchAvailability', FILTER_SANITIZE_STRING);
 
+//Reporting
+
+
 switch($action){
 
     case 'Login/Sign Up Page':
@@ -106,7 +109,13 @@ switch($action){
         {
             $userType = grabUserType($db, $validID); //This grabs the user type with their id
             loginSession($validID, $userType);                  //This starts a session varible with the user id and type stored
-            include_once('assets/forms/ControlPanelForm.php');
+
+            if($_SESSION['userType'] == "Admin")
+            {
+                include_once("assets/forms/adminForm.php");
+            }
+            else
+                include_once('assets/forms/ControlPanelForm.php');
         }
         else
         {
@@ -120,6 +129,15 @@ switch($action){
         $newest_id = signupTest($db, $user_found); //If the email doesn't exist, validate and add the user and their profile. Also return their id
 
         //MAKE A SESSION, have edit page pop up
+        break;
+    case 'Create New Admin':
+        include_once("assets/forms/adminMakerForm.php");
+        break;
+    case 'Admin Signup':
+        $user_found = discoverUser($db);
+        $newest_id = signupTest($db, $user_found);
+        include_once("assets/forms/adminForm.php");
+        echo("New admin created.");
         break;
     case 'Logout':
         include_once("assets/homePage.php");
@@ -164,6 +182,14 @@ switch($action){
     case 'Report':
         addReport($db);
         include_once("assets/forms/ControlPanelForm.php");
+        break;
+    case 'Check Reports':
+        grabReports($db);
+        break;
+
+
+    case 'Back to Admin Page':
+        include_once("assets/forms/adminForm.php");
         break;
     case 'Back to User Page':
         include_once("assets/forms/ControlPanelForm.php");

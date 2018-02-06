@@ -14,10 +14,13 @@
 //Searching (profile search) advanced/simple            Got the simple search code in. Need details for dropdowns. Adv search partly done
 //reports                                               User-side done.
     //tables - users, profiles, reports
+//Admin Stuff                                           Admin area from login. Admin sees invisible profile stuff
 //Misc                                                  No logout code yet. Try to find out why some buttons dont work 2x in a row
-//                                                      Need to work on basic admin stuff, ask about account confirmations
+//
 
 //Need to set text/comment boxes to max table value.
+
+// This week - Admin area, create admin, look at reports, profile hidden objects, added pictures to profile
 
 
 //John

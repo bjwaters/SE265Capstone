@@ -66,7 +66,9 @@ function signupTest($db, $found)
                     else{
                         $hashedPassword = password_hash($password1, PASSWORD_DEFAULT);
                         $newest_id = addUser($db, $hashedPassword, $email, $user_type); //If everything is good,add the user
-                        addProfile($db, $newest_id);    //Add the new profile to the user's id too
+                        if($user_type != "Admin") { //admins don't need profiles
+                            addProfile($db, $newest_id);    //Add the new profile to the user's id too
+                        }
                         return $newest_id;
                     }
                 } else {
@@ -99,7 +101,9 @@ function addUser($db, $password, $user, $user_type)
         $stmt->bindParam(':user_type', $user_type);
         $stmt->execute();
         $lastID = $db->lastInsertID();
-        include_once("assets/forms/LoginForm.php");
+        if($user_type != "Admin") {
+            include_once("assets/forms/LoginForm.php");
+        }
         echo("User added.");
         return $lastID;
     }catch(PDOException $e)
