@@ -29,6 +29,7 @@ function addReport($db)
 
 function grabReports($db)
 {
+    $type = "Edit";
     $resolution = "No";
     $reportTable = "<table><thead><tr><th> User ID </th> <th>Title</th><th>Comment</th><th>Time</th></tr></thead>";
     try{
@@ -45,7 +46,8 @@ function grabReports($db)
                 $reportComments = $report['comments'];
                 $reportTime = $report['time'];
 
-                $reportTable .= "<tr><td>" . $reportID . "</td><td>" . $reportTitle . "</td><td>" . $reportComments . "</td><td>" . $reportTime . "</td></tr>";
+            $reportTable .= "<tr><td>" . $reportID . "</td><td>" . $reportTitle . "</td><td>"
+                    . $reportComments . "</td><td>" . $reportTime . "</td> <td>" . "</td></tr>";
             }
             $reportTable .= "</table>";
             echo $reportTable;

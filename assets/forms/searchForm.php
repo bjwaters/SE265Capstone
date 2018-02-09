@@ -7,29 +7,36 @@
  */
 ?>
 
-This is a very basic idea. Need to work on details for location, radius, and genre (dropdown?). <br>
+<div class="container">
+    <div class="row">
 
-<form method = 'post' action = "#">
+        <form method = 'post' action = "#">
 
-    <br>
-    Public Name: <input type="text" name="searchName" /> <br>
-    Location: <input type="text" name="searchLocation" />
-    Radius: <input type="text" name="searchRadius" /><br>
-    Type: <input type="text" name="searchGenre" /> <br>
-    Rates: <input type="text" name="searchPayRate1" /> to <input type="text" name="searchPayRate2" /><br><br>
-    Availability: <input type="text" name="searchAvailability" /><br>
-    <input type = "submit" name = "action" value = "Search" /><br><br>
+            Public Name: <input type="text" name="searchName" /> <br>
+            Location: <input type= "text" name="searchLocation" />
+            Radius: <input type="text" name="searchRadius" /><br>
 
-    <input type = "submit" name = "action" value = "Main Page" />
+            Genre:
+            <select name='genreSearch_drop']>
+                <?php
+                echo("<option selected='selected' value=null>Please choose a genre.</option>");
+                $genreList = genreArray();
+                foreach($genreList as $genre)
+                    if($editGenre == $genre)
+                    {
+                        echo "<option selected = 'selected' value='" . $genre . "'>" . $genre . "</option>" . PHP_EOL;
+                    }
+                    else
+                        echo "<option value='" . $genre . "'>" . $genre . "</option>" . PHP_EOL;
+                ?>
+            </select>
 
+            <br>Rates: <input type="text" name="searchPayRate1" /> to <input type="text" name="searchPayRate2" /><br><br>
+            Availability: <input type="text" name="searchAvailability" /><br>
+            <input type = "submit" name = "action" value = "Search" /><br><br>
 
-</form>
+            <input type = "submit" name = "action" value = "Main Page" />
 
-<!--This will be searching the musicians, not the bookers.
-Using a radius might not be possible, based on future complications.
-The result of the search will be displayed on the same page, beneath this information.
-Ideally, it will be a list of links to click, possibly with the musicians's picture also
-on the page-->
-
-<!--Need to discuss rates: one number or a range?
- Need to discuss availability: new table or another system?-->
+        </form>
+    </div>
+</div>

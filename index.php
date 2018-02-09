@@ -50,34 +50,12 @@ $editComments =filter_input(INPUT_POST, 'comments', FILTER_SANITIZE_STRING)
 $editVideoLink =filter_input(INPUT_POST, 'videoLink', FILTER_SANITIZE_STRING)
     ?? filter_input(INPUT_GET, 'videoLink', FILTER_SANITIZE_STRING);
 
-$editPicture =filter_input(INPUT_POST, 'picture', FILTER_SANITIZE_STRING)
-    ?? filter_input(INPUT_GET, 'picture', FILTER_SANITIZE_STRING);
-
 $editProfileStatus =filter_input(INPUT_POST, 'profileStatus', FILTER_SANITIZE_STRING)
     ?? filter_input(INPUT_GET, 'profileStatus', FILTER_SANITIZE_STRING);
 
-//Search variables
-$searchName =filter_input(INPUT_POST, 'searchName', FILTER_SANITIZE_STRING)
-    ?? filter_input(INPUT_GET, 'searchName', FILTER_SANITIZE_STRING);
-
-$searchLocation =filter_input(INPUT_POST, 'searchLocation', FILTER_SANITIZE_STRING)
-    ?? filter_input(INPUT_GET, 'searchLocation', FILTER_SANITIZE_STRING);
-$searchRadius =filter_input(INPUT_POST, 'searchRadius', FILTER_SANITIZE_NUMBER_INT)
-    ?? filter_input(INPUT_GET, 'searchRadius', FILTER_SANITIZE_NUMBER_INT);
-
-$searchGenre =filter_input(INPUT_POST, 'searchGenre', FILTER_SANITIZE_STRING)
-    ?? filter_input(INPUT_GET, 'searchGenre', FILTER_SANITIZE_STRING);
-
-$searchPayRate1 =filter_input(INPUT_POST, 'searchPayRate1', FILTER_SANITIZE_NUMBER_INT)
-    ?? filter_input(INPUT_GET, 'searchPayRate1', FILTER_SANITIZE_STRING);
-$searchPayRate2 =filter_input(INPUT_POST, 'searchPayRate2', FILTER_SANITIZE_NUMBER_INT)
-    ?? filter_input(INPUT_GET, 'searchPayRate2', FILTER_SANITIZE_STRING);
-
-$searchAvailability =filter_input(INPUT_POST, 'searchAvailability', FILTER_SANITIZE_STRING)
-    ?? filter_input(INPUT_GET, 'searchAvailability', FILTER_SANITIZE_STRING);
-
 //Reporting
 
+include_once('assets/homePage.php');
 
 switch($action){
 
@@ -93,7 +71,7 @@ switch($action){
         break;
     case 'Search':
         include_once("assets/forms/searchForm.php");
-        echo searchAll($db, $searchName, $searchLocation, $searchRadius, $searchGenre, $searchAvailability);
+        echo searchAll($db);
         break;
 
     case 'Main Page':
@@ -144,18 +122,20 @@ switch($action){
         break;
 
     case 'Edit Profile':
-        grabProfileEdit($db, $_SESSION['userID']);  //Doesn't work Twice in a row?
+        $type = "edit";
+        grabProfile($db, $_SESSION['userID'], $type);  //Doesn't work Twice in a row?
         break;
     case 'Account Settings':
         include_once("assets/Forms/AccountForm.php");
         break;
-    case 'Profile Edit Complete':
-        editProfile($db, $editUserID, $editUserName, $editLocation, $editRadius, $editGenre, $editPay, $editAvailability,
-            $editComments, $editPicture, $editVideoLink, $editProfileStatus );
+    case 'Profile Complete':
+        editProfile($db, $editUserID, $editUserName, $editLocation, $editRadius, $editPay, $editAvailability,
+            $editComments, $editVideoLink, $editProfileStatus );
         include_once("assets/forms/ControlPanelForm.php");
         break;
     case 'Public Profile':
-        grabProfileLook($db, $_SESSION['userID']);
+        $type = "public";
+        grabProfile($db, $_SESSION['userID'], $type);
         include_once("assets/forms/PublicProfileForm.php");
         break;
 

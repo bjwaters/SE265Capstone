@@ -7,18 +7,23 @@
  */
 ?>
 
-<form method = 'post' action = "#">
-Admin Creation<br>
-Email Address: <input type="text" name="newUserEmail" /><br>
-Password: <input type="text" name="newUserPassword" /><br>
-Password Verify: <input type="text" name="newUserPassword2" /><br>
+<div class="container">
+    <div class="row">
 
-User type:
-Admin <input type="radio" name="userType" checked value = "Admin"><br><br>
+    <form method = 'post' action = "#">
+    Admin Creation<br>
+    Email Address: <input type="text" name="newUserEmail" /><br>
+    Password: <input type="text" name="newUserPassword" /><br>
+    Password Verify: <input type="text" name="newUserPassword2" /><br>
 
-<input type = "submit" name = "action" value = "Admin Signup" /><br><br>
+    User type:
+    Admin <input type="radio" name="userType" checked value = "Admin"><br><br>
+
+    <input type = "submit" name = "action" value = "Admin Signup" /><br><br>
 
 
-<input type = "submit" name = "action" value = "Back to Admin Page" /><br>
-<input type = "submit" name = "action" value = "Main Page" />
-</form>
+    <input type = "submit" name = "action" value = "Back to Admin Page" /><br>
+    <input type = "submit" name = "action" value = "Main Page" />
+    </form>
+    </div>
+</div>

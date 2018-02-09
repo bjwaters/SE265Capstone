@@ -7,36 +7,46 @@
  */
 ?>
 
-<h3>Public Profile (Editing)</h3>
 
-<form method = 'post' action = "#" enctype = "multipart/form-data">
+<div class="container">
+    <div class="row">
 
-    user_id: <input type="hidden" name="user_id" value="<?php echo $editUserID;?>"/> <br>
-    Public Name: <input type="text" name="userName" value="<?php echo $editUserName;?>"/> <br>
-    Location: <input type="text" name="location" value="<?php echo $editLocation;?>" />
-    Radius: <input type="text" name="radius" value="<?php echo $editRadius;?>"/><br>
-    Type: <input type="text" name="genre" value="<?php echo $editGenre;?>"/> <br>
-    Pay Rate: <input type="text" name="pay" value="<?php echo $editPay;?>"/><br>
-    Availability: <input type="text" name="availability" value="<?php echo $editAvailability;?>"/><br>
+    <form method = 'post' action = "#" enctype = "multipart/form-data">
+        <h3>Public Profile (Editing)</h3>
 
-    Comments:<br> <textarea name="comments" rows="5" cols="40"> <?php echo $editComments;?> </textarea><br><br>
+        user_id: <input type="hidden" name="user_id" value="<?php echo $editUserID;?>"/> <br>
+        Public Name: <input type="text" name="userName" value="<?php echo $editUserName;?>"/> <br>
+        Location: <input type="text" name="location" value="<?php echo $editLocation;?>" />
+        Radius: <input type="text" name="radius" value="<?php echo $editRadius;?>"/><br>
 
-    Picture Upload here <input type = 'file' name = 'file'>
+        <select name='genre_drop']>
+            <?php
+            echo("<option selected='selected' value=null>Please choose a genre.</option>");
+            $genreList = genreArray();
+            foreach($genreList as $genre)
+                if($editGenre == $genre)
+                {
+                    echo "<option selected = 'selected' value='" . $genre . "'>" . $genre . "</option>" . PHP_EOL;
+                }
+                else
+                    echo "<option value='" . $genre . "'>" . $genre . "</option>" . PHP_EOL;
+            ?>
+        </select>
 
-    <!--<input type="text" name="picture" value="<?php echo $editPicture;?>" />-->
-    <br><br>
-    Video Link: <input type="text" name="videoLink" value="<?php echo $editVideoLink;?>"/><br><br>
+
+        Pay Rate: <input type="text" name="pay" value="<?php echo $editPay;?>"/><br>
+        Availability: <input type="text" name="availability" value="<?php echo $editAvailability;?>"/><br>
+
+        Comments:<br> <textarea name="comments" rows="5" cols="40"> <?php echo $editComments;?> </textarea><br><br>
+
+        Picture Upload here <input type = 'file' name = 'file'>
+
+        <br><br>
+        Video Link: <input type="text" name="videoLink" value="<?php echo $editVideoLink;?>"/><br><br>
 
 
-    <input type = "submit" name = "action" value = "Main Page" />
-    <input type = "submit" name = "action" value = "Profile Edit Complete" />
-</form>
-
-<!--
- The locked/unlocked options will be invisible to all but admins.
-  When locked, the profile will be unsearchable or unchangeable
-
- Going to have to check the user type before getting to this page -->
-
-<!--Need to discuss rates: one number or a range?
- Need to discuss availability: dropdowns per day? Another method?-->
+        <input type = "submit" name = "action" value = "Profile Complete" /><br>
+        <input type = "submit" name = "action" value = "Back to User Page" />
+        </form>
+    </div>
+</div>

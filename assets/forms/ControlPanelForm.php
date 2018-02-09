@@ -7,18 +7,22 @@
  */
 ?>
 
-<form method = 'get' action = "#">
+<div class="container">
+    <div class="row">
+        <form method = 'get' action = "#">
 
-    Your personal control panel.<br><br>
-    <input type = "submit" name = "action" value = "Edit Profile" /> <input type = "submit" name = "action" value = "Public Profile" /><br>
-    <input type = "submit" name = "action" value = "Pending Requests"/><br>
-    <input type = "submit" name = "action" value = "Account Settings"/><br>
-    <input type = "submit" name = "action" value = "Report Issues" /><br><br>
+        Your personal control panel.<br><br>
+        <input type = "submit" name = "action" value = "Edit Profile" /> <input type = "submit" name = "action" value = "Public Profile" /><br>
+        <input type = "submit" name = "action" value = "Pending Requests"/><br>
+        <input type = "submit" name = "action" value = "Account Settings"/><br>
+        <input type = "submit" name = "action" value = "Report Issues" /><br><br>
 
-    <input type = "submit" name = "action" value = "Logout" /><br>
-    <input type = "submit" name = "action" value = "Main Page" />
+        <input type = "submit" name = "action" value = "Logout" /><br>
+        <input type = "submit" name = "action" value = "Main Page" />
 
-</form>
+    </form>
+    </div>
+</div>
 
 <!-- This can only be reached if the password/email is correct. Otherwise, an error
  message will be displayed, with the typed email. This is gonna have to be in a session.

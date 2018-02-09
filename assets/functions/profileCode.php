@@ -19,7 +19,7 @@ function addProfile($db, $new_id)
     $phone = "123-456-7890";
     $availability = "Enter availability here";
     $comments = "Enter comments here.";
-    $picture = "None";
+    $picture = "Blank.jpg";
     $videoLink = "http://google.com";
     $profileStatus = "Unlocked";
 
@@ -47,7 +47,9 @@ function addProfile($db, $new_id)
     }
 }
 
-function grabProfileEdit($db, $neededID)
+
+//Grabs a profile, output based on what called it
+function grabProfile($db, $neededID, $type)
 {
     try{
         $stmt = $db->prepare("SELECT * FROM profiles WHERE user_id =:neededID");
@@ -69,7 +71,11 @@ function grabProfileEdit($db, $neededID)
                 $editPicture = $profile['picture'];
                 $editVideoLink = $profile['videoLink'];
                 $editProfileStatus = $profile['profileStatus'];
-                include_once("assets/forms/EditProfileForm.php");
+                if($type == "edit") {
+                    include_once("assets/forms/EditProfileForm.php");
+                }
+                else
+                    include_once("assets/forms/PublicProfileForm.php");
             }
         }
         else
@@ -82,42 +88,8 @@ function grabProfileEdit($db, $neededID)
     }
 }
 
-function grabProfileLook($db, $neededID)
-{
-    try{
-        $stmt = $db->prepare("SELECT * FROM profiles WHERE user_id =:neededID");
-        $stmt->bindParam(':neededID', $neededID);
-        $stmt->execute();
-        if($stmt->rowCount() > 0)
-        {
-            $profiles = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            foreach($profiles as $profile)
-            {
-                $editUserID = $profile['user_id'];
-                $editUserName = $profile['userName'];
-                $editLocation = $profile['location'];
-                $editRadius = $profile['radius'];
-                $editGenre = $profile['genre'];
-                $editPay = $profile['pay'];
-                $editAvailability = $profile['availability'];
-                $editComments = $profile['comments'];
-                $editPicture = $profile['picture'];
-                $editVideoLink = $profile['videoLink'];
-                $editProfileStatus = $profile['profileStatus'];
-                include_once("assets/forms/PublicProfileForm.php");
-            }
-        }
-        else
-        {
-            echo "No profiles stored.";
-        }
-    }catch(PDOException $e)
-    {
-        die("Grabbing the profile list didn't work.");
-    }
-}
-
-function editProfile($db, $editUserID, $editUserName, $editLocation, $editRadius, $editGenre, $editPay, $editAvailability, $editComments, $editPicture, $editVideoLink, $editProfileStatus)
+//This allows editing of the profile
+function editProfile($db, $editUserID, $editUserName, $editLocation, $editRadius, $editPay, $editAvailability, $editComments, $editVideoLink, $editProfileStatus)
 {
 
     //Picture file
@@ -133,32 +105,55 @@ function editProfile($db, $editUserID, $editUserName, $editLocation, $editRadius
         }
     }
 
+    $sessionID = $_SESSION['userID'];
+
+    //If there is no file loaded, use the old picture. Otherwise, use the loaded file
     if(!empty($name)) {
         $editPicture = $_FILES['file']['name'];
-        try {
-            $stmt = $db->prepare("UPDATE profiles SET userName=:userName, location=:location, radius=:radius, genre=:genre, pay=:pay,
-                availability=:availability, comments=:comments, picture=:picture, videoLink=:videoLink, profileStatus=:profileStatus WHERE user_id = :user_id");
-            $stmt->bindParam(':userName', $editUserName);
-            $stmt->bindParam(':location', $editLocation);
-            $stmt->bindParam(':radius', $editRadius);
-            $stmt->bindParam(':genre', $editGenre);
-            $stmt->bindParam(':pay', $editPay);
-            $stmt->bindParam(':availability', $editAvailability);
-            $stmt->bindParam(':comments', $editComments);
-            $stmt->bindParam(':picture', $editPicture);
-            $stmt->bindParam(':videoLink', $editVideoLink);
-            $stmt->bindParam(':profileStatus', $editProfileStatus);
-            $stmt->bindParam(':user_id', $editUserID);
+    }
+    else {
+        //Grab the user's existing picture from their profile
+        try{
+            $stmt = $db->prepare("SELECT * FROM profiles WHERE user_id =:thisid");
+            $stmt->bindParam(':thisid', $sessionID);
             $stmt->execute();
 
-            echo(" Variables values updated" . $editUserName . " " . $editLocation . " " . $editRadius . " " . $editGenre . " " . $editPay . " " . $editAvailability . " " . $editComments . " " . $editPicture . " " . $editVideoLink . " " . $editProfileStatus . " " . $editUserID . "<br>");
-            echo("Edit complete");
-        } catch (PDOException $e) {
-            $e->getMessage();
-            echo "<br>" . $e;
-            die("<br>Editing a user profile did not work.");
+            $picture = $stmt->fetch(PDO::FETCH_ASSOC);
+            $checker = $picture['picture'];
+        }catch(PDOException $e)
+        {
+            die("Experiment is bunk.");
         }
+        $editPicture = $checker;
     }
-    else
-        die ("No file selected at add");
+
+
+    //Transferring data
+    $editGenre = $_POST['genre_drop'];
+    try {
+        $stmt = $db->prepare("UPDATE profiles SET userName=:userName, location=:location, radius=:radius, genre=:genre, pay=:pay,
+              availability=:availability, comments=:comments, picture=:picture, videoLink=:videoLink, profileStatus=:profileStatus WHERE user_id = :user_id");
+        $stmt->bindParam(':userName', $editUserName);
+        $stmt->bindParam(':location', $editLocation);
+        $stmt->bindParam(':radius', $editRadius);
+        $stmt->bindParam(':genre', $editGenre);
+        $stmt->bindParam(':pay', $editPay);
+        $stmt->bindParam(':availability', $editAvailability);
+        $stmt->bindParam(':comments', $editComments);
+        $stmt->bindParam(':picture', $editPicture);
+        $stmt->bindParam(':videoLink', $editVideoLink);
+        $stmt->bindParam(':profileStatus', $editProfileStatus);
+        $stmt->bindParam(':user_id', $editUserID);
+        $stmt->execute();
+
+    } catch (PDOException $e) {
+        $e->getMessage();
+        echo "<br>" . $e;
+        die("<br>Editing a user profile did not work.");
+    }
+}
+
+function genreArray(){
+    $genre = array("Rock", "Classical", "Alternative", "Dubstep", "Country", "Other");
+    return $genre;
 }

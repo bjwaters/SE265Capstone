@@ -7,7 +7,7 @@
  */
 
 
-//The basic search function
+//The basic search function for location
 function searchLoc($db, $category){
 
     $text = $_GET['searchTerm'];
@@ -22,14 +22,16 @@ function searchLoc($db, $category){
         if($sql->rowCount() > 0)
         {
             $size = $sql ->rowCount();
-            $table = "$size rows returned. <br> <br>";
+            $table = "<div class=\"container\"> <div class=\"row\">";
+            $table .= "$size rows returned. <br> <br>";
             $table .= "<table>" . PHP_EOL;
             foreach ($results as $result)
             {
                 $table .= "<tr><td>User name: " . $result['userName'] .  "</td>" . "<td>User location: " .  $result['location'] . "<td>";
+                $table .= "<img src = 'assets/Uploads/" . $result['picture'] . "' width='150'>";
                 $table .= "</td></tr>";
             }
-            $table .= "</table>" . PHP_EOL;
+            $table .= "</table></div></div>" . PHP_EOL;
         }
         else
         {
@@ -42,8 +44,16 @@ function searchLoc($db, $category){
     }
 }
 
-//Pay rate coming later
-function searchAll($db, $searchName, $searchLocation, $searchRadius, $searchGenre, $searchAvailability){
+//Pay rate coming later, searches all things
+function searchAll($db){
+
+    $searchName = $_POST['searchName'];
+    $searchLocation = $_POST['searchLocation'];
+    $searchRadius = $_POST['searchRadius'];
+    $searchAvailability = $_POST['searchAvailability'];
+    $searchGenre =  $_POST['genreSearch_drop'];
+    $searchRate1 = $_POST['searchPayRate1'];
+    $searchRate2 = $_POST['searchPayRate2'];
 
     $searchString = "SELECT * FROM profiles WHERE 0=0 ";
 
@@ -87,6 +97,7 @@ function searchAll($db, $searchName, $searchLocation, $searchRadius, $searchGenr
             foreach ($results as $result)
             {
                 $table .= "<tr><td>User name: " . $result['userName'] .  "</td>" . "<td>User location: " .  $result['location'] . "<td>";
+                $table .= "<img src = 'assets/Uploads/" . $result['picture'] . "' width='150'>";
                 $table .= "</td></tr>";
             }
             $table .= "</table>" . PHP_EOL;

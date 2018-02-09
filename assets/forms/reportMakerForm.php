@@ -7,18 +7,23 @@
  */
 ?>
 
-<form method = 'post' action = "#">
+<div class="container">
+    <div class="row">
 
-    Reporting form: <br><br>
+    <form method = 'post' action = "#">
 
-    Nature of problem: <input type="text" name="reportType" /> <br><br>
-    Details:<br> <textarea name="details" rows="5" cols="40"></textarea><br><br>
+        Reporting form: <br><br>
 
-    <input type = "submit" name = "action" value = "Report" /><br><br>
+        Nature of problem: <input type="text" name="reportType" /> <br><br>
+        Details:<br> <textarea name="details" rows="5" cols="40"></textarea><br><br>
 
-    <input type = "submit" name = "action" value = "Back to User Page" />
+       <input type = "submit" name = "action" value = "Report" /><br><br>
 
-</form>
+        <input type = "submit" name = "action" value = "Back to User Page" />
+
+    </form>
+    </div>
+</div>
 
 <!-- This is going to be available for everyone, to be seen on the admin's side
 

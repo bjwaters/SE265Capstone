@@ -7,16 +7,33 @@
  */
 ?>
 
-<form method = 'get' action = "#">
-    <h3>This is the framework of the Home Page.</h3>
-    <br>
 
-    <input type = "submit" name = "action" value = "Login/Sign Up Page" /><br><br>
-    <input type="text" name="searchTerm" value="Location"/><input type = "submit" name = "action" value = "Search Page" />
-    <br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 bg-info" style="height: 150px;"> Homepage Banner here </div>
 
-</form>
+        <div class="col-md-4 my-2 bg-info">
+            <form method = 'get' action = "#">
+                <input type="text" name="searchTerm" value="Location"/> <input type = "submit" name = "action" value = "Search Page" />
+            </form>
+        </div>
+        <div class="col-md-4 my-2 bg-info">
+            <form method = 'get' action = "#">
+                <input type = "submit" name = "action" value = "Login/Sign Up Page" />
+            </form>
+        </div>
 
-<!-- A lot of this page will be pictures and eye candy. This is just the most basic functionality
- Search will only be by name, here. At least for now. It will bring up the
- standard search page, with results by name already filled in.-->
+        <div class="col-md-4 my-2 bg-info">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Menu
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
