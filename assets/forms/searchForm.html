@@ -7,17 +7,15 @@
  */
 ?>
 
-<div class="container">
-    <div class="row">
 
         <form method = 'post' action = "#">
 
-            Public Name: <input type="text" name="searchName" /> <br>
-            Location: <input type= "text" name="searchLocation" />
-            Radius: <input type="text" name="searchRadius" /><br>
+            Public Name: <input type="text" id="searchName" /> <br>
+            Location: <input type= "text" id="searchLocation" />
+            Radius: <input type="text" id="searchRadius" /><br>
 
             Genre:
-            <select name='genreSearch_drop']>
+            <select id='genreSearch_drop']>
                 <?php
                 echo("<option selected='selected' value=null>Please choose a genre.</option>");
                 $genreList = genreArray();
@@ -32,11 +30,9 @@
             </select>
 
             <br>Rates: <input type="text" name="searchPayRate1" /> to <input type="text" name="searchPayRate2" /><br><br>
-            Availability: <input type="text" name="searchAvailability" /><br>
-            <input type = "submit" name = "action" value = "Search" /><br><br>
+            Availability: <input type="text" id="searchAvailability" /><br>
 
-            <input type = "submit" name = "action" value = "Main Page" />
+        <button type="button" class="btn btn-secondary" onclick="advancedSearch()">Advanced Search</button>
+            <!--<input type = "submit" name = "action" onclick="testing()" /><br><br> -->
 
         </form>
-    </div>
-</div>

@@ -5,15 +5,12 @@
  * Date: 1/17/2018
  * Time: 4:41 PM
  */
-
-//var_dump($_SESSION);
-var_dump($editPicture);
 ?>
 
 <div class="container">
     <div class="row">
     <form method = 'get' action = "#">
-
+        <h3>Public Profile </h3>
         Name: <?php echo $editUserName?> <br>
         Location: <?php echo $editLocation?> Radius: <?php echo $editRadius?><br>
         Music genre: <?php echo $editGenre?> <br>
@@ -43,10 +40,6 @@ var_dump($editPicture);
 
         <br><br>
         Ratings will go here, if there are any.
-        <br>
-
-        <input type = "submit" name = "action" value = "Back to User Page" /><br>
-        <input type = "submit" name = "action" value = "Logout" /><br>
 
     </form>
     </div>

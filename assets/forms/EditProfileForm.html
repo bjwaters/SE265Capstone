@@ -1,0 +1,51 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: 001427082
+ * Date: 1/14/2018
+ * Time: 12:21 PM
+ */
+?>
+
+
+<div class="container">
+    <div class="row">
+
+    <form method = 'post' action = "#" enctype = "multipart/form-data">
+        <h3>Public Profile (Editing)</h3>
+
+        <input type="hidden" id="user_id" value="<?php echo $editUserID;?>"/> <br>
+        Public Name: <input type="text" id="userName" value="<?php echo $editUserName;?>"/> <br>
+        Location: <input type="text" id="location" value="<?php echo $editLocation;?>" />
+        Radius: <input type="text" id="radius" value="<?php echo $editRadius;?>"/><br>
+
+        <select id='genre_drop']>
+            <?php
+            echo("<option selected='selected' value=null>Please choose a genre.</option>");
+            $genreList = genreArray();
+            foreach($genreList as $genre)
+                if($editGenre == $genre)
+                {
+                    echo "<option selected = 'selected' value='" . $genre . "'>" . $genre . "</option>" . PHP_EOL;
+                }
+                else
+                    echo "<option value='" . $genre . "'>" . $genre . "</option>" . PHP_EOL;
+            ?>
+        </select>
+
+
+        Pay Rate: <input type="text" id="pay" value="<?php echo $editPay;?>"/><br>
+        Availability: <input type="text" id="availability" value="<?php echo $editAvailability;?>"/><br>
+
+        Comments:<br> <textarea id="comments" rows="5" cols="40"> <?php echo $editComments;?> </textarea><br><br>
+
+        Picture Upload here <input type = 'file' name = 'file' id="file" onchange="fileFunction(this.files)">
+
+        <br><br>
+        Video Link: <input type="text" id="videoLink" value="<?php echo $editVideoLink;?>"/><br><br>
+
+        <br><br>
+        <button type="button" class="btn btn-secondary" onclick='saveEdit()'>Finish and Save</button>
+        </form>
+    </div>
+</div>

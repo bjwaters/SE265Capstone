@@ -10,7 +10,7 @@ function addReport($db)
 {
     $user_id = $_SESSION['userID'];
     $title = $_POST['reportType'];
-    $comments = $_POST['details'];
+    $comments = $_POST['reportDetails'];
     $resolved = "No";
 
     try{

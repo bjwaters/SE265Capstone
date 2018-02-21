@@ -24,6 +24,15 @@
 
 //To do : links on search results to profile page, search by pay. Fill in search afterward. Still try to figure out the repeat problem
 
+//Week 6 -  Both searches work - work on result output format and tweaking variables
+//          Login works, log out works - again, work on verification
+//          Edit Profile shows, not yet saving. Working on file bullshit
+//          Control Panel menu works for 3.5 entries. Continue down the list. Report halfway done
+//          Sign up mostly done. check verification later
+//          Work on default page (random search results?)
+//          Nav bar needs to change - after login/logout. Login/signup buttons and control panel
+//          Formatting AFTER functionality
+
 
 //John
 //Public profile

@@ -50,7 +50,7 @@ function signupTest($db, $found)
     $user_type = $_POST['userType'];
 
     if($found == true) {
-        include_once("assets/forms/LoginForm.php");
+        //include_once("assets/forms/LoginForm.html");
         echo("User already found. Please enter another email.");
     }else
     {
@@ -60,7 +60,7 @@ function signupTest($db, $found)
                 if ($password1 == $password2) {
                     if($user_type == '')
                     {
-                        include_once("assets/forms/LoginForm.php");
+                        //include_once("assets/forms/LoginForm.html");
                         echo("Error. No user type selected!");
                     }
                     else{
@@ -72,18 +72,18 @@ function signupTest($db, $found)
                         return $newest_id;
                     }
                 } else {
-                    include_once("assets/forms/LoginForm.php");
+                    //include_once("assets/forms/LoginForm.html");
                     echo("Error. Passwords do no match");
                 }
             }
             else {
-                include_once("assets/forms/LoginForm.php");
+                //include_once("assets/forms/LoginForm.html");
                 echo("<br> Error. Password needed.");
             }
         }
         else
         {
-            include_once("assets/forms/LoginForm.php");
+            //include_once("assets/forms/LoginForm.html");
             echo("Error. Invalid email entered.");
         }
     }
@@ -102,7 +102,7 @@ function addUser($db, $password, $user, $user_type)
         $stmt->execute();
         $lastID = $db->lastInsertID();
         if($user_type != "Admin") {
-            include_once("assets/forms/LoginForm.php");
+            //include_once("assets/forms/LoginForm.html");
         }
         echo("User added.");
         return $lastID;
@@ -117,8 +117,9 @@ function addUser($db, $password, $user, $user_type)
 function signinTest($db)
 {
     $successfulLogin = "";
-    $email = $_POST['signInEmail'];
-    $password = $_POST['signInPassword'];
+
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
     try {
         $stmt = $db->prepare("SELECT * FROM users");
@@ -134,8 +135,10 @@ function signinTest($db)
                     $successfulLogin = $user['user_id'];
                 }
             }
-        } else
+        } else {
             echo("No users in list <br>");
+        }
+        //echo ("still in signintest, successfulID is " . $successfulLogin);
         return ($successfulLogin);
     } catch (PDOException $e) {
         die("Grabbing the user list didn't work.");
@@ -143,7 +146,7 @@ function signinTest($db)
 }
 
 //This grabs the user type with their id
-function grabUserType($db, $ID)
+function grabUserType($db, $validID)
 {
     $userType = "";
 
@@ -156,13 +159,14 @@ function grabUserType($db, $ID)
             $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
             foreach ($users as $user) {
 
-                if ($user['user_id'] == $ID)
+                if ($user['user_id'] == $validID)
                 {
                     $userType = $user['type'];
                 }
             }
         } else
             echo("No users in list <br>");
+        //echo("In grabusertype, user type is is " . $userType);
         return ($userType);
     } catch (PDOException $e) {
         die("Grabbing the user list didn't work.");

@@ -16,7 +16,6 @@ function addProfile($db, $new_id)
     $radius = 0;
     $genre = "Musical genre here";
     $pay = 0;
-    $phone = "123-456-7890";
     $availability = "Enter availability here";
     $comments = "Enter comments here.";
     $picture = "Blank.jpg";
@@ -25,14 +24,13 @@ function addProfile($db, $new_id)
 
     try{
         $stmt = $db->prepare("INSERT INTO profiles VALUES (:new_id, :userName, :location,
-        :radius, :genre, :pay, :phone, :availability, :comments, :picture, :videoLink, :profileStatus)");
+        :radius, :genre, :pay, :availability, :comments, :picture, :videoLink, :profileStatus)");
         $stmt->bindParam(':new_id', $new_id);
         $stmt->bindParam(':userName', $userName);
         $stmt->bindParam(':location', $location);
         $stmt->bindParam(':radius', $radius);
         $stmt->bindParam(':genre', $genre);
         $stmt->bindParam(':pay', $pay);
-        $stmt->bindParam(':phone', $phone );
         $stmt->bindParam(':availability', $availability);
         $stmt->bindParam(':comments', $comments);
         $stmt->bindParam(':picture', $picture);
@@ -51,15 +49,13 @@ function addProfile($db, $new_id)
 //Grabs a profile, output based on what called it
 function grabProfile($db, $neededID, $type)
 {
-    try{
+    try {
         $stmt = $db->prepare("SELECT * FROM profiles WHERE user_id =:neededID");
         $stmt->bindParam(':neededID', $neededID);
         $stmt->execute();
-        if($stmt->rowCount() > 0)
-        {
+        if ($stmt->rowCount() > 0) {
             $profiles = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            foreach($profiles as $profile)
-            {
+            foreach ($profiles as $profile) {
                 $editUserID = $profile['user_id'];
                 $editUserName = $profile['userName'];
                 $editLocation = $profile['location'];
@@ -71,30 +67,35 @@ function grabProfile($db, $neededID, $type)
                 $editPicture = $profile['picture'];
                 $editVideoLink = $profile['videoLink'];
                 $editProfileStatus = $profile['profileStatus'];
-                if($type == "edit") {
-                    include_once("assets/forms/EditProfileForm.php");
-                }
-                else
-                    include_once("assets/forms/PublicProfileForm.php");
+
+                if ($type == "Edit") {
+                    include_once("assets/forms/EditProfileForm.html");
+                } else if ($type == "Public")
+                    include_once("assets/forms/PublicProfileForm.html");
+
             }
-        }
-        else
-        {
+        } else {
             echo "No profiles stored.";
         }
-    }catch(PDOException $e)
-    {
+    } catch (PDOException $e) {
         die("Grabbing the profile list didn't work.");
     }
+
 }
 
 //This allows editing of the profile
-function editProfile($db, $editUserID, $editUserName, $editLocation, $editRadius, $editPay, $editAvailability, $editComments, $editVideoLink, $editProfileStatus)
+function editProfile($db, $editUserID, $editUserName, $editLocation, $editRadius, $editPay, $editAvailability,
+                     $editComments, $editProfileStatus, $editGenre, $editVideoLink)
 {
+    //Genre and picture further below
 
     //Picture file
     $name = $_FILES['file']['name'];
     $tmp_name = $_FILES['file']['tmp_name'];
+
+    //Picture file
+    //$name = $_FILES['file']['name'];
+    //$tmp_name = $_FILES['file']['tmp_name'];
 
     if(isset($name))
     {
@@ -129,7 +130,7 @@ function editProfile($db, $editUserID, $editUserName, $editLocation, $editRadius
 
 
     //Transferring data
-    $editGenre = $_POST['genre_drop'];
+    //$editGenre = $_POST['genre_drop'];
     try {
         $stmt = $db->prepare("UPDATE profiles SET userName=:userName, location=:location, radius=:radius, genre=:genre, pay=:pay,
               availability=:availability, comments=:comments, picture=:picture, videoLink=:videoLink, profileStatus=:profileStatus WHERE user_id = :user_id");
@@ -153,6 +154,7 @@ function editProfile($db, $editUserID, $editUserName, $editLocation, $editRadius
     }
 }
 
+//removing later
 function genreArray(){
     $genre = array("Rock", "Classical", "Alternative", "Dubstep", "Country", "Other");
     return $genre;

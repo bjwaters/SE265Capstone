@@ -6,11 +6,16 @@
  * Time: 12:51 PM
  */
 
+function showAdvancedSearch()
+{
+    include_once('assets/forms/searchForm.html');
+}
 
 //The basic search function for location
-function searchLoc($db, $category){
+function searchLoc($db){
 
-    $text = $_GET['searchTerm'];
+    $category = "location";
+    $text = $_POST['term'];
     $text = strtolower($text);
 
     try {
@@ -37,7 +42,7 @@ function searchLoc($db, $category){
         {
             $table = "No profiles.";
         }
-        return $table;
+        echo $table;
     } catch (PDOException $e){
         die("There was a problem retrieving the profiles.");
 
@@ -71,7 +76,7 @@ function searchAll($db){
     {
         $searchString .= "AND radius LIKE '%$searchRadius%'";
     }
-    if($searchGenre != "")
+    if($searchGenre != "null")
     {
         $searchGenre = strtolower($searchGenre);
         $searchString .= "AND genre LIKE '%$searchGenre%'";
@@ -106,9 +111,10 @@ function searchAll($db){
         {
             $table = "No profiles.";
         }
-        return $table;
+        echo $table;
     } catch (PDOException $e){
         die("There was a problem retrieving the profiles.");
 
     }
+
 }
