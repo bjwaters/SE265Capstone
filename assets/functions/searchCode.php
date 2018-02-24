@@ -15,7 +15,9 @@ function showAdvancedSearch()
 function searchLoc($db){
 
     $category = "location";
-    $text = $_POST['term'];
+    //$text = $_POST['term'];
+    $text = $_POST['simpleSearchTerm'];
+    echo("text is: " . $text);
     $text = strtolower($text);
 
     try {
@@ -28,15 +30,22 @@ function searchLoc($db){
         {
             $size = $sql ->rowCount();
             $table = "<div class=\"container\"> <div class=\"row\">";
-            $table .= "$size rows returned. <br> <br>";
+            $table .= "$size items returned. <br> <br>";
             $table .= "<table>" . PHP_EOL;
+            $intRow = 1;
+            $table .= "<tr>";
             foreach ($results as $result)
             {
-                $table .= "<tr><td>User name: " . $result['userName'] .  "</td>" . "<td>User location: " .  $result['location'] . "<td>";
-                $table .= "<img src = 'assets/Uploads/" . $result['picture'] . "' width='150'>";
-                $table .= "</td></tr>";
+                $resultID = $result['user_id'];
+                $table .= "<td>" .  "<img src = 'assets/Uploads/" . $result['picture'] . "' width='200' onclick='searchProfileClick($resultID)'><br>";
+                $table .= $result['userName'] . "   " . $result['location'] . "</td>";
+                if($intRow %3 == 0)
+                {
+                    $table .= "</tr><tr>";
+                }
+                $intRow++;
             }
-            $table .= "</table></div></div>" . PHP_EOL;
+            $table .= "</tr></table></div></div>" . PHP_EOL;
         }
         else
         {
@@ -99,13 +108,20 @@ function searchAll($db){
             $size = $sql ->rowCount();
             $table = "$size rows returned. <br> <br>";
             $table .= "<table>" . PHP_EOL;
+            $intRow = 1;
+            $table .= "<tr>";
             foreach ($results as $result)
             {
-                $table .= "<tr><td>User name: " . $result['userName'] .  "</td>" . "<td>User location: " .  $result['location'] . "<td>";
-                $table .= "<img src = 'assets/Uploads/" . $result['picture'] . "' width='150'>";
-                $table .= "</td></tr>";
+                $resultID = $result['user_id'];
+                $table .= "<td>" .  "<img src = 'assets/Uploads/" . $result['picture'] . "' width='200' onclick='searchProfileClick($resultID)'><br>";
+                $table .= $result['userName'] . "   " . $result['location'] . "</td>";
+                if($intRow %3 == 0)
+                {
+                    $table .= "</tr><tr>";
+                }
+                $intRow++;
             }
-            $table .= "</table>" . PHP_EOL;
+            $table .= "</tr></table></div></div>" . PHP_EOL;
         }
         else
         {

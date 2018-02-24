@@ -84,18 +84,26 @@ function grabProfile($db, $neededID, $type)
 }
 
 //This allows editing of the profile
-function editProfile($db, $editUserID, $editUserName, $editLocation, $editRadius, $editPay, $editAvailability,
-                     $editComments, $editProfileStatus, $editGenre, $editVideoLink)
+//function editProfile($db, $editUserID, $editUserName, $editLocation, $editRadius, $editPay, $editAvailability,
+ //                    $editComments, $editGenre, $editVideoLink)
+function editProfile($db)
 {
+    $editUserID = $_POST['user_id'];
+    $editUserName = $_POST['userName'];
+    $editLocation = $_POST['location'];
+    $editRadius = $_POST['radius'];
+    $editPay = $_POST['pay'];
+    $editAvailability = $_POST['availability'];
+    $editComments = $_POST['comments'];
+    $editGenre = $_POST['genre_drop'];
+    $editVideoLink = $_POST['videoLink'];
+
     //Genre and picture further below
+    $editProfileStatus = "Testing";
 
     //Picture file
     $name = $_FILES['file']['name'];
     $tmp_name = $_FILES['file']['tmp_name'];
-
-    //Picture file
-    //$name = $_FILES['file']['name'];
-    //$tmp_name = $_FILES['file']['tmp_name'];
 
     if(isset($name))
     {
@@ -105,6 +113,7 @@ function editProfile($db, $editUserID, $editUserName, $editLocation, $editRadius
             move_uploaded_file($tmp_name, $location.$name);
         }
     }
+
 
     $sessionID = $_SESSION['userID'];
 
@@ -130,7 +139,6 @@ function editProfile($db, $editUserID, $editUserName, $editLocation, $editRadius
 
 
     //Transferring data
-    //$editGenre = $_POST['genre_drop'];
     try {
         $stmt = $db->prepare("UPDATE profiles SET userName=:userName, location=:location, radius=:radius, genre=:genre, pay=:pay,
               availability=:availability, comments=:comments, picture=:picture, videoLink=:videoLink, profileStatus=:profileStatus WHERE user_id = :user_id");

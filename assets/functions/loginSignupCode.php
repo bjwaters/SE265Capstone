@@ -121,6 +121,9 @@ function signinTest($db)
     $email = $_POST['email'];
     $password = $_POST['password'];
 
+    //echo("email is: " . $email . "<br>");
+    //echo("password is : " . $password . "<br>" );
+
     try {
         $stmt = $db->prepare("SELECT * FROM users");
         $users = array();
@@ -136,9 +139,10 @@ function signinTest($db)
                 }
             }
         } else {
-            echo("No users in list <br>");
+            echo("");
         }
         //echo ("still in signintest, successfulID is " . $successfulLogin);
+        echo ($successfulLogin);
         return ($successfulLogin);
     } catch (PDOException $e) {
         die("Grabbing the user list didn't work.");

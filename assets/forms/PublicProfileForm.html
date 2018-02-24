@@ -28,15 +28,23 @@
 
 
 
-        <?php if($_SESSION['userType'] == "Admin") echo "Profile status: Locked";; ?>
-        <input type =
-            <?php if($_SESSION['userType'] == "Admin"){ echo "radio"; } else echo "hidden"; ?>
-               name='profileStatus' <?php if($editProfileStatus == "Locked") echo "checked" ?> value = "Locked") />
+        <?php
 
-        <?php if($_SESSION['userType'] == "Admin") echo "Unlocked"; ?>
+
+            if(isset($_SESSION['userType']) && $_SESSION['userType'] == "Admin")
+                echo "Profile status: Locked";; ?>
         <input type =
-            <?php if($_SESSION['userType'] == "Admin"){ echo "radio"; } else echo "hidden"; ?>
-            name='profileStatus' <?php if($editProfileStatus == "Unlocked") echo "checked" ?> value = "Unlocked" />
+            <?php if(isset($_SESSION['userType']) && $_SESSION['userType'] == "Admin")
+                { echo "radio"; }
+                else echo "hidden"; ?>
+        name='profileStatus' <?php if($editProfileStatus == "Locked") echo "checked" ?> value = "Locked") />
+
+        <?php if(isset($_SESSION['userType']) && $_SESSION['userType'] == "Admin") echo "Unlocked"; ?>
+        <input type =
+            <?php if(isset($_SESSION['userType']) && $_SESSION['userType'] == "Admin")
+                { echo "radio"; }
+                else echo "hidden"; ?>
+        name='profileStatus' <?php if($editProfileStatus == "Unlocked") echo "checked" ?> value = "Unlocked" />
 
         <br><br>
         Ratings will go here, if there are any.

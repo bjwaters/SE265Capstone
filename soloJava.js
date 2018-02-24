@@ -6,9 +6,6 @@ function events(){
     $("#modalLogin").on("click", loginClicks);
     $("#modalSignUp").on("click", signUpClicks);
 
-    $("#simpleSearchButton").on("click", simpleSearch);
-    $("#simpleSearchButton").on("click", showAdvancedSearch);
-
     /*
     input = $('#file');
     for (var i = 0 ; i < input.length; i++) {
@@ -21,9 +18,12 @@ function events(){
 //Calls the php function that logs you in and returns your user type
 function loginClicks()
 {
+    $("#phpresults").html("");
+    $("#contentOutput").html("");
+
     //console.log("In Loginclicks " + $('#modalSignInEmail').val() + " " + $('#modalSignInPassword').val());
     var hr = new XMLHttpRequest();
-    var url = "index2.php";
+    var url = "indexNotLog.php";
     var action = "logmein";
     var email = $('#modalSignInEmail').val();
     var password = $('#modalSignInPassword').val();
@@ -39,7 +39,6 @@ function loginClicks()
 
             var return_data = hr.responseText;
             console.log("Return data: " + return_data);
-            //$("#outputBox").html(return_data);
             if(return_data == "Administrator")
             {
                 $("#contentOutput").html('admin boop');
@@ -47,17 +46,15 @@ function loginClicks()
             }
             else
             {
-
-                /*
-                $.ajax({
-                    url:homepage.php,
-                    dataType: 'html'
-                })
-                */
-                //$("#contentOutput").on("load", 'assets/forms/DepControlPanelForm.php');
-                //$("#contentOutput").load('assets/forms/DepControlPanelForm.php');
-                //$("#contentOutput").append(controlPanel());
-                $("#contentOutput").append("controlpanelcouldbehere");
+                if(return_data.length > 0)
+                {
+                    window.location.href = "indexLog.php";
+                    console.log("Log in successful");
+                }
+                else
+                {
+                    console.log("Log in failed");
+                }
             }
         }
     };
@@ -72,7 +69,7 @@ function logoutClicks()
     $("#phpresults").html("");
     $("#contentOutput").html("");
     var hr = new XMLHttpRequest();
-    var url = "index2.php";
+    var url = "indexLog.php";
     var action = "logmeout";
     var vars = "action=" + action;
 
@@ -86,6 +83,7 @@ function logoutClicks()
 
             var return_data = hr.responseText;
             console.log("Return data: " + return_data);
+            window.location.href = "indexNotLog.php";
         }
     };
 
@@ -101,7 +99,7 @@ function signUpClicks()
     $("#phpresults").html("");
 
     var hr = new XMLHttpRequest();
-    var url = "index2.php";
+    var url = "indexNotLog.php";
     var action = "signMeUp";
 
     var newUserEmail = $('#newUserEmail').val();
@@ -132,30 +130,6 @@ function signUpClicks()
 }
 
 
-//Clumsy code, but might work later
-function navAdd()
-{
-    var navAddString = "";
-
-    navAddString +=
-        "\n" +
-        "            <div class=\"col-md-4 my-2 bg-info\">\n" +
-        "                <div class=\"dropdown\">\n" +
-        "                    <button class=\"btn btn-secondary dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
-        "                        Control Panel Menu\n" +
-        "                    </button>\n" +
-        "                    <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n" +
-        "                        <a class=\"dropdown-item\" onclick=\"editProfile()\" href=\"#\"> Edit Profile</a>\n" +
-        "                        <a class=\"dropdown-item\" onclick=\"publicProfile()\" href=\"#\">Public Profile</a>\n" +
-        "                        <a class=\"dropdown-item\" href=\"#\">Account Settings</a>\n" +
-        "                        <a class=\"dropdown-item\" href=\"#\">Report Issues</a>\n" +
-        "                        <div class=\"dropdown-divider\"></div>\n" +
-        "                        <a class=\"dropdown-item\" href=\"#\">Logout</a>\n" +
-        "                    </div>\n" +
-        "                </div>\n" +
-        "            </div>"
-}
-
 //Called to get the edit profile php code, returns the form with values in it(?!)
 function editProfile()
 {
@@ -164,7 +138,7 @@ function editProfile()
     console.log("In edit profile");
 
     var hr = new XMLHttpRequest();
-    var url = "index2.php";
+    var url = "indexLog.php";
     var action = "EditProfile";
 
 
@@ -187,30 +161,14 @@ function editProfile()
 
 }
 
-function fileFunction()
-{
-    $.ajax({
-        url: "index2.php",        // Url to which the request is send
-        type: "POST",             // Type of request to be send, called as method
-        data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
-        contentType: false,       // The content type used when sending data to the server.
-        cache: false,             // To unable request pages to be cached
-        processData:false,        // To send DOMDocument or non processed data file it is set to false
-        success: function(data)   // A function to be called if request succeeds
-        {
-            console.log(data);
-        }
-    });
-
-}
-
+/*
 function saveEdit()
 {
     console.log("Save edit clicked");
     $("#phpresults").html("");
 
     var hr = new XMLHttpRequest();
-    var url = "index2.php";
+    var url = "indexLog.php";
     var action = "Save Edit";
 
     var editUserID = $('#user_id').val();
@@ -223,14 +181,15 @@ function saveEdit()
     var editVideoLink= $('#videoLink').val();
     var editProfileStatus = $('input[name=profileStatus]:checked').val();
     var editGenre = $('#genre_drop').val();
-    //var editFile = $('#file').val();
+    var editFile = $('#file').val();
     //var editFile = $_FILES['file']['name'];
 
+    console.log(editFile);
 
     var vars = "action=" + action + "&editUserID=" + editUserID + "&editUserName=" + editUserName + "&editLocation=" + editLocation
         + "&editRadius=" + editRadius + "&editPay=" + editPay + "&editAvailability=" + editAvailability
         + "&editComments=" + editComments + "&editProfileStatus=" + editProfileStatus
-        + "&editGenre=" + editGenre + "&editVideoLink=" + editVideoLink;
+        + "&editGenre=" + editGenre + "&editFile=" + editFile + "&editVideoLink=" + editVideoLink;
 
     hr.open("POST", url, true);
     hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -248,6 +207,8 @@ function saveEdit()
     console.log("Processing edit save..");
 }
 
+*/
+
 //Called to get the public profile php code, also returns a form with values in it(?!)
 function publicProfile()
 {
@@ -256,7 +217,7 @@ function publicProfile()
     $("#phpresults").html("");
 
     var hr = new XMLHttpRequest();
-    var url = "index2.php";
+    var url = "indexLog.php";
     var action = "Public Profile";
 
     var vars = "action=" + action;
@@ -282,7 +243,7 @@ function publicProfile()
 function showAdvancedSearch()
 {
     var hr = new XMLHttpRequest();
-    var url = "index2.php";
+    var url = "indexLog.php";
     var action = "showAdvancedSearch";
 
     var vars = "action=" + action;
@@ -304,10 +265,18 @@ function showAdvancedSearch()
 }
 
 //Simple search result from the main navbar
-function simpleSearch()
+function simpleSearch(e)
 {
+     e.preventDefault();
+
+     //var sessName = '<?php echo $_SESSION['userID']?>';
+
+     //console.log(sessName);
+
+    console.log("In simple search function");
+
     var hr = new XMLHttpRequest();
-    var url = "index2.php";
+    var url = "indexLog.php";
     var action = "simpleSearch";
     var term = $('#simpleSearchTerm').val();
 
@@ -316,11 +285,12 @@ function simpleSearch()
     hr.open("POST", url, true);
     hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-
+    console.log("term is: " + term);
     hr.onreadystatechange = function () {
         if (hr.readyState == 4 && hr.status == 200) {
             var return_data = hr.responseText;
             //$("#contentOutput").load('assets/forms/searchForm.html');
+            //console.log(return_data);
             $("#phpresults").html(return_data);
         }
     };
@@ -334,10 +304,8 @@ function advancedSearch()
 {
     console.log("In advanced search");
 
-    $("#phpresults").html("");
-
     var hr = new XMLHttpRequest();
-    var url = "index2.php";
+    var url = "indexLog.php";
     var action = "advancedSearch";
 
     var searchName = $('#searchName').val();
@@ -392,7 +360,7 @@ function reportIssues()
     $("#phpresults").html("");
     $("#contentOutput").html("");
     var hr = new XMLHttpRequest();
-    var url = "index2.php";
+    var url = "indexLog.php";
     var action = "reportIssues";
     var type = $("#reportType").val();
     var details = $("#reportDetails").val();
@@ -419,10 +387,59 @@ function reportIssues()
     */
 }
 
+function searchProfileClick(id)
+{
+    $("#phpresults").html("");
+    console.log("ID is: " + id);
+
+    var hr = new XMLHttpRequest();
+    var url = "indexLog.php";
+    var action = "searchResultClick";
+    var profileID = id;
+
+    var vars = "action=" + action + "&profileID=" + profileID;
+
+    console.log("Vars is " + vars);
+
+    hr.open("POST", url, true);
+    hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+
+    hr.onreadystatechange = function () {
+        if (hr.readyState == 4 && hr.status == 200) {
+            var return_data = hr.responseText;
+            //console.log(return_data);
+            $("#contentOutput").html(return_data);
+        }
+    };
+    hr.send(vars);
+    console.log("Processing search result click..");
+}
+
+function returnToStart()
+{
+    $("#phpresults").html("");
+    $("#contentOutput").html("");
+}
+
 
 //At the start
 $(document).ready(function(){
 
     events();
+    $("#simpleSearchButton").on("click", simpleSearch);
+    $("#simpleSearchButton").on("click", showAdvancedSearch);
 
+    /*
+    input = $('#myelement');
+    for (var i = 0 ; i < input.length; i++) {
+    input[i].addEventListener("change" , fileFunction );
+    }
+    */
+
+    /*
+    $('myNavbar').bind("DOMSubtreeModified",function(){
+        alert('changed');
+    });
+    */
 });

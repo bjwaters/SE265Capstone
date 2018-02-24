@@ -39,13 +39,14 @@
 
         Comments:<br> <textarea id="comments" rows="5" cols="40"> <?php echo $editComments;?> </textarea><br><br>
 
-        Picture Upload here <input type = 'file' name = 'file' id="file" onchange="fileFunction(this.files)">
+        Picture Upload here <input type = 'file' name = 'file' id="file">
 
         <br><br>
         Video Link: <input type="text" id="videoLink" value="<?php echo $editVideoLink;?>"/><br><br>
 
         <br><br>
-        <button type="button" class="btn btn-secondary" onclick='saveEdit()'>Finish and Save</button>
+        <input type = "submit" name = "action" value = "Save Edit" />
+        <!--<button type="button" class="btn btn-secondary" onclick='saveEdit()'>Finish and Save</button>-->
         </form>
     </div>
 </div>

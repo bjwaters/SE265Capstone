@@ -24,8 +24,9 @@
 
 //To do : links on search results to profile page, search by pay. Fill in search afterward. Still try to figure out the repeat problem
 
-//Week 6 -  Both searches work - work on result output format and tweaking variables
+//Week 6 -  Both searches work - work on result output format and tweaking variables - work out back button after click?
 //          Login works, log out works - again, work on verification
+                //Changing nav bar needs to go on verification, not just modal clicks
 //          Edit Profile shows, not yet saving. Working on file bullshit
 //          Control Panel menu works for 3.5 entries. Continue down the list. Report halfway done
 //          Sign up mostly done. check verification later
