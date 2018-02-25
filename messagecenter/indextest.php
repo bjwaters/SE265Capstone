@@ -1,4 +1,5 @@
 <?php
+if(!isset($_SESSION))session_start();
 
     require_once("functions/dbConnect.php");
     require_once("functions/messageFunctions.php");
@@ -43,8 +44,13 @@
         case 'getMessages':
             echo getMessagesByIDs($db, $_GET['bookerID'], $_GET['musicianID']);
             break;
-        case 'Send Message':
-            echo newMessage($db, $booker_id, $musician_id , $_SESSION['userID'], $text);
+        case 'getBookings':
+            echo getBookingsByIDs($db, $_GET['bookerID'], $_GET['musicianID']);
+            break;
+        case 'sendMessage':
+            $text = $_POST['text'];
+            echo "text on index: " . $text;
+            echo newMessage($db, $_POST['bookerID'], $_POST['musicianID'], $_SESSION['userID'], $text);
             break;
         case 'Request Booking':
             // Convert booking date to format

@@ -50,17 +50,23 @@ function getAllMessages($db, $user_id){
         $sql->bindParam(':user_id', $user_id, PDO::PARAM_INT);
         $sql->execute();
         $messages = $sql->fetchAll(PDO::FETCH_ASSOC);
-        $table = "<table class='table'>" . PHP_EOL;
-        $table .= "<tr><th>MESSAGES</th></tr>";
-        foreach ($messages as $m) {
-            $table .= "<tr><td>" . $m['text'] . "</td><td>" . $m['time'] . "</td>";
-            if($_SESSION['userType'] == 'Booker') {
-                $table .= "<td><a href='indexTest.php?action=Profile&bookerID=" . $user_id . "&musicianID=" . $m['sender']."'>UserID: " . $m['sender'] . "</a>";
-            } else{
-                $table .= "<td><a href='indexTest.php?action=Profile&musicianID=" . $user_id . "&bookerID=" . $m['sender']."'>UserID: " . $m['sender'] . "</a>";
+        if($sql->rowCount() > 0)
+        {
+            $table = "<table class='table'>" . PHP_EOL;
+            $table .= "<tr><th>MESSAGES</th></tr>";
+            foreach ($messages as $m) {
+                $table .= "<tr><td>" . $m['text'] . "</td><td>" . $m['time'] . "</td>";
+                if($_SESSION['userType'] == 'Booker') {
+                    $table .= "<td><a href='indexTest.php?action=Profile&bookerID=" . $user_id . "&musicianID=" . $m['sender']."'>UserID: " . $m['sender'] . "</a>";
+                } else{
+                    $table .= "<td><a href='indexTest.php?action=Profile&musicianID=" . $user_id . "&bookerID=" . $m['sender']."'>UserID: " . $m['sender'] . "</a>";
+                }
             }
+            $table .= "</table>";
+        } else{
+            $table = "You have no messages at this time.";
         }
-        $table .= "</table>";
+
         return $table;
     }
     catch (PDOException $e){

@@ -82,14 +82,20 @@ function getBookingsByIDs($db, $booker_id, $musician_id){ //Function to view pro
         $sql->bindParam(':musician_id', $musician_id);
         $sql->execute();
         $bookings = $sql->fetchAll(PDO::FETCH_ASSOC);
-        $table = "<table class='table'>" . PHP_EOL;
-        $table .= "<tr><th>Bookings</th></tr>";
-        foreach ($bookings as $b) {
-            $table .= "<tr><td>" . $b['booking_id'] . "</td><td>" . $b['booking_date'] . "</td><td>" . "$" . $b['pay'] . $b['number_of_hours'] . "</td>";
-            //$table .= "<td><img src='images/" . $prod['image'] . "'></td>";
-            //$table .= "<td><a href='prodcrud.php?action=Edit&prodID=".$prod['product_id']."&Categories=".$prod['category_id']."'>Edit</a> | <a href='prodcrud.php?action=Delete&prodID=".$prod['product_id']."'>Delete</a></td></tr>";
+        if($sql->rowCount() > 0)
+        {
+            $table = "<table class='table'>" . PHP_EOL;
+            $table .= "<tr><th>Bookings</th></tr>";
+            foreach ($bookings as $b) {
+                $table .= "<tr><td>" . $b['booking_id'] . "</td><td>" . $b['booking_date'] . "</td><td>" . "$" . $b['pay'] . $b['number_of_hours'] . "</td>";
+                //$table .= "<td><img src='images/" . $prod['image'] . "'></td>";
+                //$table .= "<td><a href='prodcrud.php?action=Edit&prodID=".$prod['product_id']."&Categories=".$prod['category_id']."'>Edit</a> | <a href='prodcrud.php?action=Delete&prodID=".$prod['product_id']."'>Delete</a></td></tr>";
+            }
+            $table .= "</table>";
+        } else{
+            $table = "You have no bookings a this time.";
         }
-        $table .= "</table>";
+
         return $table;
     }
     catch (PDOException $e){
