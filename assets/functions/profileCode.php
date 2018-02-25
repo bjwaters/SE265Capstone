@@ -69,7 +69,7 @@ function grabProfile($db, $neededID, $type)
                 $editProfileStatus = $profile['profileStatus'];
 
                 if ($type == "Edit") {
-                    include_once("assets/forms/EditProfileForm.html");
+                    include_once("assets/forms/EditProfileForm.php");
                 } else if ($type == "Public")
                     include_once("assets/forms/PublicProfileForm.html");
 
@@ -84,10 +84,12 @@ function grabProfile($db, $neededID, $type)
 }
 
 //This allows editing of the profile
-//function editProfile($db, $editUserID, $editUserName, $editLocation, $editRadius, $editPay, $editAvailability,
- //                    $editComments, $editGenre, $editVideoLink)
 function editProfile($db)
 {
+    $name = $_POST['userName'];
+    //var_dump($_POST);
+
+
     $editUserID = $_POST['user_id'];
     $editUserName = $_POST['userName'];
     $editLocation = $_POST['location'];
@@ -97,6 +99,7 @@ function editProfile($db)
     $editComments = $_POST['comments'];
     $editGenre = $_POST['genre_drop'];
     $editVideoLink = $_POST['videoLink'];
+
 
     //Genre and picture further below
     $editProfileStatus = "Testing";

@@ -2,7 +2,13 @@
 //Watching the events for stuff, some things in here outdated
 function events(){
 
-    //$("#modalLogin").on("click", function(){alert("Log in clicked")})
+
+    $("#simpleSearchButtonNotLogged").on("click", simpleSearchNotLogged);
+    $("#simpleSearchButtonNotLogged").on("click", showAdvancedSearch);
+
+    $("#simpleSearchButtonLogged").on("click", simpleSearchLogged);
+    $("#simpleSearchButtonLogged").on("click", showAdvancedSearch);
+
     $("#modalLogin").on("click", loginClicks);
     $("#modalSignUp").on("click", signUpClicks);
 
@@ -21,7 +27,6 @@ function loginClicks()
     $("#phpresults").html("");
     $("#contentOutput").html("");
 
-    //console.log("In Loginclicks " + $('#modalSignInEmail').val() + " " + $('#modalSignInPassword').val());
     var hr = new XMLHttpRequest();
     var url = "indexNotLog.php";
     var action = "logmein";
@@ -38,7 +43,6 @@ function loginClicks()
         if (hr.readyState == 4 && hr.status == 200) {
 
             var return_data = hr.responseText;
-            console.log("Return data: " + return_data);
             if(return_data == "Administrator")
             {
                 $("#contentOutput").html('admin boop');
@@ -46,14 +50,35 @@ function loginClicks()
             }
             else
             {
-                if(return_data.length > 0)
+                //if(return_data.length > 0)
+                if(~return_data.indexOf("Error")) //Checks if the word error is in the return data
                 {
-                    window.location.href = "indexLog.php";
-                    console.log("Log in successful");
+                    $('#contentOutput').html(return_data);
+                    console.log("Log in failed");
+
+
+                    var pasteForm = "<div class=\"container\">\n" +
+                        "    <div class=\"row\">\n" +
+                        "    <form method = 'post' action = \"#\">\n" +
+                        "\n" +
+                        "        Sign In: <br>\n" +
+                        "\n" +
+                        "        Email Address: <input type=\"text\" name=\"signInEmail\" id=\"signInEmail\" /> <br>\n" +
+                        "        Password: <input type=\"text\" name=\"signInPassword\" id=\"signinPassword\"/><br>\n" +
+                        "        <!--<button type=\"button\" class=\"btn btn-secondary\" value = \"loginCheck\" id = \"loginCheckButton\" >Log Me In</button> -->\n" +
+                        "        <button type=\"button\" id = \"manualLogin\" class=\"btn btn-secondary\" value = \"backup\" onclick=\"backupLoginClicks()loginClicks()\" >Log Me In</button>\n" +
+                        "    </form>\n" +
+                        "    </div>\n" +
+                        "</div>"
+
+                    $('#contentOutput').html(pasteForm);
+
                 }
                 else
                 {
-                    console.log("Log in failed");
+                    console.log(return_data);
+                    window.location.href = "indexLog.php";
+                    console.log("Log in successful");
                 }
             }
         }
@@ -64,8 +89,60 @@ function loginClicks()
 
 }
 
+//Redundant, but necessary for now
+function backupLoginClicks()
+{
+    function loginClicks() {
+        $("#phpresults").html("");
+        $("#contentOutput").html("");
+
+        var hr = new XMLHttpRequest();
+        var url = "indexNotLog.php";
+        var action = "logmein";
+        var email = $('#signInEmail').val();
+        var password = $('#signinPassword').val();
+        var vars = "action=" + action + "&email=" + email + "&password=" + password;
+
+        hr.open("POST", url, true);
+        hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        console.log(vars);
+
+        hr.onreadystatechange = function () {
+            if (hr.readyState == 4 && hr.status == 200) {
+
+                var return_data = hr.responseText;
+                if (return_data == "Administrator") {
+                    $("#contentOutput").html('admin boop');
+
+                }
+                else {
+                    if (~return_data.indexOf("Error")) //Checks if the word error is in the return data
+                    {
+
+                        $('#phpresults').html("Login Unsuccessful");
+
+                    }
+                    else {
+                        console.log(return_data);
+                        window.location.href = "indexLog.php";
+                        console.log("Log in successful");
+                    }
+                }
+            }
+        };
+
+        hr.send(vars);
+        console.log("Processing login..");
+    }
+
+}
+
+
+//Logout code
 function logoutClicks()
 {
+
     $("#phpresults").html("");
     $("#contentOutput").html("");
     var hr = new XMLHttpRequest();
@@ -161,54 +238,6 @@ function editProfile()
 
 }
 
-/*
-function saveEdit()
-{
-    console.log("Save edit clicked");
-    $("#phpresults").html("");
-
-    var hr = new XMLHttpRequest();
-    var url = "indexLog.php";
-    var action = "Save Edit";
-
-    var editUserID = $('#user_id').val();
-    var editUserName= $('#userName').val();
-    var editLocation = $('#location').val();
-    var editRadius = $('#radius').val();
-    var editPay = $('#pay').val();
-    var editAvailability= $('#availability').val();
-    var editComments= $('#comments').val();
-    var editVideoLink= $('#videoLink').val();
-    var editProfileStatus = $('input[name=profileStatus]:checked').val();
-    var editGenre = $('#genre_drop').val();
-    var editFile = $('#file').val();
-    //var editFile = $_FILES['file']['name'];
-
-    console.log(editFile);
-
-    var vars = "action=" + action + "&editUserID=" + editUserID + "&editUserName=" + editUserName + "&editLocation=" + editLocation
-        + "&editRadius=" + editRadius + "&editPay=" + editPay + "&editAvailability=" + editAvailability
-        + "&editComments=" + editComments + "&editProfileStatus=" + editProfileStatus
-        + "&editGenre=" + editGenre + "&editFile=" + editFile + "&editVideoLink=" + editVideoLink;
-
-    hr.open("POST", url, true);
-    hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-    console.log(vars);
-    hr.onreadystatechange = function () {
-        if (hr.readyState == 4 && hr.status == 200) {
-            var return_data = hr.responseText;
-            //console.log(return_data);
-            $("#contentOutput").html(return_data);
-        }
-    };
-
-    hr.send(vars);
-    console.log("Processing edit save..");
-}
-
-*/
-
 //Called to get the public profile php code, also returns a form with values in it(?!)
 function publicProfile()
 {
@@ -255,8 +284,7 @@ function showAdvancedSearch()
     hr.onreadystatechange = function () {
         if (hr.readyState == 4 && hr.status == 200) {
             var return_data = hr.responseText;
-            //console.log("advanced search return" + return_data);
-            /// /$("#contentOutput").load('assets/forms/searchForm.html');
+            /// /$("#contentOutput").load('assets/forms/SearchForm.html');
             $("#contentOutput").html(return_data);
         }
     };
@@ -264,33 +292,55 @@ function showAdvancedSearch()
     hr.send(vars);
 }
 
-//Simple search result from the main navbar
-function simpleSearch(e)
+function simpleSearchLogged(e)
 {
-     e.preventDefault();
-
-     //var sessName = '<?php echo $_SESSION['userID']?>';
-
-     //console.log(sessName);
-
-    console.log("In simple search function");
+    e.preventDefault();
+    console.log("Simple search, Logged")
 
     var hr = new XMLHttpRequest();
     var url = "indexLog.php";
     var action = "simpleSearch";
-    var term = $('#simpleSearchTerm').val();
+    var term = $('#simpleSearchLocationLogged').val();
+
+    var vars = "action=" + action + "&term=" + term;
+
+    console.log("vars are " + vars);
+
+    hr.open("POST", url, true);
+    hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    hr.onreadystatechange = function () {
+        if (hr.readyState == 4 && hr.status == 200) {
+            var return_data = hr.responseText;
+            //$("#contentOutput").load('assets/forms/SearchForm.html');
+            $("#phpresults").html(return_data);
+        }
+    };
+
+    hr.send(vars);
+    console.log("Processing simple searching..");
+}
+
+//Simple search result from the main navbar
+function simpleSearchNotLogged(e)
+{
+     e.preventDefault();
+     console.log("Simple search, not logged.")
+
+    var hr = new XMLHttpRequest();
+    var url = "indexNotLog.php";
+    var action = "simpleSearch";
+    var term = $('#simpleSearchLocationNotLogged').val();
 
     var vars = "action=" + action + "&term=" + term;
 
     hr.open("POST", url, true);
     hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-    console.log("term is: " + term);
     hr.onreadystatechange = function () {
         if (hr.readyState == 4 && hr.status == 200) {
             var return_data = hr.responseText;
-            //$("#contentOutput").load('assets/forms/searchForm.html');
-            //console.log(return_data);
+            //$("#contentOutput").load('assets/forms/SearchForm.html');
             $("#phpresults").html(return_data);
         }
     };
@@ -347,8 +397,8 @@ function reportForm()
         "\n" +
         "        Reporting form: <br><br>\n" +
         "\n" +
-        "        Nature of problem: <input type=\"text\" id=\"reportType\" /> <br><br>\n" +
-        "        Details:<br> <textarea id=\"reportDetails\" rows=\"5\" cols=\"40\"></textarea><br><br>\n" +
+        "        Nature of problem: <input type=\"text\" name=\"reportType\" id=\"reportType\"/> <br><br>\n" +
+        "        Details:<br> <textarea name=\"reportDetails\" id=\"reportDetails\" rows=\"5\" cols=\"40\"></textarea><br><br>\n" +
         "\n" + " <button type=\"button\" class=\"btn btn-secondary\" onclick='reportIssues()'>Report</button>"
     " </form>"
     $('#contentOutput').html(reportString);
@@ -427,9 +477,6 @@ function returnToStart()
 $(document).ready(function(){
 
     events();
-    $("#simpleSearchButton").on("click", simpleSearch);
-    $("#simpleSearchButton").on("click", showAdvancedSearch);
-
     /*
     input = $('#myelement');
     for (var i = 0 ; i < input.length; i++) {
@@ -437,9 +484,4 @@ $(document).ready(function(){
     }
     */
 
-    /*
-    $('myNavbar').bind("DOMSubtreeModified",function(){
-        alert('changed');
-    });
-    */
 });

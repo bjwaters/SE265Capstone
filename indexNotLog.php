@@ -24,15 +24,10 @@ $profileID = filter_input(INPUT_POST, 'profileID', FILTER_SANITIZE_NUMBER_INT) ?
 
 switch($action){
 
-    case 'test':
-        include_once('homepageNotLogged.php');
-        searchLoc($db);
-        echo "Wheee";
-        break;
-
     case 'logmein':
 
         $id = signinTest($db);
+
         if($id != "") {
             $type = grabUserType($db, $id);
             loginSession($id, $type);
@@ -47,8 +42,9 @@ switch($action){
         }
         else
         {
-            //echo("Error. No such user and password combination stored.\nPlease try again.");
+            echo("Error. No such user and password combination stored.\nPlease try again.");
         }
+
 
         break;
     case 'signMeUp':

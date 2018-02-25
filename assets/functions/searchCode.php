@@ -8,16 +8,14 @@
 
 function showAdvancedSearch()
 {
-    include_once('assets/forms/searchForm.html');
+    include_once('assets/forms/SearchForm.html');
 }
 
 //The basic search function for location
 function searchLoc($db){
 
     $category = "location";
-    //$text = $_POST['term'];
-    $text = $_POST['simpleSearchTerm'];
-    echo("text is: " . $text);
+    $text = $_POST['term'];
     $text = strtolower($text);
 
     try {
@@ -63,7 +61,7 @@ function searchAll($db){
 
     $searchName = $_POST['searchName'];
     $searchLocation = $_POST['searchLocation'];
-    $searchRadius = $_POST['searchRadius'];
+    //$searchRadius = $_POST['searchRadius'];
     $searchAvailability = $_POST['searchAvailability'];
     $searchGenre =  $_POST['genreSearch_drop'];
     $searchRate1 = $_POST['searchPayRate1'];
@@ -81,10 +79,10 @@ function searchAll($db){
         $searchLocation = strtolower($searchLocation);
         $searchString .= "AND location LIKE '%$searchLocation%'";
     }
-    if($searchRadius != "")
-    {
-        $searchString .= "AND radius LIKE '%$searchRadius%'";
-    }
+    //if($searchRadius != "")
+    //{
+    //    $searchString .= "AND radius LIKE '%$searchRadius%'";
+    //}
     if($searchGenre != "null")
     {
         $searchGenre = strtolower($searchGenre);
@@ -97,6 +95,8 @@ function searchAll($db){
     }
 
     var_dump($searchString);
+
+
     try {
 
         $sql = $db->prepare($searchString);
@@ -112,14 +112,36 @@ function searchAll($db){
             $table .= "<tr>";
             foreach ($results as $result)
             {
-                $resultID = $result['user_id'];
-                $table .= "<td>" .  "<img src = 'assets/Uploads/" . $result['picture'] . "' width='200' onclick='searchProfileClick($resultID)'><br>";
-                $table .= $result['userName'] . "   " . $result['location'] . "</td>";
-                if($intRow %3 == 0)
+                if($searchRate1 != "" and $searchRate2 != "")  //If both are contain a value
                 {
-                    $table .= "</tr><tr>";
+                    settype($searchRate1, "float");
+                    settype($searchRate2, "float");
+                    if($searchRate1 <= $searchRate2)             //If the first value is less than the second
+                    {
+                        settype($result['pay'], "float");
+
+                        if($searchRate1 <= $result['pay'] && $searchRate2 >= $result['pay'])  //if the return value is between or = the 2 values
+                        {
+
+                            $resultID = $result['user_id'];
+                            $table .= "<td>" . "<img src = 'assets/Uploads/" . $result['picture'] . "' width='200' onclick='searchProfileClick($resultID)'><br>";
+                            $table .= $result['userName'] . "   " . $result['location'] . "</td>";
+                            if ($intRow % 3 == 0) {
+                                $table .= "</tr><tr>";
+                            }
+                            $intRow++;
+                        }
+                    }
                 }
-                $intRow++;
+                else {
+                    $resultID = $result['user_id'];
+                    $table .= "<td>" . "<img src = 'assets/Uploads/" . $result['picture'] . "' width='200' onclick='searchProfileClick($resultID)'><br>";
+                    $table .= $result['userName'] . "   " . $result['location'] . "</td>";
+                    if ($intRow % 3 == 0) {
+                        $table .= "</tr><tr>";
+                    }
+                    $intRow++;
+                }
             }
             $table .= "</tr></table></div></div>" . PHP_EOL;
         }

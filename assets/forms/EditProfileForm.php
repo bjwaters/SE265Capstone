@@ -8,18 +8,18 @@
 ?>
 
 
-<div class="container">
+<div id = "editProfile" class="container">
     <div class="row">
 
-    <form method = 'post' action = "#" enctype = "multipart/form-data">
+    <form name = "editForm" method = 'post' action = "indexLog.php" enctype = "multipart/form-data">
         <h3>Public Profile (Editing)</h3>
 
-        <input type="hidden" id="user_id" value="<?php echo $editUserID;?>"/> <br>
-        Public Name: <input type="text" id="userName" value="<?php echo $editUserName;?>"/> <br>
-        Location: <input type="text" id="location" value="<?php echo $editLocation;?>" />
-        Radius: <input type="text" id="radius" value="<?php echo $editRadius;?>"/><br>
+        <input type="hidden" name="user_id" value="<?php echo $editUserID;?>"/> <br>
+        Public Name: <input type="text" name="userName" value="<?php echo $editUserName;?>"/> <br>
+        Location: <input type="text" name="location" value="<?php echo $editLocation;?>" />
+        Radius: <input type="text" name="radius" value="<?php echo $editRadius;?>"/><br>
 
-        <select id='genre_drop']>
+        <select name='genre_drop']>
             <?php
             echo("<option selected='selected' value=null>Please choose a genre.</option>");
             $genreList = genreArray();
@@ -34,19 +34,19 @@
         </select>
 
 
-        Pay Rate: <input type="text" id="pay" value="<?php echo $editPay;?>"/><br>
-        Availability: <input type="text" id="availability" value="<?php echo $editAvailability;?>"/><br>
+        Pay Rate: <input type="text" name="pay" value="<?php echo $editPay;?>"/><br>
+        Availability: <input type="text" name="availability" value="<?php echo $editAvailability;?>"/><br>
 
-        Comments:<br> <textarea id="comments" rows="5" cols="40"> <?php echo $editComments;?> </textarea><br><br>
+        Comments:<br> <textarea name="comments" rows="5" cols="40"> <?php echo $editComments;?> </textarea><br><br>
 
         Picture Upload here <input type = 'file' name = 'file' id="file">
 
         <br><br>
-        Video Link: <input type="text" id="videoLink" value="<?php echo $editVideoLink;?>"/><br><br>
+        Video Link: <input type="text" name="videoLink" value="<?php echo $editVideoLink;?>"/><br><br>
 
         <br><br>
         <input type = "submit" name = "action" value = "Save Edit" />
         <!--<button type="button" class="btn btn-secondary" onclick='saveEdit()'>Finish and Save</button>-->
-        </form>
+    </form>
     </div>
 </div>

@@ -22,7 +22,6 @@ $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ??
 $profileID = filter_input(INPUT_POST, 'profileID', FILTER_SANITIZE_NUMBER_INT) ??
     filter_input(INPUT_GET, 'profileID', FILTER_SANITIZE_NUMBER_INT) ?? NULL;
 
-
 switch($action){
 
     case 'logmeout':
@@ -45,18 +44,20 @@ switch($action){
         break;
 
     case 'EditProfile':
-        include_once('assets/forms/homepageLogged.php');
-        if(isset($_SESSION['userID'])) {
-            $editID = $_SESSION['userID'];
-            $profileType = "Edit";
-            grabProfile($db, $editID, $profileType);
-        }
-        else
-            echo"No person logged in.";
+        include_once('homepageLogged.php');
+        $editID = $_SESSION['userID'];
+        $profileType = "Edit";
+        grabProfile($db, $editID, $profileType);
         break;
+
+
     case 'Save Edit':
-        editProfile($db);
+        $test = editProfile($db);
+        include_once('homepageLogged.php');
+        echo("Return should be: " . $test);
         break;
+
+
     case 'Public Profile':
         if(isset($_SESSION['userID'])) {
             $editID = $_SESSION['userID'];

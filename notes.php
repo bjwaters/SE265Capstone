@@ -8,31 +8,22 @@
 
 
 //Ben
-//Work on Edit Profile                                  Works - not consecutively. Comments drifting
-//Tinkering with profile creation                       Not much data validation yet, make a link
-//User adding/checking//account details                 Can add a user, profile created at same time. Need to have edit functions for pw and email
-//Searching (profile search) advanced/simple            Got the simple search code in. Need details for dropdowns. Adv search partly done
-//reports                                               User-side done.
-    //tables - users, profiles, reports
-//Admin Stuff                                           Admin area from login. Admin sees invisible profile stuff
-//Misc                                                  No logout code yet. Try to find out why some buttons dont work 2x in a row
 
+//Done - reducing searching errors and searching by pay, get nav bar changing properly, can properly edit profiles, search results link to public profiles
 
-
-// This week - Admin area, create admin, look at reports, profile hidden objects, added pictures to profile, genre dropdown in profile
-// picture replacing seems stable, basic css to many forms, basic css, streamlining search (genre)
-
-//To do : links on search results to profile page, search by pay. Fill in search afterward. Still try to figure out the repeat problem
+//To do :  Fill in search afterward? Keep search history? Admin Area, lockout code + button,
 
 //Week 6 -  Both searches work - work on result output format and tweaking variables - work out back button after click?
+            //Searches work both logged in and logged out, no radius, rates search works
 //          Login works, log out works - again, work on verification
-                //Changing nav bar needs to go on verification, not just modal clicks
-//          Edit Profile shows, not yet saving. Working on file bullshit
+//          Edit Profile show and saves!
 //          Control Panel menu works for 3.5 entries. Continue down the list. Report halfway done
 //          Sign up mostly done. check verification later
 //          Work on default page (random search results?)
-//          Nav bar needs to change - after login/logout. Login/signup buttons and control panel
+//          Nav bar changed after login/logout. Code appropriate in each index
 //          Formatting AFTER functionality
+            //Work on formatting of the outputs and clearing the screen properly
+
 
 
 //John

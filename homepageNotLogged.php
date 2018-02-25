@@ -39,14 +39,12 @@
 
 
         <!--Search part -->
-        <div id = "myNavbarSearch">
-            <form method="post" class="form-inline my-2 my-lg-0">
-                <!--<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="simpleSearchTerm">-->
-                <!--<button type="button" class="btn btn-outline-success my-2 my-sm-0" id="simpleSearchButton">Search</button> -->
-                <input type="text" id="simpleSearchTerm" />
-                <input type = "submit" name = "action" value = "test" />
-            </form>
-        </div>
+        <form class="form-inline my-2 my-lg-0">
+            <!--<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="simpleSearchTerm"> -->
+            <input type= "text" id="simpleSearchLocationNotLogged" />
+            <button class="btn btn-outline-success my-2 my-sm-0" id="simpleSearchButtonNotLogged">Search</button>
+        </form>
+
 
         <!-- Sign in and sign up -->
         <div id = "myNavbarSign">
@@ -63,7 +61,6 @@
         </div>
     </nav>
 </div>
-
 
 
 <div class="col-md-12" id = "contentOutput" ></div>
@@ -94,7 +91,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="modalLogin" data-dismiss="modal">Log In</button>
+                <button type="button" class="btn btn-primary" id="modalLogin" value = "modal" data-dismiss="modal">Log In</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>

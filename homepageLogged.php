@@ -49,8 +49,8 @@
 
         <!--Search part -->
         <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="simpleSearchTerm">
-            <button class="btn btn-outline-success my-2 my-sm-0" id="simpleSearchButton">Search</button>
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="simpleSearchLocationLogged">
+            <button class="btn btn-outline-success my-2 my-sm-0" id="simpleSearchButtonLogged">Search</button>
         </form>
 
         <ul class="nav-item dropdown">
@@ -58,17 +58,15 @@
                 Control Panel</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#" onclick="publicProfile()">Public Profile</a>
-                <a class="dropdown-item" href="#" onclick="editProfile()">Edit Profile</a>
+                <a class="dropdown-item" href="indexLog.php?action=EditProfile">Edit Profile</a>
                 <a class="dropdown-item" href="#">Account Settings</a>
-                <a class="dropdown-item" href="#">Send Report</a>
+                <a class="dropdown-item" href="#" onclick="reportForm()">Send Report</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" onclick="logoutClicks()">Log Out</a>
             </div>
         </ul>
     </nav>
 </div>
-
-
 
 
 

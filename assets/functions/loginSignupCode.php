@@ -50,7 +50,7 @@ function signupTest($db, $found)
     $user_type = $_POST['userType'];
 
     if($found == true) {
-        //include_once("assets/forms/LoginForm.html");
+        //include_once("assets/forms/DepLoginForm.html");
         echo("User already found. Please enter another email.");
     }else
     {
@@ -60,7 +60,7 @@ function signupTest($db, $found)
                 if ($password1 == $password2) {
                     if($user_type == '')
                     {
-                        //include_once("assets/forms/LoginForm.html");
+                        //include_once("assets/forms/DepLoginForm.html");
                         echo("Error. No user type selected!");
                     }
                     else{
@@ -72,18 +72,18 @@ function signupTest($db, $found)
                         return $newest_id;
                     }
                 } else {
-                    //include_once("assets/forms/LoginForm.html");
+                    //include_once("assets/forms/DepLoginForm.html");
                     echo("Error. Passwords do no match");
                 }
             }
             else {
-                //include_once("assets/forms/LoginForm.html");
+                //include_once("assets/forms/DepLoginForm.html");
                 echo("<br> Error. Password needed.");
             }
         }
         else
         {
-            //include_once("assets/forms/LoginForm.html");
+            //include_once("assets/forms/DepLoginForm.html");
             echo("Error. Invalid email entered.");
         }
     }
@@ -102,7 +102,7 @@ function addUser($db, $password, $user, $user_type)
         $stmt->execute();
         $lastID = $db->lastInsertID();
         if($user_type != "Admin") {
-            //include_once("assets/forms/LoginForm.html");
+            //include_once("assets/forms/DepLoginForm.html");
         }
         echo("User added.");
         return $lastID;
