@@ -29,7 +29,6 @@ function addReport($db)
 
 function grabReports($db)
 {
-    $type = "Edit";
     $resolution = "No";
     $reportTable = "<table><thead><tr><th> User ID </th> <th>Title</th><th>Comment</th><th>Time</th></tr></thead>";
     try{
@@ -38,6 +37,7 @@ function grabReports($db)
         $stmt->execute();
         if($stmt->rowCount() > 0)
         {
+            $counter = 0;
             $reports = $stmt->fetchAll(PDO::FETCH_ASSOC);
             foreach($reports as $report)
             {
@@ -47,9 +47,12 @@ function grabReports($db)
                 $reportTime = $report['time'];
 
             $reportTable .= "<tr><td>" . $reportID . "</td><td>" . $reportTitle . "</td><td>"
-                    . $reportComments . "</td><td>" . $reportTime . "</td> <td>" . "</td></tr>";
+                    . $reportComments . "</td><td>" . $reportTime . "</td> <td>
+                <input type = \"button\" onclick = \"deleteReport()\" value = \"Delete\" />
+                </td></tr>";
+            $counter++;
             }
-            $reportTable .= "</table>";
+            $reportTable .= "</table></form>";
             echo $reportTable;
         }
 
@@ -61,4 +64,9 @@ function grabReports($db)
     {
         die("Grabbing the report list didn't work.");
     }
+}
+
+function deleteReport()
+{
+    echo("<br>In report php<br>");
 }

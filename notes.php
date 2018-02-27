@@ -9,18 +9,19 @@
 
 //Ben
 
-//Done - reducing searching errors and searching by pay, get nav bar changing properly, can properly edit profiles, search results link to public profiles
+//Done - can lock profiles from the admin account. Can only do this from admin account on a public profile. Cannot login a locked accnt.
+        //Fixed null on profile genre, can see unresolved reports in admin area
 
-//To do :  Fill in search afterward? Keep search history? Admin Area, lockout code + button,
+//To do : Fill in search afterward? Keep search history? More admin area things. Have the video link a hyperlink on public profile
 
-//Week 6 -  Both searches work - work on result output format and tweaking variables - work out back button after click?
-            //Searches work both logged in and logged out, no radius, rates search works
-//          Login works, log out works - again, work on verification
-//          Edit Profile show and saves!
-//          Control Panel menu works for 3.5 entries. Continue down the list. Report halfway done
-//          Sign up mostly done. check verification later
+//Week 6 -  Both searches work - work on result output format and tweaking variables
+            //Searches work both logged in and logged out, no radius, rates search works. Just need error checking messages
+//x          Edit Profile show and saves!
+//          Control Panel menu works for 4 entries. Continue down the list. Report just needs to go somewhere once it's sent.
+// x         Sign up/Sign In mostly done. check verification later
+            // Some Basic error messages done
 //          Work on default page (random search results?)
-//          Nav bar changed after login/logout. Code appropriate in each index
+//x          Nav bar changed after login/logout. Code appropriate in each index
 //          Formatting AFTER functionality
             //Work on formatting of the outputs and clearing the screen properly
 

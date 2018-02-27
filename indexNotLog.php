@@ -27,17 +27,24 @@ switch($action){
     case 'logmein':
 
         $id = signinTest($db);
+        $result = peekAtProfileStatus($db, $id);
+        echo " Result is " . $result;
 
-        if($id != "") {
-            $type = grabUserType($db, $id);
-            loginSession($id, $type);
-            if($_SESSION['userType'] == "Admin")
+        if($id != "")
+        {
+            if($result == "Locked")
             {
-                echo("Administrator");
+                echo("LOCKOUT");
             }
             else
             {
-                echo("Normal User");
+                $type = grabUserType($db, $id);
+                loginSession($id, $type);
+                if ($_SESSION['userType'] == "Admin") {
+                    echo("Administrator");
+                } else {
+                    echo("Normal User");
+                }
             }
         }
         else

@@ -45,7 +45,7 @@ function loginClicks()
             var return_data = hr.responseText;
             if(return_data == "Administrator")
             {
-                $("#contentOutput").html('admin boop');
+                //$("#contentOutput").html('admin boop');
 
             }
             else
@@ -53,7 +53,7 @@ function loginClicks()
                 //if(return_data.length > 0)
                 if(~return_data.indexOf("Error")) //Checks if the word error is in the return data
                 {
-                    $('#contentOutput').html(return_data);
+                    $('#phpresults').html(return_data);
                     console.log("Log in failed");
 
 
@@ -64,15 +64,19 @@ function loginClicks()
                         "        Sign In: <br>\n" +
                         "\n" +
                         "        Email Address: <input type=\"text\" name=\"signInEmail\" id=\"signInEmail\" /> <br>\n" +
-                        "        Password: <input type=\"text\" name=\"signInPassword\" id=\"signinPassword\"/><br>\n" +
-                        "        <!--<button type=\"button\" class=\"btn btn-secondary\" value = \"loginCheck\" id = \"loginCheckButton\" >Log Me In</button> -->\n" +
-                        "        <button type=\"button\" id = \"manualLogin\" class=\"btn btn-secondary\" value = \"backup\" onclick=\"backupLoginClicks()loginClicks()\" >Log Me In</button>\n" +
+                        "        Password: <input type=\"text\" name=\"signInPassword\" id=\"signInPassword\"/><br>\n" +
+                        "        <button type=\"button\" id = \"manualLogin\" class=\"btn btn-secondary\" value = \"backup\" onclick=\"backupLoginClicks()\" >Log Me In</button>\n" +
                         "    </form>\n" +
                         "    </div>\n" +
                         "</div>"
 
                     $('#contentOutput').html(pasteForm);
 
+                }
+                else if(~return_data.indexOf("LOCKOUT"))
+                {
+                    $('#phpresults').html("Your account is locked. You cannnot sign in.");
+                    console.log("Log in failed");
                 }
                 else
                 {
@@ -92,49 +96,60 @@ function loginClicks()
 //Redundant, but necessary for now
 function backupLoginClicks()
 {
-    function loginClicks() {
-        $("#phpresults").html("");
-        $("#contentOutput").html("");
 
-        var hr = new XMLHttpRequest();
-        var url = "indexNotLog.php";
-        var action = "logmein";
-        var email = $('#signInEmail').val();
-        var password = $('#signinPassword').val();
-        var vars = "action=" + action + "&email=" + email + "&password=" + password;
+    var hr = new XMLHttpRequest();
+    var url = "indexNotLog.php";
+    var action = "logmein";
+    var backupEmail = $('#signInEmail').val();
+    var backupPassword = $('#signInPassword').val();
+    var vars = "action=" + action + "&email=" + backupEmail + "&password=" + backupPassword;
 
-        hr.open("POST", url, true);
-        hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    hr.open("POST", url, true);
+    hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-        console.log(vars);
+    console.log(vars);
 
-        hr.onreadystatechange = function () {
-            if (hr.readyState == 4 && hr.status == 200) {
+    hr.onreadystatechange = function () {
+        if (hr.readyState == 4 && hr.status == 200) {
 
-                var return_data = hr.responseText;
-                if (return_data == "Administrator") {
-                    $("#contentOutput").html('admin boop');
+            var return_data = hr.responseText;
+            if (return_data == "Administrator") {
+                $("#contentOutput").html('admin boop');
+
+            }
+            else {
+                if (~return_data.indexOf("Error")) //Checks if the word error is in the return data
+                {
+                    console.log(return_data);
+                    $('#phpresults').html(return_data);
+
+                    var pasteForm = "<div class=\"container\">\n" +
+                        "    <div class=\"row\">\n" +
+                        "    <form method = 'post' action = \"#\">\n" +
+                        "\n" +
+                        "        Sign In: <br>\n" +
+                        "\n" +
+                        "        Email Address: <input type=\"text\" name=\"signInEmail\" id=\"signInEmail\" /> <br>\n" +
+                        "        Password: <input type=\"text\" name=\"signInPassword\" id=\"signInPassword\"/><br>\n" +
+                        "        <button type=\"button\" id = \"manualLogin\" class=\"btn btn-secondary\" value = \"backup\" onclick=\"backupLoginClicks()\" >Log Me In</button>\n" +
+                        "    </form>\n" +
+                        "    </div>\n" +
+                        "</div>"
+
+                    $('#contentOutput').html(pasteForm);
 
                 }
                 else {
-                    if (~return_data.indexOf("Error")) //Checks if the word error is in the return data
-                    {
-
-                        $('#phpresults').html("Login Unsuccessful");
-
-                    }
-                    else {
-                        console.log(return_data);
-                        window.location.href = "indexLog.php";
-                        console.log("Log in successful");
-                    }
+                    console.log(return_data);
+                    window.location.href = "indexLog.php";
+                    console.log("Log in successful");
                 }
             }
-        };
+        }
+    };
 
-        hr.send(vars);
-        console.log("Processing login..");
-    }
+    hr.send(vars);
+    console.log("Processing login..");
 
 }
 
@@ -197,8 +212,38 @@ function signUpClicks()
         if (hr.readyState == 4 && hr.status == 200) {
             var return_data = hr.responseText;
             console.log(return_data);
-            $("#phpresults").html(return_data);
+           // $("#phpresults").html(return_data);
+
+            if (~return_data.indexOf("Error")) //Checks if the word error is in the return data
+            {
+                console.log(return_data);
+                $('#phpresults').html(return_data);
+
+                var signUpForm = "<div class=\"container\">\n" +
+                    "    <div class=\"row\">\n" +
+                    "    <form method = 'post' action = \"#\">\n" +
+                    "\n" +
+                    "        Sign In: <br>\n" +
+                    "\n" +
+                    "        Email Address: <input type=\"text\" name=\"newEmail\" id=\"newEmail\" /> <br>\n" +
+                    "        Password: <input type=\"text\" name=\"newPassword\" id=\"newPassword\"/><br>\n" +
+                    "        Retype Password:  <input type=\"text\" name=\"newPassword2\" id=\"newPassword2\"/></n>" +
+                    "        <button type=\"button\" id = \"manualSignUp\" class=\"btn btn-secondary\" value = \"backup\" onclick=\"backupSignupClicks()\" >Sign Me Up</button>\n" +
+                "    </form>\n" +
+                "    </div>\n" +
+                "</div>"
+
+                $('#contentOutput').html(signUpForm);
+
+            }
+            else {
+                console.log(return_data);
+                window.location.href = "indexLog.php";
+                console.log("Log in successful");
+            }
         }
+
+
     };
 
     hr.send(vars);
@@ -206,6 +251,72 @@ function signUpClicks()
 
 }
 
+
+function backupSignupClicks(){
+
+    console.log("In SignupClicks");
+
+    $("#phpresults").html("");
+
+    var hr = new XMLHttpRequest();
+    var url = "indexNotLog.php";
+    var action = "signMeUp";
+
+    var newUserEmail = $('#newUserEmail').val();
+    var newUserPassword = $('#newUserPassword').val();
+    var newUserPassword2 = $('#newUserPassword2').val();
+
+    var userType = $('input[name=options]:checked').val()
+    //var userType = $('#userType').val();
+
+    var vars = "action=" + action + "&newUserEmail=" + newUserEmail + "&newUserPassword=" + newUserPassword
+        + "&newUserPassword2=" + newUserPassword2 + "&userType=" + userType;
+
+    hr.open("POST", url, true);
+    hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    console.log(vars);
+    hr.onreadystatechange = function () {
+        if (hr.readyState == 4 && hr.status == 200) {
+            var return_data = hr.responseText;
+            console.log(return_data);
+
+            if (~return_data.indexOf("Error")) //Checks if the word error is in the return data
+            {
+                console.log(return_data);
+                $('#phpresults').html(return_data);
+
+                var signUpForm = "<div class=\"container\">\n" +
+                    "    <div class=\"row\">\n" +
+                    "    <form method = 'post' action = \"#\">\n" +
+                    "\n" +
+                    "        Sign In: <br>\n" +
+                    "\n" +
+                    "        Email Address: <input type=\"text\" name=\"newEmail\" id=\"newEmail\" /> <br>\n" +
+                    "        Password: <input type=\"text\" name=\"newPassword\" id=\"newPassword\"/><br>\n" +
+                    "        Retype Password:  <input type=\"text\" name=\"newPassword2\" id=\"newPassword2\"/></n>" +
+                    "        <button type=\"button\" id = \"manualSignUp\" class=\"btn btn-secondary\" value = \"backup\" onclick=\"backupSignupClicks()\" >Sign Me Up</button>\n" +
+                "    </form>\n" +
+                "    </div>\n" +
+                "</div>"
+
+                $('#contentOutput').html(signUpForm);
+
+            }
+            else {
+                console.log(return_data);
+                window.location.href = "indexLog.php";
+                console.log("Log in successful");
+            }
+        }
+
+    };
+
+    hr.send(vars);
+    console.log("Processing signup..");
+
+
+}
 
 //Called to get the edit profile php code, returns the form with values in it(?!)
 function editProfile()
@@ -266,6 +377,35 @@ function publicProfile()
     hr.send(vars);
     console.log("Processing public..");
 
+}
+
+
+function changeProfileStatus()
+{
+    $("#phpresults").html("");
+
+    var hr = new XMLHttpRequest();
+    var url = "indexLog.php";
+    var action = "saveStatus";
+    var profileStatus =  $('input[name=profileStatus]:checked').val();
+    var user_id =  $('#hiddenID').val();
+
+    var vars = "action=" + action + "&user_id=" + user_id + "&profileStatus=" + profileStatus;
+
+    hr.open("POST", url, true);
+    hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    console.log(vars);
+    hr.onreadystatechange = function () {
+        if (hr.readyState == 4 && hr.status == 200) {
+            var return_data = hr.responseText;
+            console.log(return_data);
+            //$("#contentOutput").html(return_data);
+        }
+    };
+
+    hr.send(vars);
+    console.log("Processing profile status..");
 }
 
 //Showing the advanced search options, though there's extra text atm
@@ -407,8 +547,7 @@ function reportForm()
 //sends the report form
 function reportIssues()
 {
-    $("#phpresults").html("");
-    $("#contentOutput").html("");
+
     var hr = new XMLHttpRequest();
     var url = "indexLog.php";
     var action = "reportIssues";
@@ -418,7 +557,7 @@ function reportIssues()
     var vars = "action=" + action + "&reportType=" + type + "&reportDetails=" + details;
 
     console.log(vars);
-    /*
+
     hr.open("POST", url, true);
     hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
@@ -429,25 +568,32 @@ function reportIssues()
 
             var return_data = hr.responseText;
             console.log("Return data: " + return_data);
+            $('#phpresults').html("Report sent.")
         }
     };
 
     hr.send(vars);
     console.log("Processing issue form..");
-    */
+
 }
 
-function searchProfileClick(id)
+function searchProfileClick(id, search)
 {
     $("#phpresults").html("");
-    console.log("ID is: " + id);
+
+    var userID = id;
+    var searchHistory = search;
+
+
+    console.log("Id is " + id + " history is " + search);
+    console.log("Id is " + userID + " history is " + searchHistory);
+
 
     var hr = new XMLHttpRequest();
     var url = "indexLog.php";
     var action = "searchResultClick";
-    var profileID = id;
 
-    var vars = "action=" + action + "&profileID=" + profileID;
+    var vars = "action=" + action + "&profileID=" + userID + "&searchVar=" + searchHistory;
 
     console.log("Vars is " + vars);
 
@@ -464,6 +610,57 @@ function searchProfileClick(id)
     };
     hr.send(vars);
     console.log("Processing search result click..");
+}
+
+function checkReports(){
+
+    var hr = new XMLHttpRequest();
+    var url = "indexLog.php";
+    var action = "checkReports";
+
+    hr.open("POST", url, true);
+    hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    var vars = "action=" + action;
+    console.log(vars);
+
+    hr.onreadystatechange = function () {
+        if (hr.readyState == 4 && hr.status == 200) {
+
+            var return_data = hr.responseText;
+            $('#contentOutput').html(return_data);
+        }
+    };
+
+    hr.send(vars);
+    console.log("Checking reports..");
+}
+
+function deleteReport()
+{
+    console.log("Delete Clicked");
+
+    var hr = new XMLHttpRequest();
+    var url = "indexLog.php";
+    var action = "deleteReport";
+
+    hr.open("POST", url, true);
+    hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    var vars = "action=" + action;
+    console.log(vars);
+
+    hr.onreadystatechange = function () {
+        if (hr.readyState == 4 && hr.status == 200) {
+
+            var return_data = hr.responseText;
+            $('#contentOutput').html(return_data);
+        }
+    };
+
+    hr.send(vars);
+    console.log("Updating reports..");
+
 }
 
 function returnToStart()

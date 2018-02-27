@@ -135,6 +135,7 @@ function signinTest($db)
 
                 if ($user['email'] == $email && password_verify($password, $user['password']))
                 {
+
                     $successfulLogin = $user['user_id'];
                 }
             }
@@ -146,6 +147,25 @@ function signinTest($db)
         return ($successfulLogin);
     } catch (PDOException $e) {
         die("Grabbing the user list didn't work.");
+    }
+}
+
+
+function peekAtProfileStatus($db, $successfulLogin)
+{
+
+    try{
+        $stmt = $db->prepare("SELECT * FROM profiles WHERE user_id = :user_id");
+
+        $stmt->bindParam(':user_id', $successfulLogin);
+        $stmt->execute();
+
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $checkedProfileValue = $user['profileStatus'];
+        return $checkedProfileValue;
+
+    }catch (PDOException $e){
+        die("Looking at the profile status didn't work");
     }
 }
 

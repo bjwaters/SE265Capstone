@@ -98,6 +98,12 @@ function editProfile($db)
     $editAvailability = $_POST['availability'];
     $editComments = $_POST['comments'];
     $editGenre = $_POST['genre_drop'];
+
+    if($editGenre == "null")
+    {
+        $editGenre = "Unselected";
+    }
+
     $editVideoLink = $_POST['videoLink'];
 
 
@@ -165,7 +171,27 @@ function editProfile($db)
     }
 }
 
-//removing later
+function saveStatus($db)
+{
+    $setID = $_POST['user_id'];
+    $setProfileStatus = $_POST['profileStatus'];
+    //echo "In savestatus: ID is  " .  $setID . " status: " . $setProfileStatus;
+
+    try {
+        $stmt = $db->prepare("UPDATE profiles SET  profileStatus=:profileStatus WHERE user_id = :user_id");
+        $stmt->bindParam(':profileStatus', $setProfileStatus);
+        $stmt->bindParam(':user_id', $setID);
+        $stmt->execute();
+        echo("Successful");
+
+    } catch (PDOException $e) {
+        $e->getMessage();
+        echo "<br>" . $e;
+        die("<br>Editing a user profile did not work.");
+    }
+
+}
+
 function genreArray(){
     $genre = array("Rock", "Classical", "Alternative", "Dubstep", "Country", "Other");
     return $genre;

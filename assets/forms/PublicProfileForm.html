@@ -26,13 +26,11 @@
 
         <input type = "submit" name = "action" value = "Message User" /><br>
 
-
-
         <?php
 
 
             if(isset($_SESSION['userType']) && $_SESSION['userType'] == "Admin")
-                echo "Profile status: Locked";; ?>
+                echo "Profile status:<br> Locked";; ?>
         <input type =
             <?php if(isset($_SESSION['userType']) && $_SESSION['userType'] == "Admin")
                 { echo "radio"; }
@@ -44,10 +42,20 @@
             <?php if(isset($_SESSION['userType']) && $_SESSION['userType'] == "Admin")
                 { echo "radio"; }
                 else echo "hidden"; ?>
-        name='profileStatus' <?php if($editProfileStatus == "Unlocked") echo "checked" ?> value = "Unlocked" />
+        name='profileStatus' <?php if($editProfileStatus == "Unlocked") echo "checked" ?> value = "Unlocked" /><br>
+
+        <input type =
+                       <?php if(isset($_SESSION['userType']) && $_SESSION['userType'] == "Admin")
+                        {echo "button";}
+                        else
+                        {echo "hidden";} ?>
+               value = "Save Profile Status" onclick="changeProfileStatus()" />
 
         <br><br>
         Ratings will go here, if there are any.
+       <br> <input type="hidden" id="hiddenID" value="<?php echo $editUserID ?>" />
+
+        <input type="button" id="BackButton" value="Back to Search Page" />
 
     </form>
     </div>

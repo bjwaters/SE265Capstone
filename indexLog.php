@@ -39,7 +39,6 @@ switch($action){
         break;
     case "searchResultClick":
         $profileType = "Public";
-        echo("profile id is " . $profileID . "<br>");
         grabProfile($db, $profileID, $profileType);
         break;
 
@@ -52,9 +51,11 @@ switch($action){
 
 
     case 'Save Edit':
-        $test = editProfile($db);
+        editProfile($db);
         include_once('homepageLogged.php');
-        echo("Return should be: " . $test);
+        break;
+    case 'saveStatus':
+        saveStatus($db);
         break;
 
 
@@ -72,8 +73,16 @@ switch($action){
     case 'reportIssues':
         addReport($db);
         break;
+    case 'checkReports':
+        grabReports($db);
+        break;
+    case 'deleteReport':
+        echo("In index");
+        deleteReport();
+        break;
 
     default:
         include_once('homepageLogged.php');
+        include_once('assets/forms/adminForm.php');
         break;
 }
