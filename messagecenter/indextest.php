@@ -35,7 +35,10 @@ if(!isset($_SESSION))session_start();
             break;
         case 'myBookings':
             include_once("testheader.php");
-            echo getAllBookings($db, $_SESSION['userID']);
+            //echo getAllBookings($db, $_SESSION['userID']);
+            echo getPendingBookings($db, $_SESSION['userID']);
+            echo getAcceptedBookings($db, $_SESSION['userID']);
+            echo getCompletedBookings($db, $_SESSION['userID']);
             break;
         case 'Profile':
             include_once("testheader.php");
@@ -52,15 +55,20 @@ if(!isset($_SESSION))session_start();
             echo "text on index: " . $text;
             echo newMessage($db, $_POST['bookerID'], $_POST['musicianID'], $_SESSION['userID'], $text);
             break;
-        case 'Request Booking':
+        case 'requestBooking':
             // Convert booking date to format
+            $bookingDate = $_POST['date'];
+            $hours = $_POST['hours'];
+            $pay = $_POST['pay'];
+            $bookingText = $_POST['text'];
+
             $bTime = strtotime($bookingDate);
             $bDate = date("Y-m-d H:i", $bTime);
 
-            echo newBooking($db, $booker_id, $musician_id, $bDate, $hours, $pay, $status='pending');
+            echo newBooking($db, $_POST['bookerID'], $_POST['musicianID'], $bDate, $hours, $pay, $status='pending');
 
             if(strlen($bookingText) > 0){
-                echo newMessage($db, $booker_id, $musician_id,  $_SESSION['userID'] , $bookingText);
+                echo newMessage($db, $_POST['bookerID'], $_POST['musicianID'],  $_SESSION['userID'] , $bookingText);
             }
             break;
     }

@@ -75,6 +75,94 @@ function getAllBookings($db, $user_id){ //Function to view products in a table w
     }
 }
 
+
+function getPendingBookings($db, $user_id){
+    try {
+        if($_SESSION['userType'] = 'Booker'){
+            $sql = $db->prepare("SELECT * FROM bookings WHERE booker_id = :user_id AND status = 'pending'");
+        } else {
+            $sql = $db->prepare("SELECT * FROM bookings WHERE musician_id = :user_id AND status = 'pending'");
+        }
+
+        $sql->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $sql->execute();
+        $bookings = $sql->fetchAll(PDO::FETCH_ASSOC);
+        $table = "<table class='table'>" . PHP_EOL;
+        $table .= "<tr><th>Pending Bookings</th></tr>";
+        foreach ($bookings as $b) {
+            $table .= "<tr><td>" . $b['booking_id'] . "</td><td>" . $b['booking_date'] . "</td><td>" . "$" . $b['pay'] . $b['number_of_hours'] . "</td>";
+            if($_SESSION['userType'] == 'Booker') {
+                $table .= "<td><a href='indextest.php?action=Profile&bookerID=" . $user_id . "&musicianID=" . $b['musician_id']."'>UserID: " . $b['musician_id'] . "</a>";
+            } else{
+                $table .= "<td><a href='indextest.php?action=Profile&musicianID=" . $user_id . "&bookerID=" . $b['booker_id']."'>UserID: " . $b['booker_id'] . "</a>";
+            }
+        }
+        $table .= "</table>";
+        return $table;
+    }
+    catch (PDOException $e){
+        die("There was a problem deleting the record."); //Error message if it fails to add new data to the db
+    }
+}
+
+function getAcceptedBookings($db, $user_id){
+    try {
+        if($_SESSION['userType'] = 'Booker'){
+            $sql = $db->prepare("SELECT * FROM bookings WHERE booker_id = :user_id AND status = 'accepted'");
+        } else {
+            $sql = $db->prepare("SELECT * FROM bookings WHERE musician_id = :user_id AND status = 'accepted'");
+        }
+
+        $sql->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $sql->execute();
+        $bookings = $sql->fetchAll(PDO::FETCH_ASSOC);
+        $table = "<table class='table'>" . PHP_EOL;
+        $table .= "<tr><th>Accepted Bookings</th></tr>";
+        foreach ($bookings as $b) {
+            $table .= "<tr><td>" . $b['booking_id'] . "</td><td>" . $b['booking_date'] . "</td><td>" . "$" . $b['pay'] . $b['number_of_hours'] . "</td>";
+            if($_SESSION['userType'] == 'Booker') {
+                $table .= "<td><a href='indextest.php?action=Profile&bookerID=" . $user_id . "&musicianID=" . $b['musician_id']."'>UserID: " . $b['musician_id'] . "</a>";
+            } else{
+                $table .= "<td><a href='indextest.php?action=Profile&musicianID=" . $user_id . "&bookerID=" . $b['booker_id']."'>UserID: " . $b['booker_id'] . "</a>";
+            }
+        }
+        $table .= "</table>";
+        return $table;
+    }
+    catch (PDOException $e){
+        die("There was a problem deleting the record."); //Error message if it fails to add new data to the db
+    }
+}
+
+function getCompletedBookings($db, $user_id){
+    try {
+        if($_SESSION['userType'] = 'Booker'){
+            $sql = $db->prepare("SELECT * FROM bookings WHERE booker_id = :user_id AND status = 'completed'");
+        } else {
+            $sql = $db->prepare("SELECT * FROM bookings WHERE musician_id = :user_id AND status = 'completed'");
+        }
+
+        $sql->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $sql->execute();
+        $bookings = $sql->fetchAll(PDO::FETCH_ASSOC);
+        $table = "<table class='table'>" . PHP_EOL;
+        $table .= "<tr><th>Completed Bookings</th></tr>";
+        foreach ($bookings as $b) {
+            $table .= "<tr><td>" . $b['booking_id'] . "</td><td>" . $b['booking_date'] . "</td><td>" . "$" . $b['pay'] . $b['number_of_hours'] . "</td>";
+            if($_SESSION['userType'] == 'Booker') {
+                $table .= "<td><a href='indextest.php?action=Profile&bookerID=" . $user_id . "&musicianID=" . $b['musician_id']."'>UserID: " . $b['musician_id'] . "</a>";
+            } else{
+                $table .= "<td><a href='indextest.php?action=Profile&musicianID=" . $user_id . "&bookerID=" . $b['booker_id']."'>UserID: " . $b['booker_id'] . "</a>";
+            }
+        }
+        $table .= "</table>";
+        return $table;
+    }
+    catch (PDOException $e){
+        die("There was a problem deleting the record."); //Error message if it fails to add new data to the db
+    }
+}
+
 function getBookingsByIDs($db, $booker_id, $musician_id){ //Function to view products in a table with links to edit product details
     try {
         $sql = $db->prepare("SELECT * FROM bookings WHERE booker_id = :booker_id AND musician_id = :musician_id");
