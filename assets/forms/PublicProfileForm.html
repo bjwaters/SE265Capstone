@@ -18,10 +18,10 @@
         Comments: <?php echo $editComments?><br>
         availability: <?php echo $editAvailability?><br><br>
 
-        <img src = 'assets/Uploads/<?php echo $editPicture?>' width='150'
+        <img src = 'assets/Uploads/<?php echo $editPicture?>' width='150'>
         <br><br>
 
-        Video Link: <?php echo $editVideoLink?> <br> <br>
+        Video Link: <?php echo "<a href='$editVideoLink'>Video Link</a>" ?> <br> <br>
         <input type = "submit" name = "action" value = "Request Booking" /><br>
 
         <input type = "submit" name = "action" value = "Message User" /><br>
@@ -55,7 +55,7 @@
         Ratings will go here, if there are any.
        <br> <input type="hidden" id="hiddenID" value="<?php echo $editUserID ?>" />
 
-        <input type="button" id="BackButton" value="Back to Search Page" />
+        <input type="button" onclick="searchHistory()" value="Back to Search Page" />
 
     </form>
     </div>

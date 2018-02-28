@@ -432,17 +432,17 @@ function showAdvancedSearch()
     hr.send(vars);
 }
 
+
 function simpleSearchLogged(e)
 {
     e.preventDefault();
-    console.log("Simple search, Logged")
+
 
     var hr = new XMLHttpRequest();
     var url = "indexLog.php";
     var action = "simpleSearch";
-    var term = $('#simpleSearchLocationLogged').val();
 
-    var vars = "action=" + action + "&term=" + term;
+    var vars = "action=" + action;
 
     console.log("vars are " + vars);
 
@@ -460,6 +460,8 @@ function simpleSearchLogged(e)
     hr.send(vars);
     console.log("Processing simple searching..");
 }
+
+
 
 //Simple search result from the main navbar
 function simpleSearchNotLogged(e)
@@ -577,23 +579,18 @@ function reportIssues()
 
 }
 
-function searchProfileClick(id, search)
+function searchProfileClick(id)
 {
     $("#phpresults").html("");
 
     var userID = id;
-    var searchHistory = search;
-
-
-    console.log("Id is " + id + " history is " + search);
-    console.log("Id is " + userID + " history is " + searchHistory);
 
 
     var hr = new XMLHttpRequest();
     var url = "indexLog.php";
     var action = "searchResultClick";
 
-    var vars = "action=" + action + "&profileID=" + userID + "&searchVar=" + searchHistory;
+    var vars = "action=" + action + "&profileID=" + userID;
 
     console.log("Vars is " + vars);
 
@@ -610,6 +607,35 @@ function searchProfileClick(id, search)
     };
     hr.send(vars);
     console.log("Processing search result click..");
+}
+
+
+function searchHistory()
+{
+    console.log("Burp");
+
+    var hr = new XMLHttpRequest();
+    var url = "indexLog.php";
+    var action = "Back to Search Page";
+
+    var vars = "action=" + action;
+
+    console.log("Vars is " + vars);
+
+    hr.open("POST", url, true);
+    hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+
+    hr.onreadystatechange = function () {
+        if (hr.readyState == 4 && hr.status == 200) {
+            var return_data = hr.responseText;
+            //console.log(return_data);
+            $("#contentOutput").html(return_data);
+            $("#phpresults").html("");
+        }
+    };
+    hr.send(vars);
+    console.log("Processing back button..");
 }
 
 function checkReports(){

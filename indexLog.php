@@ -30,17 +30,40 @@ switch($action){
     case 'simpleSearch':
         $category = "location";
         searchLoc($db);
+        //echo($_SESSION['searchHistory']);
         break;
     case 'showAdvancedSearch':
         showAdvancedSearch();
         break;
     case 'advancedSearch':
-        searchAll($db);
+        $back = false;
+        searchAll($db, $back);
+        //echo($_SESSION['searchHistory']);
         break;
     case "searchResultClick":
         $profileType = "Public";
         grabProfile($db, $profileID, $profileType);
         break;
+
+    case 'Back to Search Page':
+        if(isset($_SESSION['searchHistory']) && isset($_SESSION['searchType']))
+        {
+            if($_SESSION['searchType'] == "simple")
+            {
+                $_POST['term'] = $_SESSION['searchHistory'];
+                showAdvancedSearch();
+                searchLoc($db);
+            }
+            else
+            {
+                $back = true;
+                showAdvancedSearch();
+                searchAll($db, $back);
+            }
+        }
+
+        break;
+
 
     case 'EditProfile':
         include_once('homepageLogged.php');
@@ -83,6 +106,8 @@ switch($action){
 
     default:
         include_once('homepageLogged.php');
-        include_once('assets/forms/adminForm.php');
+        if($_SESSION['userType'] == "Admin") {
+            include_once('assets/forms/adminForm.php');
+        }
         break;
 }

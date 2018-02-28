@@ -18,6 +18,9 @@ function searchLoc($db){
     $text = $_POST['term'];
     $text = strtolower($text);
 
+    $_SESSION['searchHistory'] = $text;
+    $_SESSION['searchType'] = "simple";
+
     try {
 
         $sql = $db->prepare("SELECT * FROM profiles WHERE $category LIKE '%$text%'");
@@ -57,45 +60,54 @@ function searchLoc($db){
 }
 
 //Pay rate coming later, searches all things
-function searchAll($db){
+function searchAll($db, $back){
 
-    $searchName = $_POST['searchName'];
-    $searchLocation = $_POST['searchLocation'];
-    //$searchRadius = $_POST['searchRadius'];
-    $searchAvailability = $_POST['searchAvailability'];
-    $searchGenre =  $_POST['genreSearch_drop'];
-    $searchRate1 = $_POST['searchPayRate1'];
-    $searchRate2 = $_POST['searchPayRate2'];
+    if(isset($_POST['searchName']) && isset($_POST['searchLocation']) && isset($_POST['searchAvailability']) && isset($_POST['genreSearch_drop']) && isset($_POST['searchPayRate1']) && isset($_POST['searchPayRate2'])) {
+        $searchName = $_POST['searchName'];
+        $searchLocation = $_POST['searchLocation'];
+        $searchAvailability = $_POST['searchAvailability'];
+        $searchGenre = $_POST['genreSearch_drop'];
+        $searchRate1 = $_POST['searchPayRate1'];
+        $searchRate2 = $_POST['searchPayRate2'];
 
-    $searchString = "SELECT * FROM profiles WHERE 0=0 ";
+        $searchString = "SELECT * FROM profiles WHERE 0=0 ";
 
-    if($searchName != "")
-    {
-        $searchName = strtolower($searchName);
-        $searchString .= "AND userName LIKE '%$searchName%'";
+        if ($searchName != "") {
+            $searchName = strtolower($searchName);
+            $searchString .= "AND userName LIKE '%$searchName%'";
+        }
+        if ($searchLocation != "") {
+            $searchLocation = strtolower($searchLocation);
+            $searchString .= "AND location LIKE '%$searchLocation%'";
+        }
+        if ($searchGenre != "null") {
+            $searchGenre = strtolower($searchGenre);
+            $searchString .= "AND genre LIKE '%$searchGenre%'";
+        }
+        if ($searchAvailability != "") {
+            $searchAvailability = strtolower($searchAvailability);
+            $searchString .= "AND availability LIKE '%$searchAvailability%'";
+        }
+
+        var_dump($searchString);
+        var_dump($searchRate1);
+        var_dump($searchRate2);
     }
-    if($searchLocation != "")
+    else
     {
-        $searchLocation = strtolower($searchLocation);
-        $searchString .= "AND location LIKE '%$searchLocation%'";
-    }
-    //if($searchRadius != "")
-    //{
-    //    $searchString .= "AND radius LIKE '%$searchRadius%'";
-    //}
-    if($searchGenre != "null")
-    {
-        $searchGenre = strtolower($searchGenre);
-        $searchString .= "AND genre LIKE '%$searchGenre%'";
-    }
-    if($searchAvailability != "")
-    {
-        $searchAvailability = strtolower($searchAvailability);
-        $searchString .= "AND availability LIKE '%$searchAvailability%'";
+        $searchRate1 = "";
+        $searchRate2 = "";
     }
 
-    var_dump($searchString);
-
+    if($back == false)
+    {
+        $_SESSION['searchHistory'] = $searchString;
+        $_SESSION['searchType'] = "advanced";
+    }
+    else
+    {
+        $searchString = $_SESSION['searchHistory'];
+    }
 
     try {
 
@@ -112,6 +124,7 @@ function searchAll($db){
             $table .= "<tr>";
             foreach ($results as $result)
             {
+                //if(isset($searchRate1) && isset($searchRate2)
                 if($searchRate1 != "" and $searchRate2 != "")  //If both are contain a value
                 {
                     settype($searchRate1, "float");

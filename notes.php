@@ -10,11 +10,12 @@
 //Ben
 
 //Done - can lock profiles from the admin account. Can only do this from admin account on a public profile. Cannot login a locked accnt.
-        //Fixed null on profile genre, can see unresolved reports in admin area
+        //Fixed null on profile genre, can see unresolved reports in admin area. Search History ok! Video link on public profile
 
-//To do : Fill in search afterward? Keep search history? More admin area things. Have the video link a hyperlink on public profile
+//To do : Fill in search afterward? More admin area - create admin. account settings. Report at lockout. back button on public profile
+//Http5 form validation
 
-//Week 6 -  Both searches work - work on result output format and tweaking variables
+//Week 7 -  Both searches work - work on result output format and tweaking variables
             //Searches work both logged in and logged out, no radius, rates search works. Just need error checking messages
 //x          Edit Profile show and saves!
 //          Control Panel menu works for 4 entries. Continue down the list. Report just needs to go somewhere once it's sent.
