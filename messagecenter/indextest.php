@@ -48,7 +48,9 @@ if(!isset($_SESSION))session_start();
             echo getMessagesByIDs($db, $_GET['bookerID'], $_GET['musicianID']);
             break;
         case 'getBookings':
-            echo getBookingsByIDs($db, $_GET['bookerID'], $_GET['musicianID']);
+            $booker_id = filter_input(INPUT_POST, 'bookerID', FILTER_SANITIZE_STRING) ?? NULL;
+            echo $booker_id;
+            //echo getBookingsByIDs($db, $_GET['bookerID'], $_GET['musicianID']);
             break;
         case 'sendMessage':
             $text = $_POST['text'];

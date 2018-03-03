@@ -136,7 +136,6 @@
 
 
 
-
 </script>
 <div class="container">
 
@@ -158,16 +157,16 @@
 
         <div class="tab-pane fade" id="bookings" role="tabpanel" aria-labelledby="bookings-tab">
             <span id="allBookings"></span>
-            <form action="#" method="post">
+            <form id="booking-form" action="#" method="post">
                 <h2>Book User</h2>
-                Date: <input type="date" name="booking-date" id="booking-date">
-                Time: <input type="time" name="start" id="booking-time"/><br />
-                Hours: <input type="text" name="hours" id="booking-hours" onfocusout="getTotal()"/><br />
-                Total: <input type="text" name="pay" id="booking-total" disabled/><br />
+                Date: <input type="date" name="booking-date" id="booking-date" required>
+                Time: <input type="time" name="start" id="booking-time" required/><br />
+                Hours: <input type="text" name="hours" id="booking-hours" onfocusout="validateForm() getTotal()" required/><br />
+                Total: <input type="text" name="pay" id="booking-total" placeholder="0" disabled/><br />
                 Message: <br />
                 <textarea name="bookingText" rows="4" cols="50" id="booking-text"></textarea><br />
 
-                <input type="button" name="action" value="Request Booking" onclick="sendBooking()">
+                <input type="button" name="action" value="Request Booking" disabled="true" onclick="sendBooking()">
             </form>
         </div>
 

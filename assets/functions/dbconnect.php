@@ -10,7 +10,7 @@
 function dbConnect()
 {
     $dsn = "mysql:host=localhost; dbname=capstone";
-    $username = "bjwaters";
+    $username = "capstone";
     $password = "php";
     try {
         $db = new PDO($dsn, $username, $password);
