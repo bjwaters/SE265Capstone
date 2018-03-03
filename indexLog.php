@@ -6,8 +6,13 @@
  * Time: 5:20 PM
  */
 
-
-session_start();
+if(!isset($_SESSION)) {
+    session_start();
+}
+if($_SESSION['userID'] == NULL || !isset($_SESSION['userID']))
+{
+    header('Location: indexNotLog.php');
+}
 
 require_once("assets/functions/dbconnect.php");
 require_once("assets/functions/loginSignupCode.php");
@@ -64,6 +69,17 @@ switch($action){
 
         break;
 
+    case 'createAdmin':
+        echo ("In create admin php");
+        include_once("assets/forms/adminMakerForm.php");
+        break;
+    case 'adminEntry':
+        $email = $_POST['adminEmail'];
+        $pass = $_POST['adminPass1'];
+        $pass2 = $_POST['adminPass2'];
+
+        adminSignup($db, $email, $pass, $pass2);
+        break;
 
     case 'EditProfile':
         include_once('homepageLogged.php');
@@ -71,7 +87,6 @@ switch($action){
         $profileType = "Edit";
         grabProfile($db, $editID, $profileType);
         break;
-
 
     case 'Save Edit':
         editProfile($db);
@@ -81,27 +96,34 @@ switch($action){
         saveStatus($db);
         break;
 
-
     case 'Public Profile':
         if(isset($_SESSION['userID'])) {
             $editID = $_SESSION['userID'];
             $profileType = "Public";
-
             grabProfile($db, $editID, $profileType);
         }
         else
             echo"No person logged in.";
         break;
 
+    case 'reportForm':
+        include_once('assets/forms/ReportMakerForm.html');
+        break;
     case 'reportIssues':
         addReport($db);
         break;
     case 'checkReports':
         grabReports($db);
         break;
-    case 'deleteReport':
-        echo("In index");
-        deleteReport();
+    case 'changeReportStatus':
+        deleteReport($db);
+        break;
+
+    case 'accountSettingsForm':
+        include_once('assets/forms/AccountSettingForm.php');
+        break;
+    case 'accountSettingsSet':
+        accountSettingcode($db);
         break;
 
     default:

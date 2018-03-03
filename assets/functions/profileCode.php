@@ -12,8 +12,8 @@ function addProfile($db, $new_id)
 {
     settype($new_id, 'integer');
     $userName = "Enter name here";
-    $location = "Enter location here";
-    $radius = 0;
+    $city = "Enter city here";
+    $state = "RI";
     $genre = "Musical genre here";
     $pay = 0;
     $availability = "Enter availability here";
@@ -23,12 +23,12 @@ function addProfile($db, $new_id)
     $profileStatus = "Unlocked";
 
     try{
-        $stmt = $db->prepare("INSERT INTO profiles VALUES (:new_id, :userName, :location,
-        :radius, :genre, :pay, :availability, :comments, :picture, :videoLink, :profileStatus)");
+        $stmt = $db->prepare("INSERT INTO profiles VALUES (:new_id, :userName, :city,
+        :state, :genre, :pay, :availability, :comments, :picture, :videoLink, :profileStatus)");
         $stmt->bindParam(':new_id', $new_id);
         $stmt->bindParam(':userName', $userName);
-        $stmt->bindParam(':location', $location);
-        $stmt->bindParam(':radius', $radius);
+        $stmt->bindParam(':city', $city);
+        $stmt->bindParam(':state', $state);
         $stmt->bindParam(':genre', $genre);
         $stmt->bindParam(':pay', $pay);
         $stmt->bindParam(':availability', $availability);
@@ -58,8 +58,8 @@ function grabProfile($db, $neededID, $type)
             foreach ($profiles as $profile) {
                 $editUserID = $profile['user_id'];
                 $editUserName = $profile['userName'];
-                $editLocation = $profile['location'];
-                $editRadius = $profile['radius'];
+                $editCity = $profile['city'];
+                $editState = $profile['state'];
                 $editGenre = $profile['genre'];
                 $editPay = $profile['pay'];
                 $editAvailability = $profile['availability'];
@@ -92,8 +92,8 @@ function editProfile($db)
 
     $editUserID = $_POST['user_id'];
     $editUserName = $_POST['userName'];
-    $editLocation = $_POST['location'];
-    $editRadius = $_POST['radius'];
+    $editCity = $_POST['city'];
+    $editState = $_POST['state_drop'];
     $editPay = $_POST['pay'];
     $editAvailability = $_POST['availability'];
     $editComments = $_POST['comments'];
@@ -102,6 +102,10 @@ function editProfile($db)
     if($editGenre == "null")
     {
         $editGenre = "Unselected";
+    }
+    if($editState == "null")
+    {
+        $editState = "RI";
     }
 
     $editVideoLink = $_POST['videoLink'];
@@ -146,14 +150,13 @@ function editProfile($db)
         $editPicture = $checker;
     }
 
-
     //Transferring data
     try {
-        $stmt = $db->prepare("UPDATE profiles SET userName=:userName, location=:location, radius=:radius, genre=:genre, pay=:pay,
+        $stmt = $db->prepare("UPDATE profiles SET userName=:userName, city=:city, state=:state, genre=:genre, pay=:pay,
               availability=:availability, comments=:comments, picture=:picture, videoLink=:videoLink, profileStatus=:profileStatus WHERE user_id = :user_id");
         $stmt->bindParam(':userName', $editUserName);
-        $stmt->bindParam(':location', $editLocation);
-        $stmt->bindParam(':radius', $editRadius);
+        $stmt->bindParam(':city', $editCity);
+        $stmt->bindParam(':state', $editState);
         $stmt->bindParam(':genre', $editGenre);
         $stmt->bindParam(':pay', $editPay);
         $stmt->bindParam(':availability', $editAvailability);
@@ -195,4 +198,14 @@ function saveStatus($db)
 function genreArray(){
     $genre = array("Rock", "Classical", "Alternative", "Dubstep", "Country", "Other");
     return $genre;
+}
+
+function stateArray()
+{
+    $states = array("AL", "AK", "AZ", "AR","CA", "CO", "CT", "DE", "FL","GA",
+	    "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI",
+	    "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND",
+	    "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA",
+	    "WA", "WV", "WI", "WY");
+    return $states;
 }

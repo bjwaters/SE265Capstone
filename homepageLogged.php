@@ -59,7 +59,7 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#" onclick="publicProfile()">Public Profile</a>
                 <a class="dropdown-item" href="indexLog.php?action=EditProfile">Edit Profile</a>
-                <a class="dropdown-item" href="#">Account Settings</a>
+                <a class="dropdown-item" href="#" onclick="accountSettingsForm()">Account Settings</a>
                 <a class="dropdown-item" href="#" onclick="reportForm()">Send Report</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" onclick="logoutClicks()">Log Out</a>

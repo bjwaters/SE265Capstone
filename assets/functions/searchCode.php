@@ -15,10 +15,11 @@ function showAdvancedSearch()
 function searchLoc($db){
 
     $category = "location";
+
     $text = $_POST['term'];
     $text = strtolower($text);
-
     $_SESSION['searchHistory'] = $text;
+
     $_SESSION['searchType'] = "simple";
 
     try {

@@ -6,7 +6,9 @@
  * Time: 7:44 PM
  */
 
-session_start();
+if(!isset($_SESSION)) {
+    session_start();
+}
 
 require_once("assets/functions/dbconnect.php");
 require_once("assets/functions/loginSignupCode.php");
@@ -28,7 +30,7 @@ switch($action){
 
         $id = signinTest($db);
         $result = peekAtProfileStatus($db, $id);
-        echo " Result is " . $result;
+        echo $result;
 
         if($id != "")
         {

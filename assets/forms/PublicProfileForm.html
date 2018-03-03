@@ -12,7 +12,7 @@
     <form method = 'get' action = "#">
         <h3>Public Profile </h3>
         Name: <?php echo $editUserName?> <br>
-        Location: <?php echo $editLocation?> Radius: <?php echo $editRadius?><br>
+        City: <?php echo $editCity?> State: <?php echo $editState?><br>
         Music genre: <?php echo $editGenre?> <br>
         Pay: <?php echo $editPay?><br>
         Comments: <?php echo $editComments?><br>
@@ -55,7 +55,11 @@
         Ratings will go here, if there are any.
        <br> <input type="hidden" id="hiddenID" value="<?php echo $editUserID ?>" />
 
-        <input type="button" onclick="searchHistory()" value="Back to Search Page" />
+        <input type=
+                       <?php if( isset($_SESSION['searchHistory']))
+                        {echo "button";}
+                        else echo "hidden"; ?>
+                onclick="searchHistory()" value="Back to Search Page" />
 
     </form>
     </div>

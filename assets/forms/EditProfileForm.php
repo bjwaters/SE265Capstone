@@ -16,20 +16,33 @@
 
         <input type="hidden" name="user_id" value="<?php echo $editUserID;?>"/> <br>
         Public Name: <input type="text" name="userName" value="<?php echo $editUserName;?>"/> <br>
-        Location: <input type="text" name="location" value="<?php echo $editLocation;?>" />
-        Radius: <input type="text" name="radius" value="<?php echo $editRadius;?>"/><br>
+        Location: <input type="text" name="city" value="<?php echo $editCity;?>" />
 
-        <select name='genre_drop']>
+        State: <select name='state_drop'
+            <?php
+                echo("<option selected='selected' value=null>Please choose a state.</option>");
+                $stateList = stateArray();
+                foreach($stateList as $state)
+                if($editState == $state)
+                {
+                    echo "<option selected = 'selected' value='" . $state . "'>" . $state . "</option>" . PHP_EOL;
+                }
+                else
+                    echo "<option value='" . $state . "'>" . $state . "</option>" . PHP_EOL;
+            ?>
+        </select><br>
+
+        <select name='genre_drop'>
             <?php
             echo("<option selected='selected' value=null>Please choose a genre.</option>");
             $genreList = genreArray();
             foreach($genreList as $genre)
-                if($editGenre == $genre)
-                {
-                    echo "<option selected = 'selected' value='" . $genre . "'>" . $genre . "</option>" . PHP_EOL;
-                }
-                else
-                    echo "<option value='" . $genre . "'>" . $genre . "</option>" . PHP_EOL;
+            if($editGenre == $genre)
+            {
+            echo "<option selected = 'selected' value='" . $genre . "'>" . $genre . "</option>" . PHP_EOL;
+            }
+            else
+            echo "<option value='" . $genre . "'>" . $genre . "</option>" . PHP_EOL;
             ?>
         </select>
 

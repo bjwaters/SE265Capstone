@@ -12,18 +12,14 @@
 
     <form method = 'post' action = "#">
     Admin Creation<br>
-    Email Address: <input type="text" name="newUserEmail" /><br>
-    Password: <input type="text" name="newUserPassword" /><br>
-    Password Verify: <input type="text" name="newUserPassword2" /><br>
+    Email Address: <input type="text" id= "newAdminEmail" name="newAdminEmail" /><br>
+    Password: <input type="text" id = "newAdminPassword" name="newAdminPassword" /><br>
+    Password Verify: <input type="text" id = "newAdminPassword2" name="newAdminPassword2" /><br>
 
     User type:
     Admin <input type="radio" name="userType" checked value = "Admin"><br><br>
 
-    <input type = "submit" name = "action" value = "Admin Signup" /><br><br>
-
-
-    <input type = "submit" name = "action" value = "Back to Admin Page" /><br>
-    <input type = "submit" name = "action" value = "Main Page" />
+    <input type = "button"  value = "Admin Signup" onclick="adminEntry()"/><br><br>
     </form>
     </div>
 </div>
