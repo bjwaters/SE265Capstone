@@ -12,13 +12,10 @@
     <form method = 'post' action = "#">
 
         This is the admin area. Don't you feel special?<br>
-        <input type = "submit" name = "action" value = "Create New Admin" /><br>
+        <input type = "button" value = "Create New Admin" onclick="createAdmin()"/><br>
 
-        <input type = "submit" name = "action" value = "Check Reports" /><br><br>
-
-        <input type = "submit" name = "action" value = "Back to Admin Page" /><br>
-        <input type = "submit" name = "action" value = "Main Page" />
-
+        <!--<input type = "submit" name = "action" value = "Check Reports" />-->
+        <input type = "button" value = "Check Reports" onclick = "checkReports()" />
     </form>
     </div>
 </div>

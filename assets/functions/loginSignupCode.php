@@ -50,7 +50,7 @@ function signupTest($db, $found)
     $user_type = $_POST['userType'];
 
     if($found == true) {
-        //include_once("assets/forms/LoginForm.html");
+        //include_once("assets/forms/DepLoginForm.html");
         echo("User already found. Please enter another email.");
     }else
     {
@@ -60,7 +60,7 @@ function signupTest($db, $found)
                 if ($password1 == $password2) {
                     if($user_type == '')
                     {
-                        //include_once("assets/forms/LoginForm.html");
+                        //include_once("assets/forms/DepLoginForm.html");
                         echo("Error. No user type selected!");
                     }
                     else{
@@ -72,22 +72,80 @@ function signupTest($db, $found)
                         return $newest_id;
                     }
                 } else {
-                    //include_once("assets/forms/LoginForm.html");
+                    //include_once("assets/forms/DepLoginForm.html");
                     echo("Error. Passwords do no match");
                 }
             }
             else {
-                //include_once("assets/forms/LoginForm.html");
+                //include_once("assets/forms/DepLoginForm.html");
                 echo("<br> Error. Password needed.");
             }
         }
         else
         {
-            //include_once("assets/forms/LoginForm.html");
+            //include_once("assets/forms/DepLoginForm.html");
             echo("Error. Invalid email entered.");
         }
     }
 }
+
+function adminSignup($db, $email, $pass, $pass2)
+{
+
+    $found = false;
+    try{
+        $stmt = $db->prepare("SELECT email FROM users");
+        $users = array();
+
+        if($stmt->execute() && $stmt->rowCount() > 0)
+        {
+            $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            foreach($users as $user)
+            {
+                if($user['email'] == $email)
+                {
+                    $found = true;
+                }
+            }
+        }
+        else
+            echo("No users in list <br>");
+    }catch(PDOException $e)
+    {
+        die("Grabbing the user list didn't work.");
+    }
+
+    $user_type = "Admin";
+    if($found == true) {
+        echo("User already found. Please enter another email.");
+    }else
+    {
+
+        if($email != "" && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            if($pass != "") {
+                if ($pass == $pass2) {
+                    $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
+                    $newest_id = addUser($db, $hashedPassword, $email, $user_type); //If everything is good,add the user
+                    //No profile added for Admins
+                    return $newest_id;
+                }
+                else
+                {
+                    echo("Error. Passwords do no match");
+                }
+            }
+            else
+            {
+                echo("<br> Error. Password needed.");
+            }
+        }
+        else
+        {
+            echo("Error. Invalid email entered.");
+        }
+    }
+}
+
 
 //This is used by the sign up button
 //Called by the passwordTest function, if the passwords match
@@ -102,7 +160,7 @@ function addUser($db, $password, $user, $user_type)
         $stmt->execute();
         $lastID = $db->lastInsertID();
         if($user_type != "Admin") {
-            //include_once("assets/forms/LoginForm.html");
+            //include_once("assets/forms/DepLoginForm.html");
         }
         echo("User added.");
         return $lastID;
@@ -121,6 +179,9 @@ function signinTest($db)
     $email = $_POST['email'];
     $password = $_POST['password'];
 
+    //echo("email is: " . $email . "<br>");
+    //echo("password is : " . $password . "<br>" );
+
     try {
         $stmt = $db->prepare("SELECT * FROM users");
         $users = array();
@@ -132,16 +193,37 @@ function signinTest($db)
 
                 if ($user['email'] == $email && password_verify($password, $user['password']))
                 {
+
                     $successfulLogin = $user['user_id'];
                 }
             }
         } else {
-            echo("No users in list <br>");
+            echo("");
         }
         //echo ("still in signintest, successfulID is " . $successfulLogin);
+        echo ($successfulLogin);
         return ($successfulLogin);
     } catch (PDOException $e) {
         die("Grabbing the user list didn't work.");
+    }
+}
+
+
+function peekAtProfileStatus($db, $successfulLogin)
+{
+
+    try{
+        $stmt = $db->prepare("SELECT * FROM profiles WHERE user_id = :user_id");
+
+        $stmt->bindParam(':user_id', $successfulLogin);
+        $stmt->execute();
+
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $checkedProfileValue = $user['profileStatus'];
+        return $checkedProfileValue;
+
+    }catch (PDOException $e){
+        die("Looking at the profile status didn't work");
     }
 }
 
@@ -171,6 +253,61 @@ function grabUserType($db, $validID)
     } catch (PDOException $e) {
         die("Grabbing the user list didn't work.");
     }
+}
+
+function accountSetttingsForm()
+{
+    include_once('assets/forms/AccountSettingForm.php');
+}
+
+function accountSettingcode($db){
+
+    $email1 = $_POST['email1'];
+    $email2 = $_POST['email2'];
+    $pass1 = $_POST['pass1'];
+    $pass2 = $_POST['pass2'];
+
+    //echo ($email1 . " " . $email2 . " " . $pass1 . " " . $pass2);
+    if($email1 != "" && $email2 != ""  && filter_var($email1, FILTER_VALIDATE_EMAIL)) {
+        if ($email1 == $email2) {
+            if ($pass1 != "" && $pass2 != "") {
+                if ($pass1 == $pass2) {
+
+                    $hashedPassword = password_hash($pass1, PASSWORD_DEFAULT);
+
+                    try {
+                        $stmt = $db->prepare("UPDATE users SET email=:email, password=:password WHERE user_id = :user_id");
+                        $stmt->bindParam(':email', $email1);
+                        $stmt->bindParam(':password', $hashedPassword);
+                        $stmt->bindParam(':user_id', $_SESSION['userID']);
+                        $stmt->execute();
+
+                    } catch (PDOException $e) {
+                        $e->getMessage();
+                        echo "<br>" . $e;
+                        die("<br>Updating the user profile did not work.");
+                    }
+
+
+                } else {
+                    include_once('assets/forms/AccountSettingForm.php');
+                    echo("Passwords not matched.");
+                }
+            } else {
+                include_once('assets/forms/AccountSettingForm.php');
+                echo("Please enter in both password fields.");
+            }
+        }
+        else {
+            include_once('assets/forms/AccountSettingForm.php');
+            echo("Emails don't match");
+        }
+    }
+    else {
+        include_once('assets/forms/AccountSettingForm.php');
+        echo("Please enter in both email fields properly.");
+    }
+
 }
 
 //This starts a session

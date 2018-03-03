@@ -7,12 +7,14 @@
  */
 ?>
 
+<div id = "editProfile" class="container">
+    <div class="row">
 
-        <form method = 'post' action = "#">
+    <form method = 'post' action = "#">
 
             Public Name: <input type="text" id="searchName" /> <br>
             Location: <input type= "text" id="searchLocation" />
-            Radius: <input type="text" id="searchRadius" /><br>
+
 
             Genre:
             <select id='genreSearch_drop']>
@@ -29,10 +31,12 @@
                 ?>
             </select>
 
-            <br>Rates: <input type="text" name="searchPayRate1" /> to <input type="text" name="searchPayRate2" /><br><br>
+            <br>Rates: <input type="text" id="searchPayRate1" name="searchPayRate1" /> to <input type="text" id="searchPayRate2" name="searchPayRate2" /><br><br>
             Availability: <input type="text" id="searchAvailability" /><br>
 
         <button type="button" class="btn btn-secondary" onclick="advancedSearch()">Advanced Search</button>
             <!--<input type = "submit" name = "action" onclick="testing()" /><br><br> -->
 
         </form>
+    </div>
+</div>

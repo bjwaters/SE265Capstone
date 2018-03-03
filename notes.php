@@ -8,30 +8,26 @@
 
 
 //Ben
-//Work on Edit Profile                                  Works - not consecutively. Comments drifting
-//Tinkering with profile creation                       Not much data validation yet, make a link
-//User adding/checking//account details                 Can add a user, profile created at same time. Need to have edit functions for pw and email
-//Searching (profile search) advanced/simple            Got the simple search code in. Need details for dropdowns. Adv search partly done
-//reports                                               User-side done.
-    //tables - users, profiles, reports
-//Admin Stuff                                           Admin area from login. Admin sees invisible profile stuff
-//Misc                                                  No logout code yet. Try to find out why some buttons dont work 2x in a row
 
+//Done - can lock profiles from the admin account. Can only do this from admin account on a public profile. Cannot login a locked accnt.
+        //Fixed null on profile genre, can see unresolved reports in admin area. Search History ok! Video link on public profile. Can create admin
+        //Reports resolved properly when checked, pushing login to notlogin if there's no session, search button conditional at public profile,
+        //account settings mostly done save validation
 
+//To do : Fill in search afterward? More admin area - create admin error sending. Report at lockout?
+//Http5 form validation. City/state in process, might not be complete
 
-// This week - Admin area, create admin, look at reports, profile hidden objects, added pictures to profile, genre dropdown in profile
-// picture replacing seems stable, basic css to many forms, basic css, streamlining search (genre)
-
-//To do : links on search results to profile page, search by pay. Fill in search afterward. Still try to figure out the repeat problem
-
-//Week 6 -  Both searches work - work on result output format and tweaking variables
-//          Login works, log out works - again, work on verification
-//          Edit Profile shows, not yet saving. Working on file bullshit
-//          Control Panel menu works for 3.5 entries. Continue down the list. Report halfway done
-//          Sign up mostly done. check verification later
+//Week 7 -  Both searches work - work on result output format and tweaking variables
+            //Searches work both logged in and logged out, no radius, rates search works. Just need error checking messages
+//x          Edit Profile show and saves!
+//          Control Panel menu works for 4 entries. Continue down the list. Report just needs to go somewhere once it's sent.
+// x         Sign up/Sign In mostly done. check verification later
+            // Some Basic error messages done
 //          Work on default page (random search results?)
-//          Nav bar needs to change - after login/logout. Login/signup buttons and control panel
+//x          Nav bar changed after login/logout. Code appropriate in each index
 //          Formatting AFTER functionality
+            //Work on formatting of the outputs and clearing the screen properly
+
 
 
 //John

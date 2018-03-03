@@ -12,8 +12,8 @@ function addProfile($db, $new_id)
 {
     settype($new_id, 'integer');
     $userName = "Enter name here";
-    $location = "Enter location here";
-    $radius = 0;
+    $city = "Enter city here";
+    $state = "RI";
     $genre = "Musical genre here";
     $pay = 0;
     $availability = "Enter availability here";
@@ -23,12 +23,12 @@ function addProfile($db, $new_id)
     $profileStatus = "Unlocked";
 
     try{
-        $stmt = $db->prepare("INSERT INTO profiles VALUES (:new_id, :userName, :location,
-        :radius, :genre, :pay, :availability, :comments, :picture, :videoLink, :profileStatus)");
+        $stmt = $db->prepare("INSERT INTO profiles VALUES (:new_id, :userName, :city,
+        :state, :genre, :pay, :availability, :comments, :picture, :videoLink, :profileStatus)");
         $stmt->bindParam(':new_id', $new_id);
         $stmt->bindParam(':userName', $userName);
-        $stmt->bindParam(':location', $location);
-        $stmt->bindParam(':radius', $radius);
+        $stmt->bindParam(':city', $city);
+        $stmt->bindParam(':state', $state);
         $stmt->bindParam(':genre', $genre);
         $stmt->bindParam(':pay', $pay);
         $stmt->bindParam(':availability', $availability);
@@ -58,8 +58,8 @@ function grabProfile($db, $neededID, $type)
             foreach ($profiles as $profile) {
                 $editUserID = $profile['user_id'];
                 $editUserName = $profile['userName'];
-                $editLocation = $profile['location'];
-                $editRadius = $profile['radius'];
+                $editCity = $profile['city'];
+                $editState = $profile['state'];
                 $editGenre = $profile['genre'];
                 $editPay = $profile['pay'];
                 $editAvailability = $profile['availability'];
@@ -69,7 +69,7 @@ function grabProfile($db, $neededID, $type)
                 $editProfileStatus = $profile['profileStatus'];
 
                 if ($type == "Edit") {
-                    include_once("assets/forms/EditProfileForm.html");
+                    include_once("assets/forms/EditProfileForm.php");
                 } else if ($type == "Public")
                     include_once("assets/forms/PublicProfileForm.html");
 
@@ -84,18 +84,39 @@ function grabProfile($db, $neededID, $type)
 }
 
 //This allows editing of the profile
-function editProfile($db, $editUserID, $editUserName, $editLocation, $editRadius, $editPay, $editAvailability,
-                     $editComments, $editProfileStatus, $editGenre, $editVideoLink)
+function editProfile($db)
 {
+    $name = $_POST['userName'];
+    //var_dump($_POST);
+
+
+    $editUserID = $_POST['user_id'];
+    $editUserName = $_POST['userName'];
+    $editCity = $_POST['city'];
+    $editState = $_POST['state_drop'];
+    $editPay = $_POST['pay'];
+    $editAvailability = $_POST['availability'];
+    $editComments = $_POST['comments'];
+    $editGenre = $_POST['genre_drop'];
+
+    if($editGenre == "null")
+    {
+        $editGenre = "Unselected";
+    }
+    if($editState == "null")
+    {
+        $editState = "RI";
+    }
+
+    $editVideoLink = $_POST['videoLink'];
+
+
     //Genre and picture further below
+    $editProfileStatus = "Testing";
 
     //Picture file
     $name = $_FILES['file']['name'];
     $tmp_name = $_FILES['file']['tmp_name'];
-
-    //Picture file
-    //$name = $_FILES['file']['name'];
-    //$tmp_name = $_FILES['file']['tmp_name'];
 
     if(isset($name))
     {
@@ -105,6 +126,7 @@ function editProfile($db, $editUserID, $editUserName, $editLocation, $editRadius
             move_uploaded_file($tmp_name, $location.$name);
         }
     }
+
 
     $sessionID = $_SESSION['userID'];
 
@@ -128,15 +150,13 @@ function editProfile($db, $editUserID, $editUserName, $editLocation, $editRadius
         $editPicture = $checker;
     }
 
-
     //Transferring data
-    //$editGenre = $_POST['genre_drop'];
     try {
-        $stmt = $db->prepare("UPDATE profiles SET userName=:userName, location=:location, radius=:radius, genre=:genre, pay=:pay,
+        $stmt = $db->prepare("UPDATE profiles SET userName=:userName, city=:city, state=:state, genre=:genre, pay=:pay,
               availability=:availability, comments=:comments, picture=:picture, videoLink=:videoLink, profileStatus=:profileStatus WHERE user_id = :user_id");
         $stmt->bindParam(':userName', $editUserName);
-        $stmt->bindParam(':location', $editLocation);
-        $stmt->bindParam(':radius', $editRadius);
+        $stmt->bindParam(':city', $editCity);
+        $stmt->bindParam(':state', $editState);
         $stmt->bindParam(':genre', $editGenre);
         $stmt->bindParam(':pay', $editPay);
         $stmt->bindParam(':availability', $editAvailability);
@@ -154,8 +174,38 @@ function editProfile($db, $editUserID, $editUserName, $editLocation, $editRadius
     }
 }
 
-//removing later
+function saveStatus($db)
+{
+    $setID = $_POST['user_id'];
+    $setProfileStatus = $_POST['profileStatus'];
+    //echo "In savestatus: ID is  " .  $setID . " status: " . $setProfileStatus;
+
+    try {
+        $stmt = $db->prepare("UPDATE profiles SET  profileStatus=:profileStatus WHERE user_id = :user_id");
+        $stmt->bindParam(':profileStatus', $setProfileStatus);
+        $stmt->bindParam(':user_id', $setID);
+        $stmt->execute();
+        echo("Successful");
+
+    } catch (PDOException $e) {
+        $e->getMessage();
+        echo "<br>" . $e;
+        die("<br>Editing a user profile did not work.");
+    }
+
+}
+
 function genreArray(){
     $genre = array("Rock", "Classical", "Alternative", "Dubstep", "Country", "Other");
     return $genre;
+}
+
+function stateArray()
+{
+    $states = array("AL", "AK", "AZ", "AR","CA", "CO", "CT", "DE", "FL","GA",
+	    "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI",
+	    "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND",
+	    "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA",
+	    "WA", "WV", "WI", "WY");
+    return $states;
 }
