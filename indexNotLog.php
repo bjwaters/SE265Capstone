@@ -15,6 +15,7 @@ require_once("assets/functions/loginSignupCode.php");
 require_once("assets/functions/searchCode.php");
 require_once("assets/functions/profileCode.php");
 require_once("assets/functions/reportCode.php");
+require_once("assets/functions/homepageCode.php");
 
 $db = dbConnect();
 
@@ -78,6 +79,7 @@ switch($action){
         break;
 
     default:
-        include_once('homepageNotLogged.php');
+        include_once('nav.php');
+        echo getShuffledProfiles($db);
         break;
 }

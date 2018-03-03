@@ -1,8 +1,41 @@
+.navbar {
+    background-color: #ffffff;
+    height:75px;
+    border-bottom: thin grey;
+}
+
 .soloNav {
     color: grey;
 }
 
 #soloNavContainer {
+    height:75px;
     border-bottom: thin grey;
 }
 
+.mcLinks {
+    float: right;
+}
+
+.img-thumbs {
+    object-fit: cover;
+    width:230px;
+    height:230px;
+}
+
+.soloSearch {
+    position: relative;
+    color: gray;
+    font-size: 14px;
+}
+
+
+.soloSearch input {
+    text-indent: 32px;
+}
+
+.soloSearch .fa-search {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}

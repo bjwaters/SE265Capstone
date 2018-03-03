@@ -19,6 +19,8 @@ require_once("assets/functions/loginSignupCode.php");
 require_once("assets/functions/searchCode.php");
 require_once("assets/functions/profileCode.php");
 require_once("assets/functions/reportCode.php");
+require_once("assets/functions/homepageCode.php");
+
 
 $db = dbConnect();
 
@@ -127,9 +129,20 @@ switch($action){
         break;
 
     default:
-        include_once('homepageLogged.php');
+        //include_once('homepageLogged.php');
+        include_once('navLogged.php');
+
         if($_SESSION['userType'] == "Admin") {
             include_once('assets/forms/adminForm.php');
+        }
+
+        if($_SESSION['userType'] == "Booker") {
+            $state = getUserState($db, $_SESSION['userID']); //This needs to be moved to userHomepage case??
+            echo getProfilesByState($db, $state);
+        }
+
+        if($_SESSION['userType'] == "Musician") {
+            echo "IMMA MUISICAN";
         }
         break;
 }

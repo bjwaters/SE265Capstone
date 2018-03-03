@@ -19,8 +19,8 @@ if(!isset($_SESSION))session_start();
     $pay = filter_input(INPUT_POST, 'pay', FILTER_SANITIZE_STRING) ?? NULL;
     $bookingText = filter_input(INPUT_POST, 'bookingText', FILTER_SANITIZE_STRING) ?? NULL;
 
-    $_SESSION['userID'] = '1';
-    $_SESSION['userType'] = 'Booker';
+    //$_SESSION['userID'] = '1';
+    //$_SESSION['userType'] = 'Booker';
 
 
 
@@ -30,11 +30,11 @@ if(!isset($_SESSION))session_start();
             include_once("testheader.php");
             break;
         case 'myMessages':
-            include_once("testheader.php");
+            include_once("../navLogged.php");
             echo getAllMessages($db, $_SESSION['userID']);
             break;
         case 'myBookings':
-            include_once("testheader.php");
+            include_once("../navLogged.php");
             //echo getAllBookings($db, $_SESSION['userID']);
             echo getPendingBookings($db, $_SESSION['userID']);
             echo getAcceptedBookings($db, $_SESSION['userID']);
