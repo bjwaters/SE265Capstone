@@ -122,7 +122,7 @@ function editProfile($db)
     {
         if(!empty($name))
         {
-            $location = 'assets/Uploads/';
+            $location = 'assets/uploads/';
             move_uploaded_file($tmp_name, $location.$name);
         }
     }

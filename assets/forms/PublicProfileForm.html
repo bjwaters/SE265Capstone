@@ -53,7 +53,9 @@
 
         <br><br>
         Ratings will go here, if there are any.
-       <br> <input type="hidden" id="hiddenID" value="<?php echo $editUserID ?>" />
+        <br> <input type="hidden" id="hiddenID" value="<?php echo $editUserID ?>" />
+        <br> <input type="hidden" id="hiddenUserID" value="<?php echo $_SESSION['userID'] ?>" />
+        <br> <input type="hidden" id="hiddenUserType" value="<?php echo $_SESSION['userType'] ?>" />
 
         <input type=
                        <?php if( isset($_SESSION['searchHistory']))

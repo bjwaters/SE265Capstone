@@ -8,17 +8,16 @@ function getShuffledProfiles($db){
         $sql->execute();
         $profiles = $sql->fetchAll(PDO::FETCH_ASSOC);
         shuffle($profiles);
-        var_dump($profiles);
 
-        /*$table = "<table class='table'>" . PHP_EOL;
-        $table .= "<tr><th>MESSAGES</th></tr>";
-        foreach ($messages as $m) {
-            $table .= "<tr><td>" . $m['text'] . "</td><td>" . "Sent: " . $m['time'] . "</td></td>";
-            //$table .= "<td><img src='images/" . $prod['image'] . "'></td>";
-            //$table .= "<td><a href='prodcrud.php?action=Edit&prodID=".$prod['product_id']."&Categories=".$prod['category_id']."'>Edit</a> | <a href='prodcrud.php?action=Delete&prodID=".$prod['product_id']."'>Delete</a></td></tr>";
+        $table = "<table class='table'>" . PHP_EOL;
+        $table .= "<tr><th>Profiles</th></tr>";
+        foreach ($profiles as $p) {
+            $table .= "<tr><td><img src='assets/uploads/" . $p['picture'] . "' height='200' onclick='searchProfileClick(" . $p['user_id'] . ")'></td></td>";
+            $table .= "<td>" . $p['userName'] . "</td>";
+            $table .= "<td>" . $p['state'] . "</td>";
         }
         $table .= "</table>";
-        return $table;*/
+        return $table;
     }
     catch (PDOException $e){
         die("There was a problem getting the record."); //Error message if it fails to get the data
@@ -31,7 +30,6 @@ function getUserState($db, $user_id){
         $sql->bindParam(':user_id', $user_id);
         $sql->execute();
         $state = $sql->fetch(PDO::FETCH_ASSOC);
-        var_dump($state);
         return $state['state'];
     }
     catch (PDOException $e){
@@ -47,17 +45,16 @@ function getProfilesByState($db, $state){
         $sql->execute();
         $profiles = $sql->fetchAll(PDO::FETCH_ASSOC);
         shuffle($profiles);
-        var_dump($profiles);
 
-        /*$table = "<table class='table'>" . PHP_EOL;
-        $table .= "<tr><th>MESSAGES</th></tr>";
-        foreach ($messages as $m) {
-            $table .= "<tr><td>" . $m['text'] . "</td><td>" . "Sent: " . $m['time'] . "</td></td>";
-            //$table .= "<td><img src='images/" . $prod['image'] . "'></td>";
-            //$table .= "<td><a href='prodcrud.php?action=Edit&prodID=".$prod['product_id']."&Categories=".$prod['category_id']."'>Edit</a> | <a href='prodcrud.php?action=Delete&prodID=".$prod['product_id']."'>Delete</a></td></tr>";
+        $table = "<table class='table'>" . PHP_EOL;
+        $table .= "<tr><th>Profiles</th></tr>";
+        foreach ($profiles as $p) {
+            $table .= "<tr><td><img src='assets/uploads/" . $p['picture'] . "' height='200' onclick='searchProfileClick(" . $p['user_id'] . ")'></td></td>";
+            $table .= "<td>" . $p['userName'] . "</td>";
+            $table .= "<td>" . $p['state'] . "</td>";
         }
         $table .= "</table>";
-        return $table;*/
+        return $table;
     }
     catch (PDOException $e){
         die("There was a problem getting the record."); //Error message if it fails to get the data

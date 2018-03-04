@@ -14,7 +14,7 @@ function showAdvancedSearch()
 //The basic search function for location
 function searchLoc($db){
 
-    $category = "location";
+    $category = "city";
 
     $text = $_POST['term'];
     $text = strtolower($text);
@@ -39,8 +39,8 @@ function searchLoc($db){
             foreach ($results as $result)
             {
                 $resultID = $result['user_id'];
-                $table .= "<td>" .  "<img src = 'assets/Uploads/" . $result['picture'] . "' width='200' onclick='searchProfileClick($resultID)'><br>";
-                $table .= $result['userName'] . "   " . $result['location'] . "</td>";
+                $table .= "<td>" .  "<img src = 'assets/uploads/" . $result['picture'] . "' width='200' onclick='searchProfileClick($resultID)'><br>";
+                $table .= $result['userName'] . "   " . $result['city'] . "</td>";
                 if($intRow %3 == 0)
                 {
                     $table .= "</tr><tr>";
@@ -138,7 +138,7 @@ function searchAll($db, $back){
                         {
 
                             $resultID = $result['user_id'];
-                            $table .= "<td>" . "<img src = 'assets/Uploads/" . $result['picture'] . "' width='200' onclick='searchProfileClick($resultID)'><br>";
+                            $table .= "<td>" . "<img src = 'assets/uploads/" . $result['picture'] . "' width='200' onclick='searchProfileClick($resultID)'><br>";
                             $table .= $result['userName'] . "   " . $result['location'] . "</td>";
                             if ($intRow % 3 == 0) {
                                 $table .= "</tr><tr>";
@@ -149,8 +149,8 @@ function searchAll($db, $back){
                 }
                 else {
                     $resultID = $result['user_id'];
-                    $table .= "<td>" . "<img src = 'assets/Uploads/" . $result['picture'] . "' width='200' onclick='searchProfileClick($resultID)'><br>";
-                    $table .= $result['userName'] . "   " . $result['location'] . "</td>";
+                    $table .= "<td>" . "<img src = 'assets/uploads/" . $result['picture'] . "' width='200' onclick='searchProfileClick($resultID)'><br>";
+                    $table .= $result['userName'] . "   " . $result['city'] . "</td>";
                     if ($intRow % 3 == 0) {
                         $table .= "</tr><tr>";
                     }

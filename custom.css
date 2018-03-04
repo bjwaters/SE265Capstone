@@ -1,3 +1,6 @@
+
+/*Nav*/
+
 .navbar {
     background-color: #ffffff;
     height:75px;
@@ -17,10 +20,8 @@
     float: right;
 }
 
-.img-thumbs {
-    object-fit: cover;
-    width:230px;
-    height:230px;
+.btn-outline-primary .btn-primary{
+    color:#0996ED;
 }
 
 .soloSearch {
@@ -28,7 +29,6 @@
     color: gray;
     font-size: 14px;
 }
-
 
 .soloSearch input {
     text-indent: 32px;
@@ -38,4 +38,13 @@
     position: absolute;
     top: 10px;
     left: 10px;
+}
+
+.homeImg {
+    border: 2px solid yellow;
+    width: 200px;
+}
+
+.img-thumbs {
+    object-fit: cover;
 }

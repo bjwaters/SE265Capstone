@@ -20,6 +20,8 @@ require_once("assets/functions/searchCode.php");
 require_once("assets/functions/profileCode.php");
 require_once("assets/functions/reportCode.php");
 require_once("assets/functions/homepageCode.php");
+require_once("assets/functions/messageCode.php");
+require_once("assets/functions/bookingCode.php");
 
 
 $db = dbConnect();
@@ -29,8 +31,35 @@ $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ??
 $profileID = filter_input(INPUT_POST, 'profileID', FILTER_SANITIZE_NUMBER_INT) ??
     filter_input(INPUT_GET, 'profileID', FILTER_SANITIZE_NUMBER_INT) ?? NULL;
 
+$text = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_STRING) ?? NULL;
+$booker_id = filter_input(INPUT_POST, 'bookerID', FILTER_SANITIZE_STRING) ?? NULL;
+$musician_id = filter_input(INPUT_POST, 'musicianID', FILTER_SANITIZE_STRING) ?? NULL;
+//$sender_id = filter_input(INPUT_POST, 'senderID', FILTER_SANITIZE_STRING) ?? NULL;
+
+$bookingDate = filter_input(INPUT_POST, 'bookingDate', FILTER_SANITIZE_STRING) ?? NULL;
+$hours = filter_input(INPUT_POST, 'hours', FILTER_SANITIZE_STRING) ?? NULL;
+$pay = filter_input(INPUT_POST, 'pay', FILTER_SANITIZE_STRING) ?? NULL;
+$bookingText = filter_input(INPUT_POST, 'bookingText', FILTER_SANITIZE_STRING) ?? NULL;
+
 switch($action){
 
+    default:
+        //include_once('homepageLogged.php');
+        include_once('navLogged.php');
+
+        if($_SESSION['userType'] == "Admin") {
+            include_once('assets/forms/adminForm.php');
+        }
+
+        if($_SESSION['userType'] == "Booker") {
+            $state = getUserState($db, $_SESSION['userID']); //This needs to be moved to userHomepage case??
+            //echo getProfilesByState($db, $state);
+        }
+
+        if($_SESSION['userType'] == "Musician") {
+            echo "IMMA MUISICAN";
+        }
+        break;
     case 'logmeout':
         session_destroy();
         break;
@@ -50,6 +79,7 @@ switch($action){
     case "searchResultClick":
         $profileType = "Public";
         grabProfile($db, $profileID, $profileType);
+        include_once('assets/forms/profileTabs.php');
         break;
 
     case 'Back to Search Page':
@@ -128,21 +158,45 @@ switch($action){
         accountSettingcode($db);
         break;
 
-    default:
-        //include_once('homepageLogged.php');
-        include_once('navLogged.php');
+    //Message Center Cases
+    case 'myMessages':
+        include_once("../navLogged.php");
+        echo getAllMessages($db, $_SESSION['userID']);
+        break;
+    case 'myBookings':
+        include_once("../navLogged.php");
+        //echo getAllBookings($db, $_SESSION['userID']);
+        echo getPendingBookings($db, $_SESSION['userID']);
+        echo getAcceptedBookings($db, $_SESSION['userID']);
+        echo getCompletedBookings($db, $_SESSION['userID']);
+        break;
+    case 'getMessages':
+        echo getMessagesByIDs($db, $_GET['bookerID'], $_GET['musicianID']);
+        break;
+    case 'getBookings':
+        $booker_id = filter_input(INPUT_POST, 'bookerID', FILTER_SANITIZE_STRING) ?? NULL;
+        echo $booker_id;
+        echo getBookingsByIDs($db, $_GET['bookerID'], $_GET['musicianID']);
+        break;
+    case 'sendMessage':
+        $text = $_POST['text'];
+        echo "text on index: " . $text;
+        echo newMessage($db, $_POST['bookerID'], $_POST['musicianID'], $_SESSION['userID'], $text, $seen=false);
+        break;
+    case 'requestBooking':
+        // Convert booking date to format
+        $bookingDate = $_POST['date'];
+        $hours = $_POST['hours'];
+        $pay = $_POST['pay'];
+        $bookingText = $_POST['text'];
 
-        if($_SESSION['userType'] == "Admin") {
-            include_once('assets/forms/adminForm.php');
-        }
+        $bTime = strtotime($bookingDate);
+        $bDate = date("Y-m-d H:i", $bTime);
 
-        if($_SESSION['userType'] == "Booker") {
-            $state = getUserState($db, $_SESSION['userID']); //This needs to be moved to userHomepage case??
-            echo getProfilesByState($db, $state);
-        }
+        echo newBooking($db, $_POST['bookerID'], $_POST['musicianID'], $bDate, $hours, $pay, $status='pending');
 
-        if($_SESSION['userType'] == "Musician") {
-            echo "IMMA MUISICAN";
+        if(strlen($bookingText) > 0){
+            echo newMessage($db, $_POST['bookerID'], $_POST['musicianID'],  $_SESSION['userID'] , $bookingText);
         }
         break;
 }

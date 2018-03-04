@@ -18,6 +18,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
     <script type="text/javascript" src= "soloJava.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <title>Solo Project</title>
 </head>
@@ -29,7 +30,7 @@
 
         <!-- Home Button - Logo -->
         <div id="homeButton mr-auto order-1">
-            <img src="assets/Uploads/soloLogo.png" onclick="returnToStart()"/>
+            <img src="assets/uploads/soloLogo.png" onclick="returnToStart()"/>
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -50,10 +51,10 @@
             <!-- Message Center Link -->
             <ul class="navbar-nav ml-auto mr-2 order-3">
                 <li class="nav-item">
-                    <a class="nav-link" href="messagecenter/indextest.php?action=myBookings">Bookings</a>
+                    <a class="nav-link" href="indexLog.php?action=myBookings">Bookings</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="messagecenter/indextest.php?action=myMessages">Messages</a>
+                    <a class="nav-link" href="indexLog.php?action=myMessages">Messages</a>
                 </li>
             </ul>
 
@@ -61,7 +62,7 @@
             <ul class="nav-item dropdown mx-0 my-auto order-3">
                 <!--<a class="nav-link dropdown-toggle soloNav" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Control Panel</a>-->
-                <img src="assets/Uploads/soloLogo.png" class="nav-link dropdown-toggle soloNav" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"/>
+                <img src="assets/uploads/soloLogo.png" class="nav-link dropdown-toggle soloNav" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"/>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="#" onclick="publicProfile()">Public Profile</a>
                     <a class="dropdown-item" href="indexLog.php?action=EditProfile">Edit Profile</a>
@@ -72,8 +73,6 @@
                 </div>
             </ul>
         </div>
-
-
 
     </nav>
 </div>
