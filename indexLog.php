@@ -64,8 +64,9 @@ switch($action){
         session_destroy();
         break;
     case 'simpleSearch':
+        $logged = true;
         $category = "location";
-        searchLoc($db);
+        searchLoc($db, $logged);
         //echo($_SESSION['searchHistory']);
         break;
     case 'showAdvancedSearch':

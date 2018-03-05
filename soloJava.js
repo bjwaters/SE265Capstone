@@ -726,6 +726,34 @@ function searchProfileClick(id)
     console.log("Processing search result click..");
 }
 
+function searchProfileClickNotLogged(id)
+{
+    $("#phpresults").html("");
+
+    var userID = id;
+
+
+    var hr = new XMLHttpRequest();
+    var url = "indexNotLog.php";
+    var action = "searchResultClick";
+
+    var vars = "action=" + action + "&profileID=" + userID;
+
+    console.log("Vars is " + vars);
+
+    hr.open("POST", url, true);
+    hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+
+    hr.onreadystatechange = function () {
+        if (hr.readyState == 4 && hr.status == 200) {
+            var return_data = hr.responseText;
+            $("#contentOutput").html(return_data);
+        }
+    };
+    hr.send(vars);
+    console.log("Processing search result click..");
+}
 
 function searchHistory()
 {

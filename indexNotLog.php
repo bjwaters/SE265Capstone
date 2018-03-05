@@ -63,8 +63,9 @@ switch($action){
         break;
 
     case 'simpleSearch':
+        $logged = false;
         $category = "location";
-        searchLoc($db);
+        searchLoc($db, $logged);
         break;
     case 'showAdvancedSearch':
         showAdvancedSearch();

@@ -12,7 +12,7 @@ function showAdvancedSearch()
 }
 
 //The basic search function for location
-function searchLoc($db){
+function searchLoc($db, $logged){
 
     $category = "city";
 
@@ -39,7 +39,16 @@ function searchLoc($db){
             foreach ($results as $result)
             {
                 $resultID = $result['user_id'];
-                $table .= "<td>" .  "<img src = 'assets/uploads/" . $result['picture'] . "' width='200' onclick='searchProfileClick($resultID)'><br>";
+                $table .= "<td>" .  "<img src = 'assets/uploads/" . $result['picture'] . "' width='200'";
+
+                if($logged == false)
+                {
+                    $table .= "onclick=\"searchProfileClickNotLogged($resultID)\"><br>";
+                }  
+                else
+                {
+                    $table .= "onclick=\"searchProfileClick($resultID)\"><br>";
+                }
                 $table .= $result['userName'] . "   " . $result['city'] . "</td>";
                 if($intRow %3 == 0)
                 {
