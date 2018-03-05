@@ -41,9 +41,9 @@
             <form class="form-inline my-2 mx-3 order-1">
                 <div class="soloSearch">
                     <i class="fas fa-search"></i>
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="simpleSearchLocationLogged">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="simpleSearchLocationNotLogged">
                 </div>
-                <button class="btn btn-outline-primary my-2 my-sm-0" id="simpleSearchButtonLogged">Search</button>
+                <button class="btn btn-outline-primary my-2 my-sm-0" id="simpleSearchButtonNotLogged">Search</button>
             </form>
 
             <!-- Sign in and sign up -->

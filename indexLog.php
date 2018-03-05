@@ -44,7 +44,7 @@ $bookingText = filter_input(INPUT_POST, 'bookingText', FILTER_SANITIZE_STRING) ?
 switch($action){
 
     default:
-        //include_once('homepageLogged.php');
+        //include_once('DephomepageLogged.php');
         include_once('navLogged.php');
 
         if($_SESSION['userType'] == "Admin") {

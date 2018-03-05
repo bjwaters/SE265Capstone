@@ -4,7 +4,7 @@ function events(){
 
 
     $("#simpleSearchButtonNotLogged").on("click", simpleSearchNotLogged);
-    $("#simpleSearchButtonNotLogged").on("click", showAdvancedSearch);
+    $("#simpleSearchButtonNotLogged").on("click", showAdvancedSearchNotLogged);
 
     $("#simpleSearchButtonLogged").on("click", simpleSearchLogged);
     $("#simpleSearchButtonLogged").on("click", showAdvancedSearch);
@@ -467,10 +467,32 @@ function showAdvancedSearch()
     hr.send(vars);
 }
 
+function showAdvancedSearchNotLogged()
+{
+    var hr = new XMLHttpRequest();
+    var url = "indexNotLog.php";
+    var action = "showAdvancedSearch";
+
+    var vars = "action=" + action;
+
+    hr.open("POST", url, true);
+    hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+
+    hr.onreadystatechange = function () {
+        if (hr.readyState == 4 && hr.status == 200) {
+            var return_data = hr.responseText;
+            $("#contentOutput").html(return_data);
+        }
+    };
+
+    hr.send(vars);
+}
 
 function simpleSearchLogged(e)
 {
     e.preventDefault();
+    console.log("simple search, logged");
 
     var hr = new XMLHttpRequest();
     var url = "indexLog.php";
@@ -492,7 +514,7 @@ function simpleSearchLogged(e)
     };
 
     hr.send(vars);
-    console.log("Processing simple searching..");
+    console.log("Processing simple logged searching..");
 }
 
 
@@ -501,7 +523,8 @@ function simpleSearchLogged(e)
 function simpleSearchNotLogged(e)
 {
      e.preventDefault();
-     console.log("Simple search, not logged.")
+     console.log("Simple search, not logged.");
+     $('#shuffledProfiles').html("");
 
     var hr = new XMLHttpRequest();
     var url = "indexNotLog.php";
@@ -522,7 +545,7 @@ function simpleSearchNotLogged(e)
     };
 
     hr.send(vars);
-    console.log("Processing simple searching..");
+    console.log("Processing simple unlogged searching..");
 }
 
 //Code for the advanced searching method
