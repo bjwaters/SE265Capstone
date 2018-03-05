@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+    getTodaysDate();
+
     $userID = $('#hiddenUserID').val();
     $userType = $('#hiddenUserType').val();
     $profileID = $('#hiddenID').val();
@@ -19,8 +21,8 @@ $(document).ready(function() {
     $mID = getUrlParameter('musicianID');
     console.log($bID);
     console.log($mID);*/
-    debugger;
-    getTodaysDate();
+
+
 });
 
 

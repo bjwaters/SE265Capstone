@@ -2,7 +2,9 @@
 
 //Booking functions
 
-function newBooking($db, $booker_id, $musician_id, $booking_date, $hours, $pay, $status){  //Function to add a new user to the users table
+
+//Function to add a new booking to the bookings table
+function newBooking($db, $booker_id, $musician_id, $booking_date, $hours, $pay, $status){
     try{
         $sql = $db->prepare("INSERT INTO bookings VALUES (null, :booker_id, :musician_id, :booking_date, :hours, :pay, :status)"); //sql statement to add placeholders to database
         $sql->bindParam(':booker_id', $booker_id);
@@ -30,7 +32,23 @@ function changeBookingStatus($db, $booking_id, $status) {
     }
 }
 
-function updateBooking($db, $booking_id, $musician_id, $booking_date, $hours, $pay, $status){  //Function to add a new user to the users table
+
+//This function updates a booking status for a specific booking in the bookings table
+function updateBookingStatus($db, $booking_id, $status){
+    try {
+        $sql = $db->prepare("UPDATE bookings SET status = :status WHERE booking_id = :booking_id");
+        $sql->bindParam(':booking_id', $booking_id);
+        $sql->bindParam(':status', $status);
+        $sql->execute();
+        //return "Update complete.";
+        return $sql->rowCount() . " row updated";
+    } catch (PDOException $e){
+        die("There was a problem updating the record."); //Error message if it fails to add new data to the db
+    }
+}
+
+//This function updated the booking details for a specific booking
+function updateBooking($db, $booking_id, $musician_id, $booking_date, $hours, $pay, $status){  //Function to update a booking in the bookings table
     try{
         $sql = $db->prepare("UPDATE bookings SET booking_date = :booking_date, hours = :hours, pay = :pay, status = :status WHERE booking_id = :booking_id"); //sql statement to add placeholders to database
         $sql->bindParam(':booking_date', $booking_date);
@@ -46,9 +64,10 @@ function updateBooking($db, $booking_id, $musician_id, $booking_date, $hours, $p
     }
 }
 
-function getAllBookings($db, $user_id){ //Function to view products in a table with links to edit product details
+//This function gets all of the bookings for one user (not used currently)
+function getAllBookings($db, $user_id){ //
     try {
-        if($_SESSION['userType'] = 'Booker'){
+        if($_SESSION['userType'] == 'Booker'){
             $sql = $db->prepare("SELECT * FROM bookings WHERE booker_id = :user_id");
         } else {
             $sql = $db->prepare("SELECT * FROM bookings WHERE musician_id = :user_id");
@@ -75,10 +94,10 @@ function getAllBookings($db, $user_id){ //Function to view products in a table w
     }
 }
 
-
+//This function gets all bookings with a status of pending for the logged in user
 function getPendingBookings($db, $user_id){
     try {
-        if($_SESSION['userType'] = 'Booker'){
+        if($_SESSION['userType'] == 'Booker'){
             $sql = $db->prepare("SELECT * FROM bookings WHERE booker_id = :user_id AND status = 'pending'");
         } else {
             $sql = $db->prepare("SELECT * FROM bookings WHERE musician_id = :user_id AND status = 'pending'");
@@ -90,12 +109,17 @@ function getPendingBookings($db, $user_id){
         $table = "<table class='table'>" . PHP_EOL;
         $table .= "<tr><th>Pending Bookings</th></tr>";
         foreach ($bookings as $b) {
-            $table .= "<tr><td>" . $b['booking_id'] . "</td><td>" . $b['booking_date'] . "</td><td>" . "$" . $b['pay'] . $b['number_of_hours'] . "</td>";
             if($_SESSION['userType'] == 'Booker') {
-                $table .= "<td><a href='indexLog.php?action=Profile&bookerID=" . $user_id . "&musicianID=" . $b['musician_id']."'>UserID: " . $b['musician_id'] . "</a>";
-            } else{
-                $table .= "<td><a href='indexLog.php?action=Profile&musicianID=" . $user_id . "&bookerID=" . $b['booker_id']."'>UserID: " . $b['booker_id'] . "</a>";
+                $picture = getProfilePicture($db, $b['musician_id']);
+                $profileID = $b['musician_id'];
+            } else {
+                $picture = getProfilePicture($db, $b['booker_id']);
+                $profileID = $b['booker_id'];
             }
+
+            $table .= "<td><img src = 'assets/uploads/" . $picture . "' class='img-thumbs' width='75' onclick='searchProfileClick($profileID)'></td>";
+            $table .= "<td>" . $b['booking_id'] . "</td><td>" . $b['booking_date'] . "</td><td>" . "$" . $b['pay'] . $b['number_of_hours'] . "</td>";
+            $table .= "<td>Buttons</td>";
         }
         $table .= "</table>";
         return $table;
@@ -105,9 +129,10 @@ function getPendingBookings($db, $user_id){
     }
 }
 
+//This function gets all bookings with a status of accepted for the logged in user
 function getAcceptedBookings($db, $user_id){
     try {
-        if($_SESSION['userType'] = 'Booker'){
+        if($_SESSION['userType'] == 'Booker'){
             $sql = $db->prepare("SELECT * FROM bookings WHERE booker_id = :user_id AND status = 'accepted'");
         } else {
             $sql = $db->prepare("SELECT * FROM bookings WHERE musician_id = :user_id AND status = 'accepted'");
@@ -119,8 +144,10 @@ function getAcceptedBookings($db, $user_id){
         $table = "<table class='table'>" . PHP_EOL;
         $table .= "<tr><th>Accepted Bookings</th></tr>";
         foreach ($bookings as $b) {
+
             $table .= "<tr><td>" . $b['booking_id'] . "</td><td>" . $b['booking_date'] . "</td><td>" . "$" . $b['pay'] . $b['number_of_hours'] . "</td>";
             if($_SESSION['userType'] == 'Booker') {
+                $pic = getProfilePicture();
                 $table .= "<td><a href='indexLog.php?action=Profile&bookerID=" . $user_id . "&musicianID=" . $b['musician_id']."'>UserID: " . $b['musician_id'] . "</a>";
             } else{
                 $table .= "<td><a href='indexLog.php?action=Profile&musicianID=" . $user_id . "&bookerID=" . $b['booker_id']."'>UserID: " . $b['booker_id'] . "</a>";
@@ -134,9 +161,10 @@ function getAcceptedBookings($db, $user_id){
     }
 }
 
+//This function gets all bookings with a status of complete for the logged in user
 function getCompletedBookings($db, $user_id){
     try {
-        if($_SESSION['userType'] = 'Booker'){
+        if($_SESSION['userType'] == 'Booker'){
             $sql = $db->prepare("SELECT * FROM bookings WHERE booker_id = :user_id AND status = 'completed'");
         } else {
             $sql = $db->prepare("SELECT * FROM bookings WHERE musician_id = :user_id AND status = 'completed'");

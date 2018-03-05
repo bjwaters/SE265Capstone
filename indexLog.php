@@ -114,7 +114,7 @@ switch($action){
         break;
 
     case 'EditProfile':
-        include_once('homepageLogged.php');
+        include_once('navLogged.php');
         $editID = $_SESSION['userID'];
         $profileType = "Edit";
         grabProfile($db, $editID, $profileType);
@@ -122,7 +122,7 @@ switch($action){
 
     case 'Save Edit':
         editProfile($db);
-        include_once('homepageLogged.php');
+        include_once('navLogged.php');
         break;
     case 'saveStatus':
         saveStatus($db);
@@ -160,15 +160,19 @@ switch($action){
 
     //Message Center Cases
     case 'myMessages':
-        include_once("../navLogged.php");
+        include_once("navLogged.php");
         echo getAllMessages($db, $_SESSION['userID']);
         break;
     case 'myBookings':
-        include_once("../navLogged.php");
+        include_once("navLogged.php");
         //echo getAllBookings($db, $_SESSION['userID']);
         echo getPendingBookings($db, $_SESSION['userID']);
         echo getAcceptedBookings($db, $_SESSION['userID']);
         echo getCompletedBookings($db, $_SESSION['userID']);
+        break;
+    case 'Profile':
+        include_once("navLogged.php");
+        include_once('assets/forms/profileTabs.php');
         break;
     case 'getMessages':
         echo getMessagesByIDs($db, $_GET['bookerID'], $_GET['musicianID']);

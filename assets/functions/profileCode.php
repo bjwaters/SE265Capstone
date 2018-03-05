@@ -209,3 +209,16 @@ function stateArray()
 	    "WA", "WV", "WI", "WY");
     return $states;
 }
+
+function getProfilePicture($db, $user_id){
+    try {
+        $sql = $db->prepare("SELECT picture FROM profiles WHERE user_id = :user_id");
+        $sql->bindParam(':user_id', $user_id);
+        $sql->execute();
+        $picture = $sql->fetch(PDO::FETCH_ASSOC);
+        return $picture['picture'];
+    }
+    catch (PDOException $e){
+        die("There was a problem getting the record."); //Error message if it fails to get the data
+    }
+}

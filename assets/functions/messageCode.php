@@ -1,7 +1,7 @@
 <?php
 
-
-function newMessage($db, $booker_id, $musician_id, $sender_id, $text, $seen){  //Function to add a new user to the users table
+//Function to add a new message to the messages table
+function newMessage($db, $booker_id, $musician_id, $sender_id, $text, $seen){
     try{
         $sql = $db->prepare("INSERT INTO messages VALUES (null, :booker_id, :musician_id, :sender_id, :text, now(), :seen) "); //sql statement to add placeholders to database
         $sql->bindParam(':booker_id', $booker_id);
@@ -28,8 +28,19 @@ function getMessagesByIDs($db, $booker_id, $musician_id){
         if($sql->rowCount() > 0) {
             $table = "<table class='table'>" . PHP_EOL;
             $table .= "<tr><th>MESSAGES</th></tr>";
+            if($_SESSION['userType'] == 'Booker') {
+                $myPic = getProfilePicture($db, $booker_id);
+                $profilePic = getProfilePicture($db, $musician_id);
+            } else if ($_SESSION['userType'] == 'Musician') {
+                $myPic = getProfilePicture($db, $musician_id);
+                $profilePic = getProfilePicture($db, $booker_id);
+            }
             foreach ($messages as $m) {
-                $table .= "<tr><td>" . $m['text'] . "</td><td>" . "Sent: " . $m['time'] . "</td></td>";
+                if($m['sender'] == $_SESSION['userID']){
+                    $table .= "<tr><td>" . $m['text'] . "</td><td>" . "Sent: " . $m['time'] . "</td><td><img src='assets/uploads/" . $myPic ."' height='75'></td></tr>";
+                } else {
+                    $table .= "<tr><td><img src='assets/uploads/" . $profilePic ."' height='75'></td><td>" . $m['text'] . "</td><td>" . "Sent: " . $m['time'] . "</td></tr>";
+                }
             }
             $table .= "</table>";
         } else {
@@ -59,12 +70,15 @@ function getAllMessages($db, $user_id){
             $table = "<table class='table'>" . PHP_EOL;
             $table .= "<tr><th>MESSAGES</th></tr>";
             foreach ($messages as $m) {
-                $table .= "<tr><td>" . $m['text'] . "</td><td>" . $m['time'] . "</td>";
                 if($_SESSION['userType'] == 'Booker') {
-                    $table .= "<td><a href='indexLog.php?action=Profile&bookerID=" . $user_id . "&musicianID=" . $m['sender']."'>UserID: " . $m['sender'] . "</a>";
-                } else{
-                    $table .= "<td><a href='indexLog.php?action=Profile&musicianID=" . $user_id . "&bookerID=" . $m['sender']."'>UserID: " . $m['sender'] . "</a>";
+                    $picture = getProfilePicture($db, $m['musician_id']);
+                    $profileID = $m['musician_id'];
+                } else {
+                    $picture = getProfilePicture($db, $m['booker_id']);
+                    $profileID = $m['booker_id'];
                 }
+                $table .= "<tr><td><img src = 'assets/uploads/" . $picture . "' class='img-thumbs' width='75' onclick='searchProfileClick($profileID)'></td>";
+                $table .= "<td>" . $m['text'] . "</td><td>" . $m['time'] . "</td></tr>";
             }
             $table .= "</table>";
         } else{
