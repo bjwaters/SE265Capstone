@@ -68,6 +68,9 @@ function signupTest($db, $found)
                         $newest_id = addUser($db, $hashedPassword, $email, $user_type); //If everything is good,add the user
                         if($user_type != "Admin") { //admins don't need profiles
                             addProfile($db, $newest_id);    //Add the new profile to the user's id too
+
+                            loginSession($newest_id, $user_type);
+                            header('Location: indexLog.php?action=EditProfile');
                         }
                         return $newest_id;
                     }
@@ -150,11 +153,11 @@ function adminSignup($db, $email, $pass, $pass2)
 //This is used by the sign up button
 //Called by the passwordTest function, if the passwords match
 //returns the last id added
-function addUser($db, $password, $user, $user_type)
+function addUser($db, $password, $email, $user_type)
 {
     try{
         $stmt = $db->prepare("INSERT INTO users VALUES (null, :email, :password, :user_type, NOW())");
-        $stmt->bindParam(':email', $user);
+        $stmt->bindParam(':email', $email);
         $stmt->bindParam(':password', $password);
         $stmt->bindParam(':user_type', $user_type);
         $stmt->execute();

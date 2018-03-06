@@ -14,9 +14,12 @@ function addProfile($db, $new_id)
     $userName = "Enter name here";
     $city = "Enter city here";
     $state = "RI";
+
+    //Add if statement to check for musician
     $genre = "Musical genre here";
     $pay = 0;
     $availability = "Enter availability here";
+
     $comments = "Enter comments here.";
     $picture = "Blank.jpg";
     $videoLink = "http://google.com";
@@ -37,6 +40,7 @@ function addProfile($db, $new_id)
         $stmt->bindParam(':videoLink', $videoLink);
         $stmt->bindParam(':profileStatus', $profileStatus);
         $stmt->execute();
+
     }catch(PDOException $e)
     {
         $e->getMessage();
@@ -67,6 +71,14 @@ function grabProfile($db, $neededID, $type)
                 $editPicture = $profile['picture'];
                 $editVideoLink = $profile['videoLink'];
                 $editProfileStatus = $profile['profileStatus'];
+
+                if(isset($_SESSION['userType']) && $_SESSION['userType'] == "Booker") {
+                    $hidden = 'hidden';
+                }else {
+                    $hidden = '';
+                }
+
+
 
                 if ($type == "Edit") {
                     include_once("assets/forms/EditProfileForm.php");

@@ -62,6 +62,7 @@ function loginClicks()
                         "</div>"
 
                     $('#contentOutput').html(pasteForm);
+                    $('#shuffledProfiles').html("");
                 }
                 else if(~return_data.indexOf("LOCKOUT"))
                 {
@@ -218,6 +219,7 @@ function signUpClicks()
                 "</div>"
 
                 $('#contentOutput').html(signUpForm);
+                $('#shuffledProfiles').html("");
             }
             else {
                 console.log(return_data);

@@ -41,6 +41,7 @@ $hours = filter_input(INPUT_POST, 'hours', FILTER_SANITIZE_STRING) ?? NULL;
 $pay = filter_input(INPUT_POST, 'pay', FILTER_SANITIZE_STRING) ?? NULL;
 $bookingText = filter_input(INPUT_POST, 'bookingText', FILTER_SANITIZE_STRING) ?? NULL;
 
+
 switch($action){
 
     default:
@@ -122,8 +123,9 @@ switch($action){
         break;
 
     case 'Save Edit':
-        editProfile($db);
+        //echo "TEST";
         include_once('navLogged.php');
+        editProfile($db);
         break;
     case 'saveStatus':
         saveStatus($db);

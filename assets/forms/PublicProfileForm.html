@@ -13,18 +13,21 @@
         <h3>Public Profile </h3>
         Name: <?php echo $editUserName?> <br>
         City: <?php echo $editCity?> State: <?php echo $editState?><br>
-        Music genre: <?php echo $editGenre?> <br>
-        Pay: <?php echo $editPay?><br>
+
         Comments: <?php echo $editComments?><br>
-        availability: <?php echo $editAvailability?><br><br>
+
+
+        <div id = "little" <?php echo $hidden ?>>
+            Music genre: <?php echo $editGenre?> <br>
+            availability: <?php echo $editAvailability?><br>
+            Pay: <?php echo $editPay?><br>
+        </div>
 
         <img src = 'assets/Uploads/<?php echo $editPicture?>' width='150'>
         <br><br>
 
         Video Link: <?php echo "<a href='$editVideoLink'>Video Link</a>" ?> <br> <br>
-        <input type = "submit" name = "action" value = "Request Booking" /><br>
 
-        <input type = "submit" name = "action" value = "Message User" /><br>
 
         <?php
 
@@ -52,7 +55,6 @@
                value = "Save Profile Status" onclick="changeProfileStatus()" />
 
         <br><br>
-        Ratings will go here, if there are any.
         <br> <input type="hidden" id="hiddenID" value="<?php echo $editUserID ?>" />
         <br> <input type="hidden" id="hiddenUserID" value="<?php echo $_SESSION['userID'] ?>" />
         <br> <input type="hidden" id="hiddenUserType" value="<?php echo $_SESSION['userType'] ?>" />
