@@ -12,7 +12,7 @@ function getShuffledProfiles($db){
         $table = "<table class='table' id='shuffledProfiles'>" . PHP_EOL;
         $table .= "<tr><th>Profiles</th></tr>";
         foreach ($profiles as $p) {
-            $table .= "<tr><td><img src='assets/uploads/" . $p['picture'] . "' height='200' onclick='searchProfileClick(" . $p['user_id'] . ")'></td></td>";
+            $table .= "<tr><td><img src='assets/uploads/" . $p['picture'] . "' height='200' onclick='searchProfileClickNotLogged(" . $p['user_id'] . ")'></td></td>";
             $table .= "<td>" . $p['userName'] . "</td>";
             $table .= "<td>" . $p['state'] . "</td>";
         }

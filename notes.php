@@ -20,10 +20,10 @@
 //Week 7 -  Both searches work - work on result output format and tweaking variables
             //Searches work both logged in and logged out, no radius, rates search works. Just need error checking messages
 //x          Edit Profile show and saves!
-//          Control Panel menu works for 4 entries. Continue down the list. Report just needs to go somewhere once it's sent.
+//x          Control Panel menu works for 4 entries. Continue down the list. Report just needs to go somewhere once it's sent.
 // x         Sign up/Sign In mostly done. check verification later
             // Some Basic error messages done
-//          Work on default page (random search results?)
+//x          Work on default page (random search results?)
 //x          Nav bar changed after login/logout. Code appropriate in each index
 //          Formatting AFTER functionality
             //Work on formatting of the outputs and clearing the screen properly

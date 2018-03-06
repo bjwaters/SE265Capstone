@@ -563,6 +563,43 @@ function advancedSearch()
     var action = "advancedSearch";
 
     var searchName = $('#searchName').val();
+    var searchCity = $('#searchCity').val();
+    var searchState = $('#searchState').val();
+    var searchAvailability = $('#searchAvailability').val();
+    var genreSearch_drop = $('#genreSearch_drop').val();
+    var searchPayRate1 = $('#searchPayRate1').val();
+    var searchPayRate2 = $('#searchPayRate2').val();
+    var status = $('input[name=profileStatus]:checked').val()
+
+    var vars = "action=" + action + "&searchName=" + searchName + "&searchCity=" + searchCity
+        + "&searchState=" + searchState + "&searchAvailability=" + searchAvailability + "&genreSearch_drop="
+        + genreSearch_drop + "&searchPayRate1=" + searchPayRate1 + "&searchPayRate2=" + searchPayRate2;
+
+    console.log("vars are: " + vars);
+    hr.open("POST", url, true);
+    hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    hr.onreadystatechange = function () {
+        if (hr.readyState == 4 && hr.status == 200) {
+            var return_data = hr.responseText;
+            //console.log(return_data);
+            $("#phpresults").html(return_data);
+        }
+    };
+
+    hr.send(vars);
+    console.log("Processing advanced search..");
+}
+
+function advancedSearchNotLogin()
+{
+    console.log("In advanced search");
+
+    var hr = new XMLHttpRequest();
+    var url = "indexNotLog.php";
+    var action = "advancedSearch";
+
+    var searchName = $('#searchName').val();
     var searchLocation = $('#searchLocation').val();
     var searchRadius = $('#searchRadius').val();
     var searchAvailability = $('#searchAvailability').val();
@@ -707,6 +744,8 @@ function reportIssues()
 function searchProfileClick(id)
 {
     $("#phpresults").html("");
+    $('#stateProfiles').html("");
+    $('#mcOutput').html("");
 
     var userID = id;
 
@@ -736,6 +775,7 @@ function searchProfileClick(id)
 function searchProfileClickNotLogged(id)
 {
     $("#phpresults").html("");
+    $('#shuffledProfiles').html("");
 
     var userID = id;
 

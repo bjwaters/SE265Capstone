@@ -71,7 +71,8 @@ switch($action){
         showAdvancedSearch();
         break;
     case 'advancedSearch':
-        searchAll($db);
+        $back=false;
+        searchAll($db, $back);
         break;
     case "searchResultClick":
         $profileType = "Public";

@@ -17,22 +17,10 @@ $(document).ready(function() {
     console.log($bID);
 
 
-  /*  $bID = getUrlParameter('bookerID');
-    $mID = getUrlParameter('musicianID');
-    console.log($bID);
-    console.log($mID);*/
-
-
 });
 
 
 
-/*
-    $(function(){
-
-
-
-});*/
 
 function getTotal(){
     $hours =  $('#booking-hours').val();
@@ -56,6 +44,10 @@ function getTodaysDate(){
         month = '0' + month;
     }
     var day = today.getDate();
+    if(day < 10)
+    {
+        day = '0' + day;
+    }
 
     var today = year+'-'+month+'-'+day;
 

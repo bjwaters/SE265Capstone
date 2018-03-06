@@ -106,7 +106,7 @@ function getPendingBookings($db, $user_id){
         $sql->bindParam(':user_id', $user_id, PDO::PARAM_INT);
         $sql->execute();
         $bookings = $sql->fetchAll(PDO::FETCH_ASSOC);
-        $table = "<table class='table'>" . PHP_EOL;
+        $table = "<table class='table' id='mcOutput'>" . PHP_EOL;
         $table .= "<tr><th>Pending Bookings</th></tr>";
         foreach ($bookings as $b) {
             if($_SESSION['userType'] == 'Booker') {

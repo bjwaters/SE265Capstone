@@ -15,10 +15,17 @@ function addProfile($db, $new_id)
     $city = "Enter city here";
     $state = "RI";
 
-    //Add if statement to check for musician
-    $genre = "Musical genre here";
-    $pay = 0;
-    $availability = "Enter availability here";
+    if($_SESSION['userTYpe'] == "Musician") {
+        $genre = "Musical genre here";
+        $pay = 0;
+        $availability = "Enter availability here";
+    }
+    else
+    {
+        $genre = "Default";
+        $pay = 3.14;
+        $availability = "Default";
+    }
 
     $comments = "Enter comments here.";
     $picture = "Blank.jpg";

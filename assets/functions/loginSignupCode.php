@@ -67,9 +67,9 @@ function signupTest($db, $found)
                         $hashedPassword = password_hash($password1, PASSWORD_DEFAULT);
                         $newest_id = addUser($db, $hashedPassword, $email, $user_type); //If everything is good,add the user
                         if($user_type != "Admin") { //admins don't need profiles
-                            addProfile($db, $newest_id);    //Add the new profile to the user's id too
-
                             loginSession($newest_id, $user_type);
+
+                            addProfile($db, $newest_id);    //Add the new profile to the user's id too
                             header('Location: indexLog.php?action=EditProfile');
                         }
                         return $newest_id;

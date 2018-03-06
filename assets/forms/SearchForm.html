@@ -13,8 +13,21 @@
     <form method = 'post' action = "#">
 
             Public Name: <input type="text" id="searchName" /> <br>
-            Location: <input type= "text" id="searchLocation" />
+            City: <input type= "text" id="searchCity" />
 
+        State: <select id='stateSearch_drop']>
+            <?php
+                echo("<option selected='selected' value=null>State.</option>");
+            $stateList = stateArray();
+            foreach($stateList as $state)
+            if($stateList == $state)
+            {
+            echo "<option selected = 'selected' value='" . $state . "'>" . $state . "</option>" . PHP_EOL;
+            }
+            else
+            echo "<option value='" . $state . "'>" . $state . "</option>" . PHP_EOL;
+            ?>
+        </select>
 
             Genre:
             <select id='genreSearch_drop']>
@@ -22,7 +35,7 @@
                 echo("<option selected='selected' value=null>Please choose a genre.</option>");
                 $genreList = genreArray();
                 foreach($genreList as $genre)
-                    if($editGenre == $genre)
+                    if($genreList == $genre)
                     {
                         echo "<option selected = 'selected' value='" . $genre . "'>" . $genre . "</option>" . PHP_EOL;
                     }

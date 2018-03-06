@@ -24,7 +24,12 @@ function searchLoc($db, $logged){
 
     try {
 
-        $sql = $db->prepare("SELECT * FROM profiles WHERE $category LIKE '%$text%'");
+        if(isset($_SESSION['userType']) && $_SESSION['userType'] != "Admin") {
+            $sql = $db->prepare("SELECT * FROM profiles WHERE genre <> 'dft' AND $category LIKE '%$text%'");
+        }
+        else{
+            $sql = $db->prepare("SELECT * FROM profiles WHERE $category LIKE '%$text%'");
+        }
         $sql->execute();
 
         $results = $sql->fetchAll(PDO::FETCH_ASSOC);

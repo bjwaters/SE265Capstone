@@ -67,7 +67,7 @@ function getAllMessages($db, $user_id){
         $messages = $sql->fetchAll(PDO::FETCH_ASSOC);
         if($sql->rowCount() > 0)
         {
-            $table = "<table class='table'>" . PHP_EOL;
+            $table = "<table class='table' id='mcOutput'>" . PHP_EOL;
             $table .= "<tr><th>MESSAGES</th></tr>";
             foreach ($messages as $m) {
                 if($_SESSION['userType'] == 'Booker') {
