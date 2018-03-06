@@ -361,6 +361,7 @@ function adminEntry()
 function editProfile()
 {
     $("#phpresults").html("");
+    $('#stateProfiles').html("");
     console.log("In edit profile");
 
     var hr = new XMLHttpRequest();
@@ -393,6 +394,7 @@ function publicProfile()
     console.log("In public profile");
     $("#phpresults").html("");
     $('#editProfile').html("");
+    $('#stateProfiles').html("");
 
     var hr = new XMLHttpRequest();
     var url = "indexLog.php";
@@ -493,6 +495,7 @@ function simpleSearchLogged(e)
 {
     e.preventDefault();
     console.log("simple search, logged");
+    $('#stateProfiles').html("");
 
     var hr = new XMLHttpRequest();
     var url = "indexLog.php";
@@ -589,6 +592,7 @@ function advancedSearch()
 
 function accountSettingsForm()
 {
+    $('#stateProfiles').html("");
     $('#phpresults').html("");
     var hr = new XMLHttpRequest();
     var url = "indexLog.php";
@@ -647,6 +651,7 @@ function reportForm()
     var hr = new XMLHttpRequest();
     var url = "indexLog.php";
     var action = "reportForm";
+    $('#stateProfiles').html("");
 
     var vars = "action=" + action;
 
@@ -844,6 +849,7 @@ function changeReportStatus()
     hr.send(vars);
     console.log("Updating reports..");
 }
+
 
 function returnToStart()
 {

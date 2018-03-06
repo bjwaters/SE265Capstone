@@ -53,7 +53,7 @@ switch($action){
 
         if($_SESSION['userType'] == "Booker") {
             $state = getUserState($db, $_SESSION['userID']); //This needs to be moved to userHomepage case??
-            //echo getProfilesByState($db, $state);
+            echo getProfilesByState($db, $state);
         }
 
         if($_SESSION['userType'] == "Musician") {

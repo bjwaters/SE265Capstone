@@ -46,7 +46,7 @@ function getProfilesByState($db, $state){
         $profiles = $sql->fetchAll(PDO::FETCH_ASSOC);
         shuffle($profiles);
 
-        $table = "<table class='table'>" . PHP_EOL;
+        $table = "<table class='table' id='stateProfiles'>" . PHP_EOL;
         $table .= "<tr><th>Profiles</th></tr>";
         foreach ($profiles as $p) {
             $table .= "<tr><td><img src='assets/uploads/" . $p['picture'] . "' height='200' onclick='searchProfileClick(" . $p['user_id'] . ")'></td></td>";

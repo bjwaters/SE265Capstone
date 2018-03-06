@@ -81,6 +81,6 @@ switch($action){
 
     default:
         include_once('nav.php');
-        //echo getShuffledProfiles($db);
+        echo getShuffledProfiles($db);
         break;
 }
