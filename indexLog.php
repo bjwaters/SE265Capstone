@@ -91,7 +91,8 @@ switch($action){
             {
                 $_POST['term'] = $_SESSION['searchHistory'];
                 showAdvancedSearch();
-                searchLoc($db);
+                $logged = true;
+                searchLoc($db, $logged);
             }
             else
             {

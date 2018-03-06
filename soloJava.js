@@ -569,6 +569,7 @@ function advancedChoice()
 function advancedSearch()
 {
     console.log("In advanced search");
+    $('#resultDiv').html("");
 
     var hr = new XMLHttpRequest();
     var url = "indexLog.php";
@@ -606,6 +607,7 @@ function advancedSearch()
 function advancedSearchNotLogin()
 {
     console.log("In advanced search");
+    $('#resultDiv').html("");
 
     var hr = new XMLHttpRequest();
     var url = "indexNotLog.php";

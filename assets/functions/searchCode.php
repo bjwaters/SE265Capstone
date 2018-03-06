@@ -36,7 +36,7 @@ function searchLoc($db, $logged){
         if($sql->rowCount() > 0)
         {
             $size = $sql ->rowCount();
-            $table = "<div class=\"container\"> <div class=\"row\">";
+            $table = "<div class=\"container\" id='resultDiv'> <div class=\"row\">";
             $table .= "$size items returned. <br> <br>";
             $table .= "<table>" . PHP_EOL;
             $intRow = 1;
