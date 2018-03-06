@@ -17,7 +17,7 @@
 
         State: <select id='stateSearch_drop']>
             <?php
-                echo("<option selected='selected' value=null>State.</option>");
+                echo("<option selected='selected' value=null>State</option>");
             $stateList = stateArray();
             foreach($stateList as $state)
             if($stateList == $state)
@@ -47,7 +47,7 @@
             <br>Rates: <input type="text" id="searchPayRate1" name="searchPayRate1" /> to <input type="text" id="searchPayRate2" name="searchPayRate2" /><br><br>
             Availability: <input type="text" id="searchAvailability" /><br>
 
-        <button type="button" class="btn btn-secondary" onclick="advancedSearch()">Advanced Search</button>
+        <button type="button" class="btn btn-secondary" onclick="advancedChoice()">Advanced Search</button>
             <!--<input type = "submit" name = "action" onclick="testing()" /><br><br> -->
 
         </form>

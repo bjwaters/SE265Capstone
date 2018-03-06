@@ -553,6 +553,18 @@ function simpleSearchNotLogged(e)
     console.log("Processing simple unlogged searching..");
 }
 
+function advancedChoice()
+{
+    if (!document.getElementById("simpleSearchButtonNotLogged")) {
+        //console.log("Is logged.")
+        advancedSearch();
+    }
+    else {
+        //console.log("Not logged");
+        advancedSearchNotLogin();
+    }
+}
+
 //Code for the advanced searching method
 function advancedSearch()
 {
@@ -564,7 +576,7 @@ function advancedSearch()
 
     var searchName = $('#searchName').val();
     var searchCity = $('#searchCity').val();
-    var searchState = $('#searchState').val();
+    var searchState = $('#stateSearch_drop').val();
     var searchAvailability = $('#searchAvailability').val();
     var genreSearch_drop = $('#genreSearch_drop').val();
     var searchPayRate1 = $('#searchPayRate1').val();
@@ -600,16 +612,16 @@ function advancedSearchNotLogin()
     var action = "advancedSearch";
 
     var searchName = $('#searchName').val();
-    var searchLocation = $('#searchLocation').val();
-    var searchRadius = $('#searchRadius').val();
+    var searchCity = $('#searchCity').val();
+    var searchState = $('#stateSearch_drop').val();
     var searchAvailability = $('#searchAvailability').val();
     var genreSearch_drop = $('#genreSearch_drop').val();
     var searchPayRate1 = $('#searchPayRate1').val();
     var searchPayRate2 = $('#searchPayRate2').val();
     var status = $('input[name=profileStatus]:checked').val()
 
-    var vars = "action=" + action + "&searchName=" + searchName + "&searchLocation=" + searchLocation
-        + "&searchRadius=" + searchRadius + "&searchAvailability=" + searchAvailability + "&genreSearch_drop="
+    var vars = "action=" + action + "&searchName=" + searchName + "&searchCity=" + searchCity
+        + "&searchState=" + searchState + "&searchAvailability=" + searchAvailability + "&genreSearch_drop="
         + genreSearch_drop + "&searchPayRate1=" + searchPayRate1 + "&searchPayRate2=" + searchPayRate2;
 
     console.log("vars are: " + vars);

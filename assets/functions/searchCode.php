@@ -77,15 +77,16 @@ function searchLoc($db, $logged){
 //Pay rate coming later, searches all things
 function searchAll($db, $back){
 
-    if(isset($_POST['searchName']) && isset($_POST['searchLocation']) && isset($_POST['searchAvailability']) && isset($_POST['genreSearch_drop']) && isset($_POST['searchPayRate1']) && isset($_POST['searchPayRate2'])) {
+    $searchString = "SELECT * FROM profiles WHERE 0=0 ";
+
+    if(isset($_POST['searchName']) && isset($_POST['searchState']) && isset($_POST['searchCity']) && isset($_POST['searchAvailability']) && isset($_POST['genreSearch_drop']) && isset($_POST['searchPayRate1']) && isset($_POST['searchPayRate2'])) {
         $searchName = $_POST['searchName'];
-        $searchLocation = $_POST['searchLocation'];
+        $searchLocation = $_POST['searchCity'];
         $searchAvailability = $_POST['searchAvailability'];
         $searchGenre = $_POST['genreSearch_drop'];
         $searchRate1 = $_POST['searchPayRate1'];
         $searchRate2 = $_POST['searchPayRate2'];
-
-        $searchString = "SELECT * FROM profiles WHERE 0=0 ";
+        $searchState = $_POST['searchState'];
 
         if ($searchName != "") {
             $searchName = strtolower($searchName);
@@ -103,10 +104,13 @@ function searchAll($db, $back){
             $searchAvailability = strtolower($searchAvailability);
             $searchString .= "AND availability LIKE '%$searchAvailability%'";
         }
+        if($searchState != "null"){
+            $searchState = strtolower($searchState);
+            $searchString .= "AND state LIKE '%$searchState%'";
+        }
 
-        var_dump($searchString);
-        var_dump($searchRate1);
-        var_dump($searchRate2);
+        echo($searchString);
+        //var_dump($searchString);
     }
     else
     {
