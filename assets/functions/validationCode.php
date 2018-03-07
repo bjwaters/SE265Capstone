@@ -1,0 +1,29 @@
+<?php
+
+//This function validates the profile form
+function validateProfile(){
+    $isValid = true;
+    $errors = "";
+
+    //Check if pay is a numeric value
+    $pay = $_POST['pay'];
+    if(!is_numeric($pay)){
+        $isValid = false;
+        $errors .= "Please enter pay rate as a numeric value." . PHP_EOL;
+    }
+
+    //Check for valid youtube url
+    $videoLink = $_POST['videoLink'];
+    $checkVideoLink = preg_match('/(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/', $videoLink);
+    if ($checkVideoLink == 0) {
+        $isValid = false;
+        $errors .= "Please enter a valid youtube url. \n";
+    }
+
+    if(!$isValid){
+        echo $errors;
+    }
+
+    return $isValid;
+
+}

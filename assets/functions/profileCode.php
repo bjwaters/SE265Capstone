@@ -79,12 +79,12 @@ function grabProfile($db, $neededID, $type)
                 $editVideoLink = $profile['videoLink'];
                 $editProfileStatus = $profile['profileStatus'];
 
-                if(isset($_SESSION['userType']) && $_SESSION['userType'] == "Booker") {
+                if($editGenre == 'Default') {
+                    var_dump($_SESSION['userType']);
                     $hidden = 'hidden';
                 }else {
                     $hidden = '';
                 }
-
 
 
                 if ($type == "Edit") {
@@ -120,7 +120,7 @@ function editProfile($db)
 
     if($editGenre == "null")
     {
-        $editGenre = "Unselected";
+        $editGenre = "Other";
     }
     if($editState == "null")
     {

@@ -22,6 +22,7 @@ require_once("assets/functions/reportCode.php");
 require_once("assets/functions/homepageCode.php");
 require_once("assets/functions/messageCode.php");
 require_once("assets/functions/bookingCode.php");
+require_once("assets/functions/validationCode.php");
 
 
 $db = dbConnect();
@@ -31,7 +32,7 @@ $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ??
 $profileID = filter_input(INPUT_POST, 'profileID', FILTER_SANITIZE_NUMBER_INT) ??
     filter_input(INPUT_GET, 'profileID', FILTER_SANITIZE_NUMBER_INT) ?? NULL;
 
-$text = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_STRING) ?? NULL;
+/*$text = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_STRING) ?? NULL;
 $booker_id = filter_input(INPUT_POST, 'bookerID', FILTER_SANITIZE_STRING) ?? NULL;
 $musician_id = filter_input(INPUT_POST, 'musicianID', FILTER_SANITIZE_STRING) ?? NULL;
 //$sender_id = filter_input(INPUT_POST, 'senderID', FILTER_SANITIZE_STRING) ?? NULL;
@@ -39,7 +40,7 @@ $musician_id = filter_input(INPUT_POST, 'musicianID', FILTER_SANITIZE_STRING) ??
 $bookingDate = filter_input(INPUT_POST, 'bookingDate', FILTER_SANITIZE_STRING) ?? NULL;
 $hours = filter_input(INPUT_POST, 'hours', FILTER_SANITIZE_STRING) ?? NULL;
 $pay = filter_input(INPUT_POST, 'pay', FILTER_SANITIZE_STRING) ?? NULL;
-$bookingText = filter_input(INPUT_POST, 'bookingText', FILTER_SANITIZE_STRING) ?? NULL;
+$bookingText = filter_input(INPUT_POST, 'bookingText', FILTER_SANITIZE_STRING) ?? NULL;*/
 
 
 switch($action){
@@ -83,7 +84,6 @@ switch($action){
         grabProfile($db, $profileID, $profileType);
         include_once('assets/forms/profileTabs.php');
         break;
-
     case 'Back to Search Page':
         if(isset($_SESSION['searchHistory']) && isset($_SESSION['searchType']))
         {
@@ -101,9 +101,7 @@ switch($action){
                 searchAll($db, $back);
             }
         }
-
         break;
-
     case 'createAdmin':
         echo ("In create admin php");
         include_once("assets/forms/adminMakerForm.php");
@@ -112,26 +110,28 @@ switch($action){
         $email = $_POST['adminEmail'];
         $pass = $_POST['adminPass1'];
         $pass2 = $_POST['adminPass2'];
-
         adminSignup($db, $email, $pass, $pass2);
         break;
-
     case 'EditProfile':
         include_once('navLogged.php');
         $editID = $_SESSION['userID'];
         $profileType = "Edit";
         grabProfile($db, $editID, $profileType);
         break;
-
     case 'Save Edit':
         //echo "TEST";
         include_once('navLogged.php');
-        editProfile($db);
+        if(validateProfile()){
+            editProfile($db);
+        } else {
+            $editID = $_SESSION['userID'];
+            $profileType = "Edit";
+            grabProfile($db, $editID, $profileType);
+        }
         break;
     case 'saveStatus':
         saveStatus($db);
         break;
-
     case 'Public Profile':
         if(isset($_SESSION['userID'])) {
             $editID = $_SESSION['userID'];
@@ -141,7 +141,6 @@ switch($action){
         else
             echo"No person logged in.";
         break;
-
     case 'reportForm':
         include_once('assets/forms/ReportMakerForm.html');
         break;
@@ -154,7 +153,6 @@ switch($action){
     case 'changeReportStatus':
         deleteReport($db);
         break;
-
     case 'accountSettingsForm':
         include_once('assets/forms/AccountSettingForm.php');
         break;
@@ -169,7 +167,6 @@ switch($action){
         break;
     case 'myBookings':
         include_once("navLogged.php");
-        //echo getAllBookings($db, $_SESSION['userID']);
         echo getPendingBookings($db, $_SESSION['userID']);
         echo getAcceptedBookings($db, $_SESSION['userID']);
         echo getCompletedBookings($db, $_SESSION['userID']);
