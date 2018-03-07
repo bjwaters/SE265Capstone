@@ -66,32 +66,13 @@ function updateBooking($db, $booking_id, $musician_id, $booking_date, $hours, $p
 
 //This function gets all of the bookings for one user (not used currently)
 function getAllBookings($db, $user_id){ //
-    try {
-        if($_SESSION['userType'] == 'Booker'){
-            $sql = $db->prepare("SELECT * FROM bookings WHERE booker_id = :user_id");
-        } else {
-            $sql = $db->prepare("SELECT * FROM bookings WHERE musician_id = :user_id");
-        }
+    $bookingsDiv = "<div id='mcOutput'>";
+    $bookingsDiv .= getPendingBookings($db, $user_id);
+    $bookingsDiv .= getAcceptedBookings($db, $user_id);
+    $bookingsDiv .= getCompletedBookings($db, $user_id);
+    $bookingsDiv .= "</div>";
 
-        $sql->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-        $sql->execute();
-        $bookings = $sql->fetchAll(PDO::FETCH_ASSOC);
-        $table = "<table class='table'>" . PHP_EOL;
-        $table .= "<tr><th>Bookings</th></tr>";
-        foreach ($bookings as $b) {
-            $table .= "<tr><td>" . $b['booking_id'] . "</td><td>" . $b['booking_date'] . "</td><td>" . "$" . $b['pay'] . $b['number_of_hours'] . "</td>";
-            if($_SESSION['userType'] == 'Booker') {
-                $table .= "<td><a href='indexLog.php?action=Profile&bookerID=" . $user_id . "&musicianID=" . $b['musician_id']."'>UserID: " . $b['musician_id'] . "</a>";
-            } else{
-                $table .= "<td><a href='indexLog.php?action=Profile&musicianID=" . $user_id . "&bookerID=" . $b['booker_id']."'>UserID: " . $b['booker_id'] . "</a>";
-            }
-        }
-        $table .= "</table>";
-        return $table;
-    }
-    catch (PDOException $e){
-        die("There was a problem deleting the record."); //Error message if it fails to add new data to the db
-    }
+    return $bookingsDiv;
 }
 
 //This function gets all bookings with a status of pending for the logged in user
@@ -106,7 +87,7 @@ function getPendingBookings($db, $user_id){
         $sql->bindParam(':user_id', $user_id, PDO::PARAM_INT);
         $sql->execute();
         $bookings = $sql->fetchAll(PDO::FETCH_ASSOC);
-        $table = "<table class='table' id='mcOutput'>" . PHP_EOL;
+        $table = "<table class='table'>" . PHP_EOL;
         $table .= "<tr><th>Pending Bookings</th></tr>";
         foreach ($bookings as $b) {
             if($_SESSION['userType'] == 'Booker') {

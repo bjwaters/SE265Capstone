@@ -32,17 +32,6 @@ $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ??
 $profileID = filter_input(INPUT_POST, 'profileID', FILTER_SANITIZE_NUMBER_INT) ??
     filter_input(INPUT_GET, 'profileID', FILTER_SANITIZE_NUMBER_INT) ?? NULL;
 
-/*$text = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_STRING) ?? NULL;
-$booker_id = filter_input(INPUT_POST, 'bookerID', FILTER_SANITIZE_STRING) ?? NULL;
-$musician_id = filter_input(INPUT_POST, 'musicianID', FILTER_SANITIZE_STRING) ?? NULL;
-//$sender_id = filter_input(INPUT_POST, 'senderID', FILTER_SANITIZE_STRING) ?? NULL;
-
-$bookingDate = filter_input(INPUT_POST, 'bookingDate', FILTER_SANITIZE_STRING) ?? NULL;
-$hours = filter_input(INPUT_POST, 'hours', FILTER_SANITIZE_STRING) ?? NULL;
-$pay = filter_input(INPUT_POST, 'pay', FILTER_SANITIZE_STRING) ?? NULL;
-$bookingText = filter_input(INPUT_POST, 'bookingText', FILTER_SANITIZE_STRING) ?? NULL;*/
-
-
 switch($action){
 
     default:
@@ -82,7 +71,9 @@ switch($action){
     case "searchResultClick":
         $profileType = "Public";
         grabProfile($db, $profileID, $profileType);
-        include_once('assets/forms/profileTabs.php');
+        if($_SESSION['userType'] == "Booker"){
+            include_once('assets/forms/profileTabs.php');
+        }
         break;
     case 'Back to Search Page':
         if(isset($_SESSION['searchHistory']) && isset($_SESSION['searchType']))
@@ -167,9 +158,7 @@ switch($action){
         break;
     case 'myBookings':
         include_once("navLogged.php");
-        echo getPendingBookings($db, $_SESSION['userID']);
-        echo getAcceptedBookings($db, $_SESSION['userID']);
-        echo getCompletedBookings($db, $_SESSION['userID']);
+        echo getAllBookings($db, $_SESSION['userID']);
         break;
     case 'Profile':
         include_once("navLogged.php");

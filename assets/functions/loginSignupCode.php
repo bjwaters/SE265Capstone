@@ -55,7 +55,7 @@ function signupTest($db, $found)
     }else
     {
 
-        if($email != "" && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if($email != "" && filter_var($email, FILTER_VALIDATE_EMAIL) && validateEmail($email)) {
             if($password1 != "") {
                 if ($password1 == $password2) {
                     if($user_type == '')

@@ -24,11 +24,11 @@ function searchLoc($db, $logged){
 
     try {
 
-        if(isset($_SESSION['userType']) && $_SESSION['userType'] != "Admin") {
-            $sql = $db->prepare("SELECT * FROM profiles WHERE genre <> 'Default' AND $category LIKE '%$text%'");
+        if(isset($_SESSION['userType']) && $_SESSION['userType'] == "Admin") {
+            $sql = $db->prepare("SELECT * FROM profiles WHERE $category LIKE '%$text%'");
         }
         else{
-            $sql = $db->prepare("SELECT * FROM profiles WHERE $category LIKE '%$text%'");
+            $sql = $db->prepare("SELECT * FROM profiles WHERE genre <> 'Default' AND $category LIKE '%$text%'");
         }
         $sql->execute();
 
@@ -77,10 +77,10 @@ function searchLoc($db, $logged){
 //Pay rate coming later, searches all things
 function searchAll($db, $back){
 
-    if(isset($_SESSION['userType']) && $_SESSION['userType'] != "Admin") {
-        $searchString = "SELECT * FROM profiles WHERE 0=0 AND genre <> 'Default'";
+    if(isset($_SESSION['userType']) && $_SESSION['userType'] == "Admin") {
+        $searchString = "SELECT * FROM profiles WHERE 0=0 ";
     }else {
-        $searchString = "SELECT * FROM profiles WHERE 0=0";
+        $searchString = "SELECT * FROM profiles WHERE 0=0 AND genre <> 'Default'";
     }
 
     if(isset($_POST['searchName']) && isset($_POST['searchState']) && isset($_POST['searchCity']) && isset($_POST['searchAvailability']) && isset($_POST['genreSearch_drop']) && isset($_POST['searchPayRate1']) && isset($_POST['searchPayRate2'])) {
@@ -160,7 +160,7 @@ function searchAll($db, $back){
                         {
 
                             $resultID = $result['user_id'];
-                            $table .= "<td>" . "<img src = 'assets/uploads/" . $result['picture'] . "' width='200' onclick='searchProfileClick($resultID)'><br>";
+                            $table .= "<td>" . "<img src = 'assets/uploads/" . $result['picture'] . "' width='200' onclick='profileClickChoice($resultID)'><br>";
                             $table .= $result['userName'] . "   " . $result['location'] . "</td>";
                             if ($intRow % 3 == 0) {
                                 $table .= "</tr><tr>";
@@ -171,7 +171,7 @@ function searchAll($db, $back){
                 }
                 else {
                     $resultID = $result['user_id'];
-                    $table .= "<td>" . "<img src = 'assets/uploads/" . $result['picture'] . "' width='200' onclick='searchProfileClick($resultID)'><br>";
+                    $table .= "<td>" . "<img src = 'assets/uploads/" . $result['picture'] . "' width='200' onclick='profileClickChoice($resultID)'><br>";
                     $table .= $result['userName'] . "   " . $result['city'] . "</td>";
                     if ($intRow % 3 == 0) {
                         $table .= "</tr><tr>";

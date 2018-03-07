@@ -16,6 +16,7 @@ require_once("assets/functions/searchCode.php");
 require_once("assets/functions/profileCode.php");
 require_once("assets/functions/reportCode.php");
 require_once("assets/functions/homepageCode.php");
+require_once("assets/functions/validationCode.php");
 
 $db = dbConnect();
 
@@ -79,7 +80,25 @@ switch($action){
         echo("profile id is " . $profileID . "<br>");
         grabProfile($db, $profileID, $profileType);
         break;
-
+    case 'Back to Search Page':
+        echo $_SESSION['searchHistory'];
+        if(isset($_SESSION['searchHistory']) && isset($_SESSION['searchType']))
+        {
+            if($_SESSION['searchType'] == "simple")
+            {
+                $_POST['term'] = $_SESSION['searchHistory'];
+                showAdvancedSearch();
+                $logged = true;
+                searchLoc($db, $logged);
+            }
+            else
+            {
+                $back = true;
+                showAdvancedSearch();
+                searchAll($db, $back);
+            }
+        }
+        break;
     default:
         include_once('nav.php');
         echo getShuffledProfiles($db);

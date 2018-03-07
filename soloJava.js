@@ -755,6 +755,19 @@ function reportIssues()
 
 }
 
+function profileClickChoice(id)
+{
+
+    if (!document.getElementById("simpleSearchButtonNotLogged")) {
+        //console.log("Is logged.")
+        searchProfileClick(id);
+    }
+    else {
+        //console.log("Not logged");
+        searchProfileClickNotLogged(id);
+    }
+}
+
 function searchProfileClick(id)
 {
     $("#phpresults").html("");
@@ -783,7 +796,7 @@ function searchProfileClick(id)
         }
     };
     hr.send(vars);
-    console.log("Processing search result click..");
+    console.log("Processing search result click (logged)..");
 }
 
 function searchProfileClickNotLogged(id)
@@ -813,7 +826,21 @@ function searchProfileClickNotLogged(id)
         }
     };
     hr.send(vars);
-    console.log("Processing search result click..");
+    console.log("Processing search result click (not logged)..");
+}
+
+
+function searchHistoryChoice()
+{
+
+    if (!document.getElementById("simpleSearchButtonNotLogged")) {
+        //console.log("Is logged.")
+        searchHistory();
+    }
+    else {
+        //console.log("Not logged");
+        searchHistoryNotLogged();
+    }
 }
 
 function searchHistory()
@@ -840,7 +867,34 @@ function searchHistory()
         }
     };
     hr.send(vars);
-    console.log("Processing back button..");
+    console.log("Processing back button (logged)..");
+}
+
+function searchHistoryNotLogged()
+{
+    console.log("Burp");
+
+    var hr = new XMLHttpRequest();
+    var url = "indexNotLog.php";
+    var action = "Back to Search Page";
+
+    var vars = "action=" + action;
+
+    console.log("Vars is " + vars);
+
+    hr.open("POST", url, true);
+    hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+
+    hr.onreadystatechange = function () {
+        if (hr.readyState == 4 && hr.status == 200) {
+            var return_data = hr.responseText;
+            $("#contentOutput").html(return_data);
+            $("#phpresults").html("");
+        }
+    };
+    hr.send(vars);
+    console.log("Processing back button (not logged)..");
 }
 
 function checkReports(){

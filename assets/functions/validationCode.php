@@ -27,3 +27,17 @@ function validateProfile(){
     return $isValid;
 
 }
+
+function validateEmail($email){
+    $isValid = true;
+
+    //Check for valid email format
+    echo $email;
+    $check = preg_match('/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/', $email);
+    if ($check == 0) {
+        $isValid = false;
+    }
+
+    return $isValid;
+
+}
