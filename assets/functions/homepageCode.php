@@ -4,7 +4,7 @@
 //Function to get all of the messages based on a set of two user ids
 function getShuffledProfiles($db){
     try {
-        $sql = $db->prepare("SELECT * FROM profiles");
+        $sql = $db->prepare("SELECT * FROM profiles WHERE genre <> 'Default'");
         $sql->execute();
         $profiles = $sql->fetchAll(PDO::FETCH_ASSOC);
         shuffle($profiles);
@@ -40,7 +40,7 @@ function getUserState($db, $user_id){
 
 function getProfilesByState($db, $state){
     try {
-        $sql = $db->prepare("SELECT * FROM profiles WHERE state = :state"); //need to add search parameter to only return Musicians
+        $sql = $db->prepare("SELECT * FROM profiles WHERE state = :state AND genre <> 'Default'"); //need to add search parameter to only return Musicians
         $sql->bindParam(':state', $state);
         $sql->execute();
         $profiles = $sql->fetchAll(PDO::FETCH_ASSOC);
