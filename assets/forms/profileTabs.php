@@ -2,7 +2,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src= "messageCenter.js"></script>
 
-<div class="container">
+<div class="container my-4 border col-5">
 
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">

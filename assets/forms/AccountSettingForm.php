@@ -7,15 +7,16 @@
  */
 ?>
 
-<form method = 'post' action = "#">
+<div class="container border my-4 col-5">
+    <form method = 'post' action = "#">
 
-    New email: <input type="email" id="accountEmail" name="accountEmail" required /><br>
-    New email Confirmation  : <input type="email" id="accountEmail2" name="AccountEmail2" required /> <br><br>
+        New email: <input type="email" id="accountEmail" name="accountEmail" required /><br>
+        New email Confirmation  : <input type="email" id="accountEmail2" name="AccountEmail2" required /> <br><br>
 
-    New Password : <input type="text" id="newPassword" name="newPassword" required/> <br>
-    Password Confirmation: <input type="text" id="newPassword2" name="newPassword2" required/> <br><br>
+        New Password : <input type="text" id="newPassword" name="newPassword" required/> <br>
+        Password Confirmation: <input type="text" id="newPassword2" name="newPassword2" required/> <br><br>
 
-    <input type="button" value="Save Changes" onclick="accountSettingsSet()" />
+        <input type="button" value="Save Changes" onclick="accountSettingsSet()" />
 
-</form>
-
+    </form>
+</div>

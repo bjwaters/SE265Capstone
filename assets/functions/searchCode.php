@@ -36,8 +36,8 @@ function searchLoc($db, $logged){
         if($sql->rowCount() > 0)
         {
             $size = $sql ->rowCount();
-            $table = "<div class=\"container\" id='resultDiv'> <div class=\"row\">";
-            $table .= "$size items returned. <br> <br>";
+            $table = "<div class=\"container border col-5 my-4\" id='resultDiv'> <div class=\"row\">";
+            //$table .= "$size items returned. <br> <br>";
             $table .= "<table>" . PHP_EOL;
             $intRow = 1;
             $table .= "<tr>";
@@ -141,7 +141,8 @@ function searchAll($db, $back){
         if($sql->rowCount() > 0)
         {
             $size = $sql ->rowCount();
-            $table = "$size rows returned. <br> <br>";
+            //$table = "$size rows returned. <br> <br>";
+            $table = "<div class=\"container border col-5 my-4\" id='resultDiv' style='padding-top: 20px;'> <div class=\"row\">";
             $table .= "<table>" . PHP_EOL;
             $intRow = 1;
             $table .= "<tr>";

@@ -9,13 +9,10 @@
 
 //Ben
 
-//Done - can lock profiles from the admin account. Can only do this from admin account on a public profile. Cannot login a locked accnt.
-        //Fixed null on profile genre, can see unresolved reports in admin area. Search History ok! Video link on public profile. Can create admin
-        //Reports resolved properly when checked, pushing login to notlogin if there's no session, search button conditional at public profile,
-        //account settings mostly done save validation
+//Done - Edit profile looks better. A liittle work on the profiletabs to fit it properly. Adv search looks better.
+        //Shuffle page a little better
 
-//To do : Fill in search afterward? More admin area - create admin error sending. Report at lockout?
-//Http5 form validation. City/state in process, might not be complete
+//To do : Fill in search afterward? More admin area - create admin error sending. Report at lockout?, check the search w/locked profiles (show an extra?)
 
 //Week 7 -  Both searches work - work on result output format and tweaking variables
             //Searches work both logged in and logged out, no radius, rates search works. Just need error checking messages

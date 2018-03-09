@@ -8,15 +8,21 @@ function getShuffledProfiles($db){
         $sql->execute();
         $profiles = $sql->fetchAll(PDO::FETCH_ASSOC);
         shuffle($profiles);
+        $intRow = 1;
 
-        $table = "<table class='table' id='shuffledProfiles'>" . PHP_EOL;
-        $table .= "<tr><th>Profiles</th></tr>";
+        $table = "<div class=\"container\" id='resultDiv' style='padding-top: 20px;'> <div class=\"row\">";
+        $table .= "<table class='table' id='shuffledProfiles'>" . PHP_EOL;
+        $table .= "<tr><th>Profiles</th></tr><tr>";
         foreach ($profiles as $p) {
-            $table .= "<tr><td><img src='assets/uploads/" . $p['picture'] . "' height='200' onclick='searchProfileClickNotLogged(" . $p['user_id'] . ")'></td></td>";
-            $table .= "<td>" . $p['userName'] . "</td>";
-            $table .= "<td>" . $p['state'] . "</td>";
+            $table .= "<td><img src='assets/uploads/" . $p['picture'] . "' height='200' onclick='searchProfileClickNotLogged(" . $p['user_id'] . ")'>";
+            $table .= "<br>" . $p['userName'] . ",   " .  $p['state'] ."</td>";
+            if($intRow %3 == 0)
+            {
+                $table .= "</tr><tr>";
+            }
+            $intRow++;
         }
-        $table .= "</table>";
+        $table .= "</tr></table></div>";
         return $table;
     }
     catch (PDOException $e){

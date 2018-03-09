@@ -1,5 +1,5 @@
 
-//Watching the events for stuff, some things in here outdated
+//Watching the events for stuff to happen, namely with the search, login, and logup buttons
 function events(){
 
 
@@ -84,7 +84,7 @@ function loginClicks()
 
 }
 
-//Redundant, but necessary for now
+//Adds a layer of redundancy for the login when the first time fails
 function backupLoginClicks()
 {
     var hr = new XMLHttpRequest();
@@ -141,7 +141,7 @@ function backupLoginClicks()
 }
 
 
-//Logout code
+//Logout code, destroys the current session
 function logoutClicks()
 {
 
@@ -169,7 +169,8 @@ function logoutClicks()
     console.log("Logging out..");
 }
 
-//Code for the advanced searching method
+
+//Code for the signing up of a new user
 function signUpClicks()
 {
     console.log("In SignupClicks");
@@ -235,6 +236,7 @@ function signUpClicks()
 }
 
 
+//Code for signing up when the first time fails
 function backupSignupClicks(){
 
     console.log("In SignupClicks");
@@ -300,6 +302,7 @@ function backupSignupClicks(){
 
 }
 
+//Code to allow the form for admin creation
 function createAdmin()
 {
 
@@ -327,6 +330,7 @@ function createAdmin()
     console.log("Processing admin creation form..");
 }
 
+//code to actually call the function which adds the new admin
 function adminEntry()
 {
 
@@ -359,11 +363,12 @@ function adminEntry()
     console.log("Processing admin addition..");
 }
 
-//Called to get the edit profile php code, returns the form with values in it(?!)
+//Called to get the edit profile php code, returns the form with values in it
 function editProfile()
 {
     $("#phpresults").html("");
     $('#stateProfiles').html("");
+    $('#editProfile').html("");
     console.log("In edit profile");
 
     var hr = new XMLHttpRequest();
@@ -389,7 +394,7 @@ function editProfile()
 
 }
 
-//Called to get the public profile php code, also returns a form with values in it(?!)
+//Called to get the public profile php code, also returns a form with values in it
 function publicProfile()
 {
 
@@ -420,7 +425,7 @@ function publicProfile()
 
 }
 
-
+//This code changes the status of the current profile, only available to admins
 function changeProfileStatus()
 {
     $("#phpresults").html("");
@@ -448,9 +453,10 @@ function changeProfileStatus()
     console.log("Processing profile status..");
 }
 
-//Showing the advanced search options, though there's extra text atm
+//Showing the advanced search options, used when logged in
 function showAdvancedSearch()
 {
+    $('#editProfile').html("");
     var hr = new XMLHttpRequest();
     var url = "indexLog.php";
     var action = "showAdvancedSearch";
@@ -471,6 +477,7 @@ function showAdvancedSearch()
     hr.send(vars);
 }
 
+//Showing the advanced search when not logged in
 function showAdvancedSearchNotLogged()
 {
     var hr = new XMLHttpRequest();
@@ -493,6 +500,7 @@ function showAdvancedSearchNotLogged()
     hr.send(vars);
 }
 
+//Calls the function which does a search by location, logged in
 function simpleSearchLogged(e)
 {
     e.preventDefault();
@@ -524,7 +532,7 @@ function simpleSearchLogged(e)
 
 
 
-//Simple search result from the main navbar
+//Simple search based on location when not logged in
 function simpleSearchNotLogged(e)
 {
      e.preventDefault();
@@ -565,7 +573,7 @@ function advancedChoice()
     }
 }
 
-//Code for the advanced searching method
+//Code for the advanced searching method, when logged in
 function advancedSearch()
 {
     console.log("In advanced search");
@@ -604,6 +612,7 @@ function advancedSearch()
     console.log("Processing advanced search..");
 }
 
+//code for the advanced searching method, when not logged in
 function advancedSearchNotLogin()
 {
     console.log("In advanced search");
@@ -642,9 +651,11 @@ function advancedSearchNotLogin()
     console.log("Processing advanced search..");
 }
 
-
+//This shows the account settings form
 function accountSettingsForm()
 {
+
+    $('#editProfile').html("");
     $('#stateProfiles').html("");
     $('#phpresults').html("");
     var hr = new XMLHttpRequest();
@@ -669,6 +680,7 @@ function accountSettingsForm()
     console.log("Processing account settings..");
 }
 
+//This calls the function to change a user's account settings
 function accountSettingsSet()
 {
     var hr = new XMLHttpRequest();
@@ -701,6 +713,7 @@ function accountSettingsSet()
 //Displays the report form
 function reportForm()
 {
+    $('#editProfile').html("");
     var hr = new XMLHttpRequest();
     var url = "indexLog.php";
     var action = "reportForm";
@@ -723,7 +736,7 @@ function reportForm()
     console.log("Processing report form..");
 }
 
-//sends the report form
+//sends the report form's data
 function reportIssues()
 {
     var hr = new XMLHttpRequest();
@@ -755,6 +768,7 @@ function reportIssues()
 
 }
 
+//Chooses which searchprofileclick function to use, based on the nav bar
 function profileClickChoice(id)
 {
 
@@ -768,6 +782,7 @@ function profileClickChoice(id)
     }
 }
 
+//Going to a user's profile page from the search when  logged in
 function searchProfileClick(id)
 {
     $("#phpresults").html("");
@@ -799,6 +814,7 @@ function searchProfileClick(id)
     console.log("Processing search result click (logged)..");
 }
 
+//Going to a user's profile page from the search when not logged in
 function searchProfileClickNotLogged(id)
 {
     $("#phpresults").html("");
@@ -829,7 +845,7 @@ function searchProfileClickNotLogged(id)
     console.log("Processing search result click (not logged)..");
 }
 
-
+//Chooses which history choice to use based on nav bar
 function searchHistoryChoice()
 {
 
@@ -843,6 +859,7 @@ function searchHistoryChoice()
     }
 }
 
+//Search history option for logged in
 function searchHistory()
 {
     console.log("Burp");
@@ -870,6 +887,7 @@ function searchHistory()
     console.log("Processing back button (logged)..");
 }
 
+//Search history function for not logging in
 function searchHistoryNotLogged()
 {
     console.log("Burp");
@@ -897,6 +915,7 @@ function searchHistoryNotLogged()
     console.log("Processing back button (not logged)..");
 }
 
+//Admin function for checking unresolved reports
 function checkReports(){
 
     var hr = new XMLHttpRequest();
@@ -921,6 +940,7 @@ function checkReports(){
     console.log("Checking reports..");
 }
 
+//Taking the reports which are checked and resolving them
 function changeReportStatus()
 {
     var hr = new XMLHttpRequest();
@@ -960,7 +980,7 @@ function changeReportStatus()
     console.log("Updating reports..");
 }
 
-
+//Clears the screen
 function returnToStart()
 {
     $("#phpresults").html("");
@@ -971,11 +991,5 @@ function returnToStart()
 $(document).ready(function(){
 
     events();
-    /*
-    input = $('#myelement');
-    for (var i = 0 ; i < input.length; i++) {
-    input[i].addEventListener("change" , fileFunction );
-    }
-    */
 
 });

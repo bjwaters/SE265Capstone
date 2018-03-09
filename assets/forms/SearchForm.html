@@ -7,48 +7,70 @@
  */
 ?>
 
-<div id = "editProfile" class="container">
-    <div class="row">
-
+<div id = "searchProfile" class="container border col-5 my-4">
+    <h4>Advanced Search</h4>
+    <div class="row mx-auto">
     <form method = 'post' action = "#">
 
-            Public Name: <input type="text" id="searchName" /> <br>
-            City: <input type= "text" id="searchCity" />
+        <div class = "row">
+            <div class="row justify-content-md-center my-1">
+            <div class="col">Name: </div>
+            <div class="col"><input type="text" id="searchName" style="width: 8rem"/></div>
+            <div class="col">City: </div>
+            <div class="col"><input type= "text" id="searchCity" style="width: 6rem"/></div>
 
-        State: <select id='stateSearch_drop']>
-            <?php
-                echo("<option selected='selected' value=null>State</option>");
-            $stateList = stateArray();
-            foreach($stateList as $state)
-            if($stateList == $state)
-            {
-            echo "<option selected = 'selected' value='" . $state . "'>" . $state . "</option>" . PHP_EOL;
-            }
-            else
-            echo "<option value='" . $state . "'>" . $state . "</option>" . PHP_EOL;
-            ?>
-        </select>
-
-            Genre:
-            <select id='genreSearch_drop']>
+            <div class="col">
+                <select id='stateSearch_drop']>
                 <?php
-                echo("<option selected='selected' value=null>Please choose a genre.</option>");
-                $genreList = genreArray();
-                foreach($genreList as $genre)
-                    if($genreList == $genre)
-                    {
-                        echo "<option selected = 'selected' value='" . $genre . "'>" . $genre . "</option>" . PHP_EOL;
-                    }
+                    echo("<option selected='selected' value=null>State</option>");
+                    $stateList = stateArray();
+                    foreach($stateList as $state)
+                if($stateList == $state)
+                {
+                    echo "<option selected = 'selected' value='" . $state . "'>" . $state . "</option>" . PHP_EOL;
+                }
                     else
-                        echo "<option value='" . $genre . "'>" . $genre . "</option>" . PHP_EOL;
+                    echo "<option value='" . $state . "'>" . $state . "</option>" . PHP_EOL;
                 ?>
-            </select>
+                </select>
+            </div>
+            </div>
+        </div>
 
-            <br>Rates: <input type="text" id="searchPayRate1" name="searchPayRate1" /> to <input type="text" id="searchPayRate2" name="searchPayRate2" /><br><br>
-            Availability: <input type="text" id="searchAvailability" /><br>
+        <div class = "row">
+            <div class="row justify-content-md-center my-1">
+                <div class="col">Genre: </div>
+                <div class="col">
+                <select id='genreSearch_drop'] style="width: 8rem">
+                    <?php
+                    echo("<option selected='selected' value=null>Options</option>");
+                    $genreList = genreArray();
+                    foreach($genreList as $genre)
+                        if($genreList == $genre)
+                        {
+                            echo "<option selected = 'selected' value='" . $genre . "'>" . $genre . "</option>" . PHP_EOL;
+                        }
+                        else
+                            echo "<option value='" . $genre . "'>" . $genre . "</option>" . PHP_EOL;
+                    ?>
+                </select>
+                </div>
 
-        <button type="button" class="btn btn-secondary" onclick="advancedChoice()">Advanced Search</button>
-            <!--<input type = "submit" name = "action" onclick="testing()" /><br><br> -->
+                <div class="col">Rates: </div>
+                <div class="col"><input type="text" id="searchPayRate1" name="searchPayRate1" style="width: 4rem"; /></div>
+                to
+                <div class="col"><input type="text" id="searchPayRate2" name="searchPayRate2" style="width: 4rem";/></div>
+
+            </div>
+            </div>
+        <div class = "row">
+            <div class="row justify-content-md-center">
+                <div class="col">Availability:</div>
+                <div class="col"><input type="text" id="searchAvailability" style="width: 23rem"; /></div>
+
+                <div class="col"><button type="button" class="btn btn-secondary" onclick="advancedChoice()">Search</button></div>
+            </div>
+        </div>
 
         </form>
     </div>

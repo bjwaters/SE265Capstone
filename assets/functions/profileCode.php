@@ -80,7 +80,7 @@ function grabProfile($db, $neededID, $type)
                 $editProfileStatus = $profile['profileStatus'];
 
                 if($editGenre == 'Default') {
-                    var_dump($_SESSION['userType']);
+                    //var_dump($_SESSION['userType']);
                     $hidden = 'hidden';
                 }else {
                     $hidden = '';
