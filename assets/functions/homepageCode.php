@@ -10,12 +10,12 @@ function getShuffledProfiles($db){
         shuffle($profiles);
         $intRow = 1;
 
-        $table = "<div class=\"container\" id='resultDiv' style='padding-top: 20px;'> <div class=\"row\">";
+        $table = "<div class='container' id='resultDiv' > <div class='row'>";
         $table .= "<table class='table' id='shuffledProfiles'>" . PHP_EOL;
-        $table .= "<tr><th>Profiles</th></tr><tr>";
         foreach ($profiles as $p) {
-            $table .= "<td><img src='assets/uploads/" . $p['picture'] . "' height='200' onclick='searchProfileClickNotLogged(" . $p['user_id'] . ")'>";
-            $table .= "<br>" . $p['userName'] . ",   " .  $p['state'] ."</td>";
+            $table .= "<td><div class='crop-container'><img src='assets/uploads/" . $p['picture'] . "' onclick='searchProfileClickNotLogged(" . $p['user_id'] . ")'></div>";
+            $table .= "<br><span class='sub-username'>" . $p['userName'] . "</span>";
+            $table .= "<br><span class='sub-location'> " . $p['city'] . ",   " .  $p['state'] ."</span></td>";
             if($intRow %3 == 0)
             {
                 $table .= "</tr><tr>";

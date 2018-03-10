@@ -24,6 +24,7 @@
     color:#0996ED;
 }
 
+/* Search bar */
 .soloSearch {
     position: relative;
     color: gray;
@@ -47,4 +48,31 @@
 
 .img-thumbs {
     object-fit: cover;
+}
+
+.crop-container {
+    width: 340px;
+    height: 225px;
+    border-radius: 25px;
+    overflow: hidden;
+
+}
+.crop-container img {
+    margin-top: -10px;
+    margin-left: -10px;
+    height: 225px;
+
+}
+
+.subheader {
+    font-family: Lato;
+}
+
+.sub-username {
+
+}
+
+.sub-location {
+    color: grey;
+    font-weight: 100;
 }

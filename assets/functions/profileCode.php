@@ -15,7 +15,7 @@ function addProfile($db, $new_id)
     $city = "Enter city here";
     $state = "RI";
 
-    if($_SESSION['userTYpe'] == "Musician") {
+    if($_SESSION['userType'] == "Musician") {
         $genre = "Musical genre here";
         $pay = 0;
         $availability = "Enter availability here";
