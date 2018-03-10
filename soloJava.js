@@ -820,6 +820,7 @@ function searchProfileClickNotLogged(id)
     $("#phpresults").html("");
     $('#shuffledProfiles').html("");
 
+
     var userID = id;
 
 

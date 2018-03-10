@@ -39,7 +39,7 @@ function getMessagesByIDs($db, $booker_id, $musician_id){
                 if($m['sender'] == $_SESSION['userID']){
                     $table .= "<tr><td>" . $m['text'] . "</td><td>" . "Sent: " . $m['time'] . "</td><td><img src='assets/uploads/" . $myPic ."' height='75'></td></tr>";
                 } else {
-                    $table .= "<tr><td><img src='assets/uploads/" . $profilePic ."' height='75'></td><td>" . $m['text'] . "</td><td>" . "Sent: " . $m['time'] . "</td></tr>";
+                    $table .= "<tr><td><div class='mc-crop-container'><img src='assets/uploads/" . $profilePic ."' height='75'></div></td><td>" . $m['text'] . "</td><td>" . "Sent: " . $m['time'] . "</td></tr>";
                 }
             }
             $table .= "</table>";
@@ -67,20 +67,22 @@ function getAllMessages($db, $user_id){
         $messages = $sql->fetchAll(PDO::FETCH_ASSOC);
         if($sql->rowCount() > 0)
         {
-            $table = "<table class='table' id='mcOutput'>" . PHP_EOL;
+            $table = "<div class='container col-7'><table class='table' id='mcOutput'>" . PHP_EOL;
             $table .= "<tr><th>MESSAGES</th></tr>";
             foreach ($messages as $m) {
                 if($_SESSION['userType'] == 'Booker') {
                     $picture = getProfilePicture($db, $m['musician_id']);
+                    $userName = getUserName($db, $m['musician_id']);
                     $profileID = $m['musician_id'];
                 } else {
                     $picture = getProfilePicture($db, $m['booker_id']);
                     $profileID = $m['booker_id'];
+                    $userName = getUserName($db, $m['booker_id']);
                 }
-                $table .= "<tr><td><img src = 'assets/uploads/" . $picture . "' class='img-thumbs' width='75' onclick='searchProfileClick($profileID)'></td>";
-                $table .= "<td>" . $m['text'] . "</td><td>" . $m['time'] . "</td></tr>";
+                $table .= "<tr><td><div class='mc-crop-container'><img src = 'assets/uploads/" . $picture . "' class='img-thumbs' width='75' onclick='searchProfileClick($profileID)'></div></td>";
+                $table .= "<td>" . $userName . "</td><td>" . $m['text'] . "</td><td>" . $m['time'] . "</td></tr>";
             }
-            $table .= "</table>";
+            $table .= "</table></div>";
         } else{
             $table = "You have no messages at this time.";
         }

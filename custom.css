@@ -41,15 +41,16 @@
     left: 10px;
 }
 
-.homeImg {
+/*.homeImg {
     border: 2px solid yellow;
     width: 200px;
 }
 
 .img-thumbs {
     object-fit: cover;
-}
+}*/
 
+/*Homepage Profile Images*/
 .crop-container {
     width: 340px;
     height: 225px;
@@ -58,9 +59,8 @@
 
 }
 .crop-container img {
-    margin-top: -10px;
-    margin-left: -10px;
     height: 225px;
+    border-radius: 25px;
 
 }
 
@@ -69,10 +69,24 @@
 }
 
 .sub-username {
-
+    font-size: 26px;
 }
 
 .sub-location {
     color: grey;
     font-weight: 100;
+    font-size: 20px;
+}
+
+
+/*Message center profile images*/
+.mc-crop-container {
+    width: 75px;
+    height: 75px;
+    overflow: hidden;
+
+}
+.mc-crop-container img {
+    height: 75px;
+
 }

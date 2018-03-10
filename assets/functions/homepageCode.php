@@ -14,8 +14,8 @@ function getShuffledProfiles($db){
         $table .= "<table class='table' id='shuffledProfiles'>" . PHP_EOL;
         foreach ($profiles as $p) {
             $table .= "<td><div class='crop-container'><img src='assets/uploads/" . $p['picture'] . "' onclick='searchProfileClickNotLogged(" . $p['user_id'] . ")'></div>";
-            $table .= "<br><span class='sub-username'>" . $p['userName'] . "</span>";
-            $table .= "<br><span class='sub-location'> " . $p['city'] . ",   " .  $p['state'] ."</span></td>";
+            $table .= "<br><span class='subheader sub-username'>" . $p['userName'] . "</span>";
+            $table .= "<br><span class='subheader sub-location'> " . $p['city'] . ",   " .  $p['state'] ."</span></td>";
             if($intRow %3 == 0)
             {
                 $table .= "</tr><tr>";
@@ -51,13 +51,19 @@ function getProfilesByState($db, $state){
         $sql->execute();
         $profiles = $sql->fetchAll(PDO::FETCH_ASSOC);
         shuffle($profiles);
+        $intRow = 1;
 
-        $table = "<table class='table' id='stateProfiles'>" . PHP_EOL;
-        $table .= "<tr><th>Profiles</th></tr>";
+        $table = "<div class='container' id='resultDiv' > <div class='row'>";
+        $table .= "<table class='table' id='stateProfiles'>" . PHP_EOL;
         foreach ($profiles as $p) {
-            $table .= "<tr><td><img src='assets/uploads/" . $p['picture'] . "' height='200' onclick='searchProfileClick(" . $p['user_id'] . ")'></td></td>";
-            $table .= "<td>" . $p['userName'] . "</td>";
-            $table .= "<td>" . $p['state'] . "</td>";
+            $table .= "<td><div class='crop-container'><img src='assets/uploads/" . $p['picture'] . "' onclick='searchProfileClick(" . $p['user_id'] . ")'></div>";
+            $table .= "<br><span class='subheader sub-username'>" . $p['userName'] . "</span>";
+            $table .= "<br><span class='subheader sub-location'> " . $p['city'] . ",   " .  $p['state'] ."</span></td>";
+            if($intRow %3 == 0)
+            {
+                $table .= "</tr><tr>";
+            }
+            $intRow++;
         }
         $table .= "</table>";
         return $table;

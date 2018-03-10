@@ -98,7 +98,7 @@ function getPendingBookings($db, $user_id){
                 $profileID = $b['booker_id'];
             }
 
-            $table .= "<td><img src = 'assets/uploads/" . $picture . "' class='img-thumbs' width='75' onclick='searchProfileClick($profileID)'></td>";
+            $table .= "<td><div class='mc-crop-container'><img src = 'assets/uploads/" . $picture . "' class='img-thumbs' width='75' onclick='searchProfileClick($profileID)'></div></td>";
             $table .= "<td>" . $b['booking_id'] . "</td><td>" . $b['booking_date'] . "</td><td>" . "$" . $b['pay'] . $b['number_of_hours'] . "</td>";
             $table .= "<td>Buttons</td>";
         }
@@ -129,9 +129,9 @@ function getAcceptedBookings($db, $user_id){
             $table .= "<tr><td>" . $b['booking_id'] . "</td><td>" . $b['booking_date'] . "</td><td>" . "$" . $b['pay'] . $b['number_of_hours'] . "</td>";
             if($_SESSION['userType'] == 'Booker') {
                 $pic = getProfilePicture();
-                $table .= "<td><a href='indexLog.php?action=Profile&bookerID=" . $user_id . "&musicianID=" . $b['musician_id']."'>UserID: " . $b['musician_id'] . "</a>";
+                $table .= "<td><div class='mc-crop-container'><a href='indexLog.php?action=Profile&bookerID=" . $user_id . "&musicianID=" . $b['musician_id']."'>UserID: " . $b['musician_id'] . "</a></div>";
             } else{
-                $table .= "<td><a href='indexLog.php?action=Profile&musicianID=" . $user_id . "&bookerID=" . $b['booker_id']."'>UserID: " . $b['booker_id'] . "</a>";
+                $table .= "<td><div class='mc-crop-container'><a href='indexLog.php?action=Profile&musicianID=" . $user_id . "&bookerID=" . $b['booker_id']."'>UserID: " . $b['booker_id'] . "</a></div>";
             }
         }
         $table .= "</table>";
@@ -159,9 +159,9 @@ function getCompletedBookings($db, $user_id){
         foreach ($bookings as $b) {
             $table .= "<tr><td>" . $b['booking_id'] . "</td><td>" . $b['booking_date'] . "</td><td>" . "$" . $b['pay'] . $b['number_of_hours'] . "</td>";
             if($_SESSION['userType'] == 'Booker') {
-                $table .= "<td><a href='indexLog.php?action=Profile&bookerID=" . $user_id . "&musicianID=" . $b['musician_id']."'>UserID: " . $b['musician_id'] . "</a>";
+                $table .= "<td><div class='mc-crop-container'><a href='indexLog.php?action=Profile&bookerID=" . $user_id . "&musicianID=" . $b['musician_id']."'>UserID: " . $b['musician_id'] . "</a></div>";
             } else{
-                $table .= "<td><a href='indexLog.php?action=Profile&musicianID=" . $user_id . "&bookerID=" . $b['booker_id']."'>UserID: " . $b['booker_id'] . "</a>";
+                $table .= "<td><div class='mc-crop-container'><a href='indexLog.php?action=Profile&musicianID=" . $user_id . "&bookerID=" . $b['booker_id']."'>UserID: " . $b['booker_id'] . "</a></div>";
             }
         }
         $table .= "</table>";

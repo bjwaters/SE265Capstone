@@ -241,3 +241,29 @@ function getProfilePicture($db, $user_id){
         die("There was a problem getting the record."); //Error message if it fails to get the data
     }
 }
+
+function getUserName($db, $user_id){
+    try {
+        $sql = $db->prepare("SELECT userName FROM profiles WHERE user_id = :user_id");
+        $sql->bindParam(':user_id', $user_id);
+        $sql->execute();
+        $userName = $sql->fetch(PDO::FETCH_ASSOC);
+        return $userName['userName'];
+    }
+    catch (PDOException $e){
+        die("There was a problem getting the record."); //Error message if it fails to get the data
+    }
+}
+
+function getLockedStatus($db, $user_id){
+    try {
+        $sql = $db->prepare("SELECT profileStatus FROM profiles WHERE user_id = :user_id");
+        $sql->bindParam(':user_id', $user_id);
+        $sql->execute();
+        $profileStatus = $sql->fetch(PDO::FETCH_ASSOC);
+        return $profileStatus['profileStatus'];
+    }
+    catch (PDOException $e){
+        die("There was a problem getting the record."); //Error message if it fails to get the data
+    }
+}

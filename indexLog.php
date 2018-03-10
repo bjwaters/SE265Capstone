@@ -71,8 +71,11 @@ switch($action){
     case "searchResultClick":
         $profileType = "Public";
         grabProfile($db, $profileID, $profileType);
-        if($_SESSION['userType'] == "Booker"){
+        $status = getLockedStatus($db, $profileID);
+        if($_SESSION['userType'] == "Booker" && $status == 'Unlocked' ){
             include_once('assets/forms/profileTabs.php');
+        } else {
+            echo "This profile is locked.";
         }
         break;
     case 'Back to Search Page':
