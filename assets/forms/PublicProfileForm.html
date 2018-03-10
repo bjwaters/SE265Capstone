@@ -9,70 +9,69 @@
 
 <div class="container my-4 border col-5">
     <div class="flex-grow">
-    <form method = 'get' action = "#">
+        <form method = 'get' action = "#">
 
-        <div class="flex-row border ml-3"><h3>Public Profile</h3></div>
+            <div class="flex-row border ml-3"><h3>Public Profile</h3></div>
 
-        <div class="d-flex flex-row border">
-        <div class="flex-column border">
-            <img src = 'assets/Uploads/<?php echo $editPicture?>' width='200'>
-        </div>
-        <div class="flex-grow border">
-            <?php echo $editUserName?> <br>
-            <?php echo $editCity?>, <?php echo $editState?>
-            <div id = "little" <?php echo $hidden ?>>
-                Music genre: <?php echo $editGenre?> <br>
-                availability: <?php echo $editAvailability?><br>
-                Pay: $<?php echo $editPay?><br>
+            <div class="d-flex flex-row border">
+                <div class="flex-column border">
+                    <img src = 'assets/Uploads/<?php echo $editPicture?>' width='200'>
+                </div>
+                <div class="flex-column border mr-auto offset-md-2">
+                    <?php echo $editUserName?> <br>
+                    <?php echo $editCity?>, <?php echo $editState?>
+                    <div id = "little" <?php echo $hidden ?>>
+                    Music genre: <?php echo $editGenre?> <br>
+                    availability: <?php echo $editAvailability?><br>
+                    Pay: $<?php echo $editPay?><br>
+                </div>
             </div>
-        </div>
-        </div>
-
-
-    <div class="d-flex border " style="width:315px;>
-        <div class="d-flex border">
-            <?php echo $editComments?>
-        </div>
     </div>
 
+
+    <div class="flex-row border">
         <div class="flex-column border" style="width:200px;">
             Video Link: <?php echo "<a href='$editVideoLink'>Video Link</a>" ?>
         </div>
+        <div class="flex-column border mr-auto">
+            <?php echo $editComments?>
+        </div>
+    </div>
 
     <div class="flex-column border">
         <?php
             if(isset($_SESSION['userType']) && $_SESSION['userType'] == "Admin")
                 echo "Profile status:<br> Locked";; ?>
         <input type =
-            <?php if(isset($_SESSION['userType']) && $_SESSION['userType'] == "Admin")
-                { echo "radio"; }
-                else echo "hidden"; ?>
+                       <?php if(isset($_SESSION['userType']) && $_SESSION['userType'] == "Admin")
+        { echo "radio"; }
+        else echo "hidden"; ?>
         name='profileStatus' <?php if($editProfileStatus == "Locked") echo "checked" ?> value = "Locked") />
 
         <?php if(isset($_SESSION['userType']) && $_SESSION['userType'] == "Admin") echo "Unlocked"; ?>
         <input type =
-            <?php if(isset($_SESSION['userType']) && $_SESSION['userType'] == "Admin")
-                { echo "radio"; }
-                else echo "hidden"; ?>
+                       <?php if(isset($_SESSION['userType']) && $_SESSION['userType'] == "Admin")
+        { echo "radio"; }
+        else echo "hidden"; ?>
         name='profileStatus' <?php if($editProfileStatus == "Unlocked") echo "checked" ?> value = "Unlocked" /><br>
 
         <input type =
                        <?php if(isset($_SESSION['userType']) && $_SESSION['userType'] == "Admin")
-                        {echo "button";}
-                        else
-                        {echo "hidden";} ?>
-               value = "Save Profile Status" onclick="changeProfileStatus()" />
+        {echo "button";}
+        else
+        {echo "hidden";} ?>
+        value = "Save Profile Status" onclick="changeProfileStatus()" />
     </div>
-        <br> <input type="hidden" id="hiddenID" value="<?php echo $editUserID ?>" />
-        <br> <input type="hidden" id="hiddenUserID" value="<?php echo $_SESSION['userID'] ?>" />
-        <br> <input type="hidden" id="hiddenUserType" value="<?php echo $_SESSION['userType'] ?>" />
+    <br> <input type="hidden" id="hiddenID" value="<?php echo $editUserID ?>" />
+    <br> <input type="hidden" id="hiddenUserID" value="<?php echo $_SESSION['userID'] ?>" />
+    <br> <input type="hidden" id="hiddenUserType" value="<?php echo $_SESSION['userType'] ?>" />
 
-        <input type=
-                       <?php if( isset($_SESSION['searchHistory']))
-                        {echo "button";}
-                        else echo "hidden"; ?>
-                onclick="searchHistoryChoice()" value="Back to Search Page" />
+    <input type=
+                   <?php if( isset($_SESSION['searchHistory']))
+    {echo "button";}
+    else echo "hidden"; ?>
+    onclick="searchHistoryChoice()" value="Back to Search Page" />
 
     </form>
-    </div>
+</div>
 </div>
