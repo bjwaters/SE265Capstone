@@ -196,4 +196,9 @@ switch($action){
             echo newMessage($db, $_POST['bookerID'], $_POST['musicianID'],  $_SESSION['userID'] , $bookingText);
         }
         break;
+    case 'deleteBooking' :
+        include_once("navLogged.php");
+        echo deleteBooking($db, $_GET['bookingID']);
+        echo getAllBookings($db, $_SESSION['userID']);
+        break;
 }

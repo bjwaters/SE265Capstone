@@ -32,6 +32,7 @@
                 <textarea name="bookingText" rows="4" cols="50" id="booking-text"></textarea><br />
 
                 <input type="button" name="action" value="Request Booking" onclick="sendBooking()">
+                <div id="booking-errors"></div>
             </form>
         </div>
 

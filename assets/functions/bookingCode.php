@@ -64,9 +64,20 @@ function updateBooking($db, $booking_id, $musician_id, $booking_date, $hours, $p
     }
 }
 
+function deleteBooking($db, $booking_id) {
+    try{
+        $sql = $db->prepare("DELETE FROM bookings WHERE booking_id = :booking_id"); //sql statement to add placeholders to database
+        $sql->bindParam(':booking_id', $booking_id);
+        $sql->execute();
+        return $sql->rowCount() . " rows inserted";
+    } catch (PDOException $e) {
+        die("There was a problem adding the record."); //Error message if it fails to add new data to the db
+    }
+}
+
 //This function gets all of the bookings for one user (not used currently)
 function getAllBookings($db, $user_id){ //
-    $bookingsDiv = "<div id='mcOutput'>";
+    $bookingsDiv = "<div class='container col-7' id='mcOutput'>";
     $bookingsDiv .= getPendingBookings($db, $user_id);
     $bookingsDiv .= getAcceptedBookings($db, $user_id);
     $bookingsDiv .= getCompletedBookings($db, $user_id);
@@ -93,14 +104,16 @@ function getPendingBookings($db, $user_id){
             if($_SESSION['userType'] == 'Booker') {
                 $picture = getProfilePicture($db, $b['musician_id']);
                 $profileID = $b['musician_id'];
+                $buttons = "<div><a href = '#' >Update</a> | <a href = 'indexLog.php?action=deleteBooking&bookingID=" . $b['booking_id'] .  "'>Cancel</a></div>";
             } else {
                 $picture = getProfilePicture($db, $b['booker_id']);
                 $profileID = $b['booker_id'];
+                $buttons = "<div><a href = '#' >Accept</a> | <a href = '#' >Decline</a></div>";
             }
 
-            $table .= "<td><div class='mc-crop-container'><img src = 'assets/uploads/" . $picture . "' class='img-thumbs' width='75' onclick='searchProfileClick($profileID)'></div></td>";
+            $table .= "<tr><td><div class='mc-crop-container'><img src = 'assets/uploads/" . $picture . "' class='img-thumbs' width='75' onclick='searchProfileClick($profileID)'></div></td>";
             $table .= "<td>" . $b['booking_id'] . "</td><td>" . $b['booking_date'] . "</td><td>" . "$" . $b['pay'] . $b['number_of_hours'] . "</td>";
-            $table .= "<td>Buttons</td>";
+            $table .= "<td>$buttons</td></tr>";
         }
         $table .= "</table>";
         return $table;
