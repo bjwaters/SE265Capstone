@@ -35,7 +35,6 @@ $profileID = filter_input(INPUT_POST, 'profileID', FILTER_SANITIZE_NUMBER_INT) ?
 switch($action){
 
     default:
-        //include_once('DephomepageLogged.php');
         include_once('navLogged.php');
 
         if($_SESSION['userType'] == "Admin") {
@@ -66,7 +65,6 @@ switch($action){
     case 'advancedSearch':
         $back = false;
         searchAll($db, $back);
-        //echo($_SESSION['searchHistory']);
         break;
     case "searchResultClick":
         $profileType = "Public";
@@ -162,6 +160,7 @@ switch($action){
     case 'myBookings':
         include_once("navLogged.php");
         echo getAllBookings($db, $_SESSION['userID']);
+        include_once('assets/forms/modalBookingUpdateForm.php');
         break;
     case 'Profile':
         include_once("navLogged.php");
@@ -195,6 +194,33 @@ switch($action){
         if(strlen($bookingText) > 0){
             echo newMessage($db, $_POST['bookerID'], $_POST['musicianID'],  $_SESSION['userID'] , $bookingText);
         }
+        break;
+    case 'updateBooking' :
+        // Convert booking date to format
+        $bookingDate = $_POST['date'];
+        $hours = $_POST['hours'];
+        $pay = $_POST['pay'];
+        $bookingText = $_POST['text'];
+
+        $bTime = strtotime($bookingDate);
+        $bDate = date("Y-m-d H:i", $bTime);
+
+        echo updateBooking($db, $_POST['bookerID'], $_POST['musicianID'], $bDate, $hours, $pay, $status='pending');
+
+        if(strlen($bookingText) > 0){
+            echo newMessage($db, $_POST['bookerID'], $_POST['musicianID'],  $_SESSION['userID'] , $bookingText, $seen=false);
+        }
+    case 'acceptBooking' :
+        include_once("navLogged.php");
+        echo updateBookingStatus($db, $_GET['bookingID'], $status='accepted');
+        echo getAllBookings($db, $_SESSION['userID']);
+        break;
+    case 'declineBooking' :
+        include_once("navLogged.php");
+        $bookingText = "User has declined your booking request.";
+        echo newMessage($db, $_GET['bookerID'], $_GET['musicianID'], $_SESSION['userID'], $bookingText, $seen=false);
+        echo deleteBooking($db, $_GET['bookingID']);
+        echo getAllBookings($db, $_SESSION['userID']);
         break;
     case 'deleteBooking' :
         include_once("navLogged.php");

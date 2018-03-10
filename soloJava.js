@@ -45,10 +45,10 @@ function loginClicks()
             {
                 if(~return_data.indexOf("Error")) //Checks if the word error is in the return data
                 {
-                    $('#phpresults').html(return_data);
+                    $('#phpresults').html("<div class=\"container my-4 col-4 px-3\">" + return_data + "</div>");
                     console.log("Log in failed");
 
-                    var pasteForm = "<div class=\"container\">\n" +
+                    var pasteForm = "<div class=\"container my-4 border col-4\">\n" +
                         "    <div class=\"row\">\n" +
                         "    <form method = 'post' action = \"#\">\n" +
                         "\n" +
@@ -66,7 +66,7 @@ function loginClicks()
                 }
                 else if(~return_data.indexOf("LOCKOUT"))
                 {
-                    $('#phpresults').html("Your account is locked. You cannnot sign in.");
+                    $('#phpresults').html("<div class=\"container my-4 col-4\"> Your account is locked. You cannnot sign in. </div>");
                     console.log("Log in failed");
                 }
                 else
@@ -97,23 +97,22 @@ function backupLoginClicks()
     hr.open("POST", url, true);
     hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-    console.log(vars);
+    //console.log(vars);
 
     hr.onreadystatechange = function () {
         if (hr.readyState == 4 && hr.status == 200) {
 
             var return_data = hr.responseText;
             if (return_data == "Administrator") {
-                $("#contentOutput").html('admin boop');
 
             }
             else {
                 if (~return_data.indexOf("Error")) //Checks if the word error is in the return data
                 {
                     console.log(return_data);
-                    $('#phpresults').html(return_data);
+                    $('#phpresults').html("<div class=\"container my-4 col-4\">" + return_data + "</div>");
 
-                    var pasteForm = "<div class=\"container\">\n" +
+                    var pasteForm = "<div class=\"container my-4 border col-4\">\n" +
                         "    <div class=\"row\">\n" +
                         "    <form method = 'post' action = \"#\">\n" +
                         "\n" +
@@ -126,6 +125,11 @@ function backupLoginClicks()
                         "    </div>\n" +
                         "</div>"
                     $('#contentOutput').html(pasteForm);
+                }
+                else if(~return_data.indexOf("LOCKOUT"))
+                {
+                    $('#phpresults').html("<div class=\"container my-4 col-4\"> Your account is locked. You cannnot sign in. </div>");
+                    console.log("Log in failed");
                 }
                 else {
                     console.log(return_data);
@@ -203,9 +207,9 @@ function signUpClicks()
             if (~return_data.indexOf("Error")) //Checks if the word error is in the return data
             {
                 console.log(return_data);
-                $('#phpresults').html(return_data);
+                $('#phpresults').html("<div class=\"container my-4 col-4\">" + return_data + "</div>");
 
-                var signUpForm = "<div class=\"container\">\n" +
+                var signUpForm = "<div class=\"container my-4 border col-4\">\n" +
                     "    <div class=\"row\">\n" +
                     "    <form method = 'post' action = \"#\">\n" +
                     "\n" +
@@ -269,9 +273,9 @@ function backupSignupClicks(){
             if (~return_data.indexOf("Error")) //Checks if the word error is in the return data
             {
                 console.log(return_data);
-                $('#phpresults').html(return_data);
+                $('#phpresults').html("<div class=\"container my-4 col-4\">" + return_data + "</div>");
 
-                var signUpForm = "<div class=\"container\">\n" +
+                var signUpForm = "<div class=\"container my-4 border col-4\">\n" +
                     "    <div class=\"row\">\n" +
                     "    <form method = 'post' action = \"#\">\n" +
                     "\n" +
@@ -401,6 +405,7 @@ function publicProfile()
     console.log("In public profile");
     $("#phpresults").html("");
     $('#editProfile').html("");
+    $('#editProfile').hide();
     $('#stateProfiles').html("");
 
     var hr = new XMLHttpRequest();
@@ -656,6 +661,7 @@ function accountSettingsForm()
 {
 
     $('#editProfile').html("");
+    $('#editProfile').hide();
     $('#stateProfiles').html("");
     $('#phpresults').html("");
     var hr = new XMLHttpRequest();
@@ -683,6 +689,7 @@ function accountSettingsForm()
 //This calls the function to change a user's account settings
 function accountSettingsSet()
 {
+
     var hr = new XMLHttpRequest();
     var url = "indexLog.php";
     var action = "accountSettingsSet";
@@ -714,6 +721,8 @@ function accountSettingsSet()
 function reportForm()
 {
     $('#editProfile').html("");
+    $('#editProfile').hide();
+
     var hr = new XMLHttpRequest();
     var url = "indexLog.php";
     var action = "reportForm";
@@ -933,7 +942,7 @@ function checkReports(){
         if (hr.readyState == 4 && hr.status == 200) {
 
             var return_data = hr.responseText;
-            $('#contentOutput').html(return_data);
+            $('#phpresults').html(return_data);
         }
     };
 

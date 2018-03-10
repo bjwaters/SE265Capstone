@@ -31,7 +31,8 @@ function addReport($db)
 function grabReports($db)
 {
     $resolution = "No";
-    $reportTable = "<form method = 'post' action = \"#\"><table><thead><tr> <th> Report # </th><th> User ID </th><th>Title</th><th>Comment</th><th>Time</th></tr></thead>";
+    $reportTable = "<div class=\"container my-4 border col-6\">";
+    $reportTable .= "<form method = 'post' action = \"#\"><table border='1' cellpadding=\"5\"><thead><tr> <th> Report # </th><th> User ID </th><th>Title</th><th>Comment</th><th>Time</th></tr></thead>";
     try{
         $stmt = $db->prepare("SELECT * FROM reports WHERE resolved =:resolution");
         $stmt->bindParam(':resolution', $resolution);
@@ -46,7 +47,7 @@ function grabReports($db)
                 $reportID = $report['user_id'];
                 $reportTitle = $report['title'];
                 $reportComments = $report['comments'];
-                $reportTime = $report['created'];
+                $reportTime = $report['time'];
 
             $reportTable .= "<tr><td>" . $reportNumber . "</td><td>" . $reportID . "</td> . <td>" . $reportTitle . "</td><td>"
                     . $reportComments . "</td><td>" . $reportTime . "</td> <td>
@@ -54,7 +55,7 @@ function grabReports($db)
                 </td></tr>";
             $counter++;
             }
-            $reportTable .= "</table><input type=\"hidden\" id = \"counter\" value=\"$counter\"><input type = \"button\" value = \"Save Changes\" onclick = \"changeReportStatus()\" /></form>";
+            $reportTable .= "</table><input type=\"hidden\" id = \"counter\" value=\"$counter\"><input type = \"button\" value = \"Save Changes\" onclick = \"changeReportStatus()\" /></form></div>";
             echo $reportTable;
         }
 
@@ -73,7 +74,6 @@ function deleteReport($db)
     $valArray = $_POST['valArray'];
     $properArray = explode(",", $valArray);
     foreach ($properArray as $id) {
-        //echo("Id is " . $id);
         $resolved = "Yes";
         try{
             $stmt = $db->prepare("UPDATE reports SET resolved=:resolved WHERE reportNumber = :reportNumber");

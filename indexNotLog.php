@@ -77,7 +77,7 @@ switch($action){
         break;
     case "searchResultClick":
         $profileType = "Public";
-        echo("profile id is " . $profileID . "<br>");
+        // echo("profile id is " . $profileID . "<br>");
         grabProfile($db, $profileID, $profileType);
         break;
     case 'Back to Search Page':

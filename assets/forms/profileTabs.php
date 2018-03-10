@@ -2,7 +2,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src= "messageCenter.js"></script>
 
-<div class="container my-4 border col-5">
+<div class="container my-4 border col-7">
 
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
@@ -18,7 +18,9 @@
 
     <div class="tab-content" id="myTabContent">
 
-        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="reviews-tab">Coming soon...</div>
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="reviews-tab">
+            <img src="assets/uploads/reviews.png" class="img-fluid" alt="Responsive image">
+        </div>
 
         <div class="tab-pane fade" id="bookings" role="tabpanel" aria-labelledby="bookings-tab">
             <span id="allBookings"></span>

@@ -1,6 +1,26 @@
 
 /*Nav*/
 
+.btn-primary {
+    background-color: #00A6FF;
+    color: #ffffff;
+    border-color: #00A6FF;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background-color: #00A6FF;
+}
+
+.btn-primary:active, .btn-primary.active {
+    background-color: #00A6FF;
+    box-shadow: none;
+}
+
+#mynavBar soloNavContainer
+{
+    background-color: #ffffff;
+}
+
 .navbar {
     background-color: #ffffff;
     height:75px;
@@ -50,7 +70,7 @@
     object-fit: cover;
 }*/
 
-/*Homepage Profile Images*/
+/*Profile Grid Images*/
 .crop-container {
     width: 340px;
     height: 225px;

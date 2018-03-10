@@ -24,7 +24,7 @@
 
 <!-- Nav bar -->
 <div id ="mynavBar soloNavContainer">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light">
 
         <!-- Home Button - Logo -->
         <div id="homeButton mr-auto order-1">
@@ -43,7 +43,7 @@
                     <i class="fas fa-search"></i>
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="simpleSearchLocationNotLogged">
                 </div>
-                <button class="btn btn-outline-primary my-2 my-sm-0" id="simpleSearchButtonNotLogged">Search</button>
+                <button class="btn btn-primary my-2 my-sm-0" id="simpleSearchButtonNotLogged">Search</button>
             </form>
 
             <!-- Sign in and sign up -->
@@ -136,7 +136,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary active" id="modalSignUp" data-dismiss="modal">Sign Up</button>
+                <button type="button" class="btn btn-primary" id="modalSignUp" data-dismiss="modal">Sign Up</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>

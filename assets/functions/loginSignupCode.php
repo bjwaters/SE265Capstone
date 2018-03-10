@@ -50,7 +50,6 @@ function signupTest($db, $found)
     $user_type = $_POST['userType'];
 
     if($found == true) {
-        //include_once("assets/forms/DepLoginForm.html");
         echo("User already found. Please enter another email.");
     }else
     {
@@ -60,7 +59,6 @@ function signupTest($db, $found)
                 if ($password1 == $password2) {
                     if($user_type == '')
                     {
-                        //include_once("assets/forms/DepLoginForm.html");
                         echo("Error. No user type selected!");
                     }
                     else{
@@ -75,18 +73,15 @@ function signupTest($db, $found)
                         return $newest_id;
                     }
                 } else {
-                    //include_once("assets/forms/DepLoginForm.html");
                     echo("Error. Passwords do no match");
                 }
             }
             else {
-                //include_once("assets/forms/DepLoginForm.html");
                 echo("<br> Error. Password needed.");
             }
         }
         else
         {
-            //include_once("assets/forms/DepLoginForm.html");
             echo("Error. Invalid email entered.");
         }
     }
@@ -162,9 +157,6 @@ function addUser($db, $password, $email, $user_type)
         $stmt->bindParam(':user_type', $user_type);
         $stmt->execute();
         $lastID = $db->lastInsertID();
-        if($user_type != "Admin") {
-            //include_once("assets/forms/DepLoginForm.html");
-        }
         echo("User added.");
         return $lastID;
     }catch(PDOException $e)
@@ -182,8 +174,6 @@ function signinTest($db)
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    //echo("email is: " . $email . "<br>");
-    //echo("password is : " . $password . "<br>" );
 
     try {
         $stmt = $db->prepare("SELECT * FROM users");
@@ -203,7 +193,6 @@ function signinTest($db)
         } else {
             echo("");
         }
-        //echo ("still in signintest, successfulID is " . $successfulLogin);
         echo ($successfulLogin);
         return ($successfulLogin);
     } catch (PDOException $e) {
@@ -251,7 +240,6 @@ function grabUserType($db, $validID)
             }
         } else
             echo("No users in list <br>");
-        //echo("In grabusertype, user type is is " . $userType);
         return ($userType);
     } catch (PDOException $e) {
         die("Grabbing the user list didn't work.");
@@ -270,7 +258,6 @@ function accountSettingcode($db){
     $pass1 = $_POST['pass1'];
     $pass2 = $_POST['pass2'];
 
-    //echo ($email1 . " " . $email2 . " " . $pass1 . " " . $pass2);
     if($email1 != "" && $email2 != ""  && filter_var($email1, FILTER_VALIDATE_EMAIL)) {
         if ($email1 == $email2) {
             if ($pass1 != "" && $pass2 != "") {

@@ -58,9 +58,9 @@ function getMessagesByIDs($db, $booker_id, $musician_id){
 function getAllMessages($db, $user_id){
     try {
         if($_SESSION['userType'] == 'Booker') {
-            $sql = $db->prepare("SELECT * FROM messages WHERE booker_id = :user_id AND sender != :user_id ORDER BY time");
+            $sql = $db->prepare("SELECT * FROM messages WHERE booker_id = :user_id AND sender != :user_id ORDER BY time DESC");
         } else{
-            $sql = $db->prepare("SELECT * FROM messages WHERE musician_id = :user_id AND sender != :user_id ORDER BY time");
+            $sql = $db->prepare("SELECT * FROM messages WHERE musician_id = :user_id AND sender != :user_id ORDER BY time DESC");
         }
         $sql->bindParam(':user_id', $user_id, PDO::PARAM_INT);
         $sql->execute();

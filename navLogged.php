@@ -26,7 +26,7 @@
 
 <!-- Nav bar -->
 <div id ="mynavBar soloNavContainer">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light">
 
         <!-- Home Button - Logo -->
         <div id="homeButton mr-auto order-1">
@@ -45,7 +45,7 @@
                     <i class="fas fa-search"></i>
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="simpleSearchLocationLogged">
                 </div>
-                <button class="btn btn-outline-primary my-2 my-sm-0" id="simpleSearchButtonLogged">Search</button>
+                <button class="btn btn-primary my-2 my-sm-0" id="simpleSearchButtonLogged">Search</button>
             </form>
 
             <!-- Message Center Link -->

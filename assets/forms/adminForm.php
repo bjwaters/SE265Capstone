@@ -7,14 +7,13 @@
  */
 ?>
 
-<div class="container">
+<div class="container my-4 border col-3 px-4 py-3">
     <div class="row">
     <form method = 'post' action = "#">
 
-        This is the admin area. Don't you feel special?<br>
+        This is the admin area.<br> Please click responsibly.<br><br>
         <input type = "button" value = "Create New Admin" onclick="createAdmin()"/><br>
 
-        <!--<input type = "submit" name = "action" value = "Check Reports" />-->
         <input type = "button" value = "Check Reports" onclick = "checkReports()" />
     </form>
     </div>

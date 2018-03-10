@@ -21,7 +21,6 @@ $(document).ready(function() {
 
 
 
-
 function getTotal(){
     $hours =  $('#booking-hours').val();
     $hourlyRate = $('#profileRate').text();
@@ -137,6 +136,88 @@ function sendBooking(){
         var hr = new XMLHttpRequest();
         var url = "indexLog.php";
         var action = "requestBooking"
+        var data = "action=" + action + "&date=" + date + "&hours=" + hours  + "&pay=" + pay + "&text=" + text + "&bookerID="+$bID+"&musicianID="+$mID;
+
+        hr.open("POST", url, true);
+        hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        hr.onreadystatechange = function(){
+            if (hr.readyState == 4 && hr.status == 200) {
+                var return_data = hr.responseText;
+                console.log("return data:" + return_data);
+            }
+        };
+        hr.send(data);
+        getBookings();
+        $("#booking-date").val('');
+        $("#booking-hours").val('');
+        $("#booking-pay").val('');
+        $("#booking-text").val('');
+        $("#booking-total").val('');
+
+    } else {
+        $('#booking-errors').html(errorMsg);
+        console.log(errorMsg);
+    }
+}
+
+
+function fillUpdateBookingForm() {
+
+    var fullDate = $("#bookingDate").val();
+    var date =  fullDate.split(" ")[0];
+    var time = fullDate.split(" ")[1];
+
+    console.log(fullDate);
+    console.log(date);
+    console.log(time);
+
+
+
+    var hours = $("#booking-hours").val();
+
+
+
+    $("#booking-date").val(date);
+    $("#booking-date").val(time);
+
+    $("#booking-hours").val();
+    $("#booking-pay").val();
+
+
+
+}
+
+function updateBooking(){
+
+    var requiredCheck = true;
+    var errorMsg = '';
+
+    $('#booking-errors').val('');
+    var date = $("#booking-date").val();
+    var time = $("#booking-time").val();
+    var hours = $("#booking-hours").val();
+    var pay = $("#booking-total").val();
+    var text = $("#booking-text").val();
+
+    console.log('Time: ' + time);
+
+    if(time.length == 0 || time == undefined || time == "00:00"){
+        requiredCheck = false;
+        errorMsg += "Time is a required field. Ex: 1:00 PM"
+
+    }
+
+
+    if(requiredCheck == true) {
+        var date = date + ' ' + time;
+        if (text.length == 0) {
+            text = "";
+        }
+
+        var hr = new XMLHttpRequest();
+        var url = "indexLog.php";
+        var action = "updateBooking"
         var data = "action=" + action + "&date=" + date + "&hours=" + hours  + "&pay=" + pay + "&text=" + text + "&bookerID="+$bID+"&musicianID="+$mID;
 
         hr.open("POST", url, true);

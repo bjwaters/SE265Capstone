@@ -36,7 +36,7 @@ function searchLoc($db, $logged){
         if($sql->rowCount() > 0)
         {
             $size = $sql ->rowCount();
-            $table = "<div class=\"container border col-5 my-4\" id='resultDiv'> <div class=\"row\">";
+            $table = "<div class='container border col-7 my-4' id='resultDiv'> <div class='row'>";
             //$table .= "$size items returned. <br> <br>";
             $table .= "<table>" . PHP_EOL;
             $intRow = 1;
@@ -44,17 +44,18 @@ function searchLoc($db, $logged){
             foreach ($results as $result)
             {
                 $resultID = $result['user_id'];
-                $table .= "<td>" .  "<img src = 'assets/uploads/" . $result['picture'] . "' width='200'";
+                $table .= "<td><div class='crop-container'><img src='assets/uploads/" . $result['picture'] . "' ";
 
                 if($logged == false)
                 {
-                    $table .= "onclick=\"searchProfileClickNotLogged($resultID)\"><br>";
+                    $table .= "onclick='searchProfileClickNotLogged($resultID)'></div><br>";
                 }  
                 else
                 {
-                    $table .= "onclick=\"searchProfileClick($resultID)\"><br>";
+                    $table .= "onclick='searchProfileClick($resultID)'></div><br>";
                 }
-                $table .= $result['userName'] . "   " . $result['city'] . "</td>";
+                $table .= "<span class='subheader sub-username'>" . $result['userName'] . "</span><br>";
+                $table .= "<span class='subheader sub-location'>" . $result['city'] . ",   " . $result['state'] . "</span></td>";
                 if($intRow %3 == 0)
                 {
                     $table .= "</tr><tr>";

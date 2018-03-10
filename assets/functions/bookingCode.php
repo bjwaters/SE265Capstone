@@ -104,15 +104,15 @@ function getPendingBookings($db, $user_id){
             if($_SESSION['userType'] == 'Booker') {
                 $picture = getProfilePicture($db, $b['musician_id']);
                 $profileID = $b['musician_id'];
-                $buttons = "<div><a href = '#' >Update</a> | <a href = 'indexLog.php?action=deleteBooking&bookingID=" . $b['booking_id'] .  "'>Cancel</a></div>";
+                $buttons = "<div><a href = '#' data-toggle='modal' data-target='#bookingUpdateModal' onclick='fillUpdateBookingForm()'>Update</a> | <a href = 'indexLog.php?action=deleteBooking&bookingID=" . $b['booking_id'] .  "'>Cancel</a></div>";
             } else {
                 $picture = getProfilePicture($db, $b['booker_id']);
                 $profileID = $b['booker_id'];
-                $buttons = "<div><a href = '#' >Accept</a> | <a href = '#' >Decline</a></div>";
+                $buttons = "<div><a href = 'indexLog.php?action=acceptBooking&bookingID=" . $b['booking_id'] .  "'>Accept</a> | <a href = 'indexLog.php?action=declineBooking&bookingID=" . $b['booking_id'] . "&musicianID=" . $b['musician_id'] . "&bookerID=" . $b['booker_id']."' >Decline</a></div>";
             }
 
             $table .= "<tr><td><div class='mc-crop-container'><img src = 'assets/uploads/" . $picture . "' class='img-thumbs' width='75' onclick='searchProfileClick($profileID)'></div></td>";
-            $table .= "<td>" . $b['booking_id'] . "</td><td>" . $b['booking_date'] . "</td><td>" . "$" . $b['pay'] . $b['number_of_hours'] . "</td>";
+            $table .= "<td id='bookingID'>" . $b['booking_id'] . "</td><td id='bookingDate'>" . $b['booking_date'] . "</td><td id='bookingPay'>" . "$" . $b['pay'] . $b['number_of_hours'] . "</td>";
             $table .= "<td>$buttons</td></tr>";
         }
         $table .= "</table>";
@@ -138,14 +138,19 @@ function getAcceptedBookings($db, $user_id){
         $table = "<table class='table'>" . PHP_EOL;
         $table .= "<tr><th>Accepted Bookings</th></tr>";
         foreach ($bookings as $b) {
-
-            $table .= "<tr><td>" . $b['booking_id'] . "</td><td>" . $b['booking_date'] . "</td><td>" . "$" . $b['pay'] . $b['number_of_hours'] . "</td>";
             if($_SESSION['userType'] == 'Booker') {
-                $pic = getProfilePicture();
-                $table .= "<td><div class='mc-crop-container'><a href='indexLog.php?action=Profile&bookerID=" . $user_id . "&musicianID=" . $b['musician_id']."'>UserID: " . $b['musician_id'] . "</a></div>";
-            } else{
-                $table .= "<td><div class='mc-crop-container'><a href='indexLog.php?action=Profile&musicianID=" . $user_id . "&bookerID=" . $b['booker_id']."'>UserID: " . $b['booker_id'] . "</a></div>";
+                $picture = getProfilePicture($db, $b['musician_id']);
+                $profileID = $b['musician_id'];
+                $buttons = "<div><a href = '#' data-toggle='modal' data-target='#bookingUpdateModal' onclick='fillUpdateBookingForm()'>Update</a> | <a href = 'indexLog.php?action=deleteBooking&bookingID=" . $b['booking_id'] .  "'>Cancel</a></div>";
+            } else {
+                $picture = getProfilePicture($db, $b['booker_id']);
+                $profileID = $b['booker_id'];
+                $buttons = "<div><a href = 'indexLog.php?action=deleteBooking&bookingID=" . $b['booking_id'] .  "'>Cancel</a></div>";
             }
+
+            $table .= "<tr><td><div class='mc-crop-container'><img src = 'assets/uploads/" . $picture . "' class='img-thumbs' width='75' onclick='searchProfileClick($profileID)'></div></td>";
+            $table .= "<td id='bookingID'>" . $b['booking_id'] . "</td><td id='bookingDate'>" . $b['booking_date'] . "</td><td id='bookingPay'>" . "$" . $b['pay'] . $b['number_of_hours'] . "</td>";
+            $table .= "<td>$buttons</td></tr>";
         }
         $table .= "</table>";
         return $table;
