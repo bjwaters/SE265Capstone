@@ -248,7 +248,7 @@ function grabUserType($db, $validID)
 
 function accountSetttingsForm()
 {
-    include_once('assets/forms/AccountSettingForm.php');
+    include_once('assets/forms/AccountSettingForm.html');
 }
 
 function accountSettingcode($db){
@@ -280,21 +280,21 @@ function accountSettingcode($db){
 
 
                 } else {
-                    include_once('assets/forms/AccountSettingForm.php');
+                    include_once('assets/forms/AccountSettingForm.html');
                     echo("Passwords not matched.");
                 }
             } else {
-                include_once('assets/forms/AccountSettingForm.php');
+                include_once('assets/forms/AccountSettingForm.html');
                 echo("Please enter in both password fields.");
             }
         }
         else {
-            include_once('assets/forms/AccountSettingForm.php');
+            include_once('assets/forms/AccountSettingForm.html');
             echo("Emails don't match");
         }
     }
     else {
-        include_once('assets/forms/AccountSettingForm.php');
+        include_once('assets/forms/AccountSettingForm.html');
         echo("Please enter in both email fields properly.");
     }
 

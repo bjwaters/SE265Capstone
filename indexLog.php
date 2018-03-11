@@ -38,7 +38,7 @@ switch($action){
         include_once('navLogged.php');
 
         if($_SESSION['userType'] == "Admin") {
-            include_once('assets/forms/adminForm.php');
+            include_once('assets/forms/adminForm.html');
         }
 
         if($_SESSION['userType'] == "Booker") {
@@ -96,7 +96,7 @@ switch($action){
         break;
     case 'createAdmin':
         echo ("In create admin php");
-        include_once("assets/forms/adminMakerForm.php");
+        include_once("assets/forms/adminMakerForm.html");
         break;
     case 'adminEntry':
         $email = $_POST['adminEmail'];
@@ -134,7 +134,7 @@ switch($action){
             echo"No person logged in.";
         break;
     case 'reportForm':
-        include_once('assets/forms/ReportMakerForm.html');
+        include_once('assets/forms/DepReportMakerForm.html');
         break;
     case 'reportIssues':
         addReport($db);
@@ -146,7 +146,7 @@ switch($action){
         deleteReport($db);
         break;
     case 'accountSettingsForm':
-        include_once('assets/forms/AccountSettingForm.php');
+        include_once('assets/forms/AccountSettingForm.html');
         break;
     case 'accountSettingsSet':
         accountSettingcode($db);

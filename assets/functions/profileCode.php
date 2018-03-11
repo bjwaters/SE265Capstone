@@ -88,7 +88,7 @@ function grabProfile($db, $neededID, $type)
 
 
                 if ($type == "Edit") {
-                    include_once("assets/forms/EditProfileForm.php");
+                    include_once("assets/forms/EditProfileForm.html");
                 } else if ($type == "Public")
                     include_once("assets/forms/PublicProfileForm.html");
 
