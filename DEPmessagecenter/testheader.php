@@ -18,7 +18,7 @@
 <body>
 <header style="text-align:center">
     <h1>test</h1>
-    <a href="../messagecenter/indextest.php?action=myMessages">My Messages</a>
-    <a href="../messagecenter/indextest.php?action=myBookings">My Bookings</a>
+    <a href="/indextest.php?action=myMessages">My Messages</a>
+    <a href="/indextest.php?action=myBookings">My Bookings</a>
 </header>
 <section>
