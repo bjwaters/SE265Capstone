@@ -7,10 +7,10 @@ function getShuffledProfiles($db){
         $sql = $db->prepare("SELECT * FROM profiles WHERE genre <> 'Default'");
         $sql->execute();
         $profiles = $sql->fetchAll(PDO::FETCH_ASSOC);
-        shuffle($profiles);
+        shuffle($profiles);;
         $intRow = 1;
 
-        $table = "<div class='container' id='resultDiv' > <div class='row'>";
+        $table = "<div class='container' id='resultDiv' ><div class='row'>";
         $table .= "<table class='table' id='shuffledProfiles'>" . PHP_EOL;
         foreach ($profiles as $p) {
             $table .= "<td><div class='crop-container'><img src='assets/uploads/" . $p['picture'] . "' onclick='searchProfileClickNotLogged(" . $p['user_id'] . ")'></div>";

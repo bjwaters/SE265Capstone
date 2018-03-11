@@ -113,13 +113,13 @@
 
 /*Message center profile images*/
 .profile-crop-container {
-    width: 350px;
-    height: 350px;
+    width: 250px;
+    height: 250px;
     overflow: hidden;
 
 }
 .profile-crop-container img {
-    height: 350px;
+    height: 250px;
 
 }
 
@@ -132,4 +132,8 @@
 #profile-content-right {
     max-width:400px;
     align-items:end;
+}
+
+#userData{
+    min-height:300px;
 }

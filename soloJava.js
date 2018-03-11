@@ -475,10 +475,10 @@ function showAdvancedSearch()
     hr.onreadystatechange = function () {
         if (hr.readyState == 4 && hr.status == 200) {
             var return_data = hr.responseText;
+            //console.log(return_data);
             $("#contentOutput").html(return_data);
         }
     };
-
     hr.send(vars);
 }
 
@@ -557,7 +557,7 @@ function simpleSearchNotLogged(e)
     hr.onreadystatechange = function () {
         if (hr.readyState == 4 && hr.status == 200) {
             var return_data = hr.responseText;
-            //$("#contentOutput").load('assets/forms/SearchForm.html');
+            //$("#contentOutput").load('assets/forms/searchForm.html');
             $("#phpresults").html(return_data);
         }
     };
@@ -722,6 +722,8 @@ function reportForm()
 {
     $('#editProfile').html("");
     $('#editProfile').hide();
+    $('#phpresults').html("");
+    $('#phpresults').hide();
 
     var hr = new XMLHttpRequest();
     var url = "indexLog.php";

@@ -8,7 +8,7 @@
 
 function showAdvancedSearch()
 {
-    include_once('assets/forms/SearchForm.html');
+    include_once('assets/forms/searchForm.html');
 }
 
 //The basic search function for location
@@ -36,9 +36,9 @@ function searchLoc($db, $logged){
         if($sql->rowCount() > 0)
         {
             $size = $sql ->rowCount();
-            $table = "<div class='container border col-7 my-4' id='resultDiv'> <div class='row'>";
+            $table = "<div class='container border id='resultDiv'><div class='row'>";
             //$table .= "$size items returned. <br> <br>";
-            $table .= "<table>" . PHP_EOL;
+            $table .= "<table class='table'>" . PHP_EOL;
             $intRow = 1;
             $table .= "<tr>";
             foreach ($results as $result)
@@ -113,9 +113,6 @@ function searchAll($db, $back){
             $searchState = strtolower($searchState);
             $searchString .= "AND state LIKE '%$searchState%'";
         }
-
-        echo($searchString);
-        //var_dump($searchString);
     }
     else
     {
@@ -143,8 +140,8 @@ function searchAll($db, $back){
         {
             $size = $sql ->rowCount();
             //$table = "$size rows returned. <br> <br>";
-            $table = "<div class=\"container border col-5 my-4\" id='resultDiv' style='padding-top: 20px;'> <div class=\"row\">";
-            $table .= "<table>" . PHP_EOL;
+            $table = "<div class='container border' id='resultDiv'><div class='row'>";
+            $table .= "<table class='table'>" . PHP_EOL;
             $intRow = 1;
             $table .= "<tr>";
             foreach ($results as $result)
@@ -162,8 +159,9 @@ function searchAll($db, $back){
                         {
 
                             $resultID = $result['user_id'];
-                            $table .= "<td>" . "<img src = 'assets/uploads/" . $result['picture'] . "' width='200' onclick='profileClickChoice($resultID)'><br>";
-                            $table .= $result['userName'] . "   " . $result['location'] . "</td>";
+                            $table .= "<td><div class='crop-container'><img src = 'assets/uploads/" . $result['picture'] . "' onclick='profileClickChoice($resultID)'></div><br>";
+                            $table .= "<span class='subheader sub-username'>" . $result['userName'] . "</span><br>";
+                            $table .= "<span class='subheader sub-location'>" . $result['city'] . ",   " . $result['state'] . "</span></td>";
                             if ($intRow % 3 == 0) {
                                 $table .= "</tr><tr>";
                             }
@@ -173,8 +171,9 @@ function searchAll($db, $back){
                 }
                 else {
                     $resultID = $result['user_id'];
-                    $table .= "<td>" . "<img src = 'assets/uploads/" . $result['picture'] . "' width='200' onclick='profileClickChoice($resultID)'><br>";
-                    $table .= $result['userName'] . "   " . $result['city'] . "</td>";
+                    $table .= "<td><div class='crop-container'><img src = 'assets/uploads/" . $result['picture'] . "' onclick='profileClickChoice($resultID)'></div><br>";
+                    $table .= "<span class='subheader sub-username'>" . $result['userName'] . "</span><br>";
+                    $table .= "<span class='subheader sub-location'>" . $result['city'] . ",   " . $result['state'] . "</span></td>";
                     if ($intRow % 3 == 0) {
                         $table .= "</tr><tr>";
                     }

@@ -97,9 +97,9 @@ function grabProfile($db, $neededID, $type)
 
 
                 if ($type == "Edit") {
-                    include_once("assets/forms/EditProfileForm.html");
+                    include_once("assets/forms/editProfileForm.html");
                 } else if ($type == "Public")
-                    include_once("assets/forms/PublicProfileForm.html");
+                    include_once("assets/forms/publicProfileForm.html");
 
             }
         } else {

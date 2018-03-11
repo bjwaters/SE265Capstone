@@ -7,46 +7,51 @@
  */
 ?>
 
-<div class="container my-4 border col-7 p-4" style="justify-content: space-between">
-    <div class="flex-row">
 
-        <aside id="profile-content-left" class="flex-column border">
 
-            <div class="border">
-                <h3>Solo Profile</h3>
-            </div>
 
-            <div class="border">
-                <div class="border">
-                    <div class='profile-crop-container'>
-                        <img src = 'assets/Uploads/<?php echo $editPicture?>' height='300'>
+<div class="container my-4 border col-7">
+
+    <div class="row border">
+        <h3>Solo Profile</h3>
+    </div>
+
+    <div class="d-flex border">
+        <div class="row border">
+            <aside id="profile-content-left" class="col col-3 border">
+
+                <div class="border m-0">
+                    <!--<div class="border"> -->
+                        <div class='profile-crop-container'>
+                            <img src = 'assets/Uploads/<?php echo $editPicture?>' height='250'>
+                        </div>
+                    <!--</div>-->
+
+                    <div class="border">
+                        <iframe width='350' height='197' src='https://www.youtube.com/embed/<?php echo $videoEmbed ?>' frameborder='0' allowfullscreen></iframe>
                     </div>
                 </div>
 
-                <div class="border">
-                    <iframe width='350' height='197' src='https://www.youtube.com/embed/<?php echo $videoEmbed ?>' frameborder='0' allowfullscreen></iframe>
+            </aside>
+
+            <!---Video and Comments-->
+            <aside id="profile-content-right" class="col col-3 border" >
+                <div id="userData" class="border mr-auto">
+                    <section><?php echo $editUserName?></section><br>
+                    <section><?php echo $editCity?>, <?php echo $editState?></section>
+
+                    <!---Musician Only content-->
+                    <div id = "little" <?php echo $hidden ?>>
+                    <label>Music genre: </label><span id="profileGenre"><?php echo $editGenre?></span><br>
+                    <label>Availability: </label><span id="profileAvailability"><?php echo $editAvailability?></span><br>
+                    <label>Rate: $</label><span id="profileRate"><?php echo $editPay?></span><br>
+                    </div>
                 </div>
-            </div>
-
-        </aside>
-
-        <!---Video and Comments-->
-        <aside id="profile-content-right" class="flex-column border">
-            <div class="border mr-auto">
-                <section><?php echo $editUserName?></section><br>
-                <section><?php echo $editCity?>, <?php echo $editState?></section>
-
-                <!---Musician Only content-->
-                <div id = "little" <?php echo $hidden ?>>
-                <label>Music genre: </label><span id="profileGenre"><?php echo $editGenre?></span><br>
-                <label>Availability: </label><span id="profileAvailability"><?php echo $editAvailability?></span><br>
-                <label>Rate: $</label><span id="profileRate"><?php echo $editPay?></span><br>
-            </div>
-            <div class="border">
-                <?php echo $editComments?>
-            </div>
-        </aside>
-
+                <div class="border">
+                    <?php echo $editComments?>
+                </div>
+            </aside>
+        </div>
     </div>
 
 
