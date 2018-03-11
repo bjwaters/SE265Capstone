@@ -110,3 +110,26 @@
     height: 75px;
 
 }
+
+/*Message center profile images*/
+.profile-crop-container {
+    width: 350px;
+    height: 350px;
+    overflow: hidden;
+
+}
+.profile-crop-container img {
+    height: 350px;
+
+}
+
+#profile-content-left {
+    max-width:400px;
+    align-items:start;
+}
+
+
+#profile-content-right {
+    max-width:400px;
+    align-items:end;
+}

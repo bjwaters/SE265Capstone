@@ -7,71 +7,89 @@
  */
 ?>
 
-<div class="container my-4 border col-7 p-4">
-    <div class="flex-grow">
-        <form method = 'get' action = "#">
+<div class="container my-4 border col-7 p-4" style="justify-content: space-between">
+    <div class="flex-row">
 
-            <div class="flex-row border"><h3>Solo Profile</h3></div>
+        <aside id="profile-content-left" class="flex-column border">
 
-            <div class="d-flex flex-row border">
-                <div class="flex-column border">
-                    <img src = 'assets/Uploads/<?php echo $editPicture?>' height='300'>
+            <div class="border">
+                <h3>Solo Profile</h3>
+            </div>
+
+            <div class="border">
+                <div class="border">
+                    <div class='profile-crop-container'>
+                        <img src = 'assets/Uploads/<?php echo $editPicture?>' height='300'>
+                    </div>
                 </div>
-                <div class="flex-column border mr-auto offset-md-2">
-                    <?php echo $editUserName?> <br>
-                    <?php echo $editCity?>, <?php echo $editState?>
-                    <div id = "little" <?php echo $hidden ?>>
-                    <label>Music genre: </label><span id="profileGenre"><?php echo $editGenre?></span><br>
-                    <label>Availability: </label><span id="profileAvailability"><?php echo $editAvailability?></span><br>
-                    <label>Rate: $</label><span id="profileRate"><?php echo $editPay?></span><br>
+
+                <div class="border">
+                    <iframe width='350' height='197' src='https://www.youtube.com/embed/<?php echo $videoEmbed ?>' frameborder='0' allowfullscreen></iframe>
                 </div>
             </div>
-    </div>
 
+        </aside>
 
-    <div class="flex-row border">
-        <div class="flex-column border">
-            <iframe width='560' height='315' src='https://www.youtube.com/embed/<?php echo $videoEmbed ?>' frameborder='0' allowfullscreen></iframe>
-            <div class="flex-column border float-right">
+        <!---Video and Comments-->
+        <aside id="profile-content-right" class="flex-column border">
+            <div class="border mr-auto">
+                <section><?php echo $editUserName?></section><br>
+                <section><?php echo $editCity?>, <?php echo $editState?></section>
+
+                <!---Musician Only content-->
+                <div id = "little" <?php echo $hidden ?>>
+                <label>Music genre: </label><span id="profileGenre"><?php echo $editGenre?></span><br>
+                <label>Availability: </label><span id="profileAvailability"><?php echo $editAvailability?></span><br>
+                <label>Rate: $</label><span id="profileRate"><?php echo $editPay?></span><br>
+            </div>
+            <div class="border">
                 <?php echo $editComments?>
             </div>
-        </div>
+        </aside>
+
     </div>
 
-    <div class="flex-column border">
-        <?php
-            if(isset($_SESSION['userType']) && $_SESSION['userType'] == "Admin")
-                echo "Profile status:<br> Locked";; ?>
-        <input type =
-                       <?php if(isset($_SESSION['userType']) && $_SESSION['userType'] == "Admin")
-        { echo "radio"; }
-        else echo "hidden"; ?>
-        name='profileStatus' <?php if($editProfileStatus == "Locked") echo "checked" ?> value = "Locked") />
 
-        <?php if(isset($_SESSION['userType']) && $_SESSION['userType'] == "Admin") echo "Unlocked"; ?>
-        <input type =
-                       <?php if(isset($_SESSION['userType']) && $_SESSION['userType'] == "Admin")
-        { echo "radio"; }
-        else echo "hidden"; ?>
-        name='profileStatus' <?php if($editProfileStatus == "Unlocked") echo "checked" ?> value = "Unlocked" /><br>
 
-        <input type =
-                       <?php if(isset($_SESSION['userType']) && $_SESSION['userType'] == "Admin")
-        {echo "button";}
-        else
-        {echo "hidden";} ?>
-        value = "Save Profile Status" onclick="changeProfileStatus()" />
-    </div>
+
+    <!--Hidden input holding user values--->
     <br> <input type="hidden" id="hiddenID" value="<?php echo $editUserID ?>" />
     <br> <input type="hidden" id="hiddenUserID" value="<?php echo $_SESSION['userID'] ?>" />
     <br> <input type="hidden" id="hiddenUserType" value="<?php echo $_SESSION['userType'] ?>" />
 
-    <input type=
-                   <?php if( isset($_SESSION['searchHistory']))
-    {echo "button";}
-    else echo "hidden"; ?>
-    onclick="searchHistoryChoice()" value="Back to Search Page" />
-
-    </form>
 </div>
+
+<div id="adminContent">
+    <!-- Admin controls and search button-->
+    <form method = 'get' action = "#">
+        <div>
+            <?php
+                if(isset($_SESSION['userType']) && $_SESSION['userType'] == "Admin")
+                    echo "Profile status:<br> Locked";; ?>
+            <input type =
+                           <?php if(isset($_SESSION['userType']) && $_SESSION['userType'] == "Admin")
+            { echo "radio"; }
+            else echo "hidden"; ?>
+            name='profileStatus' <?php if($editProfileStatus == "Locked") echo "checked" ?> value = "Locked") />
+
+            <?php if(isset($_SESSION['userType']) && $_SESSION['userType'] == "Admin") echo "Unlocked"; ?>
+            <input type =
+                           <?php if(isset($_SESSION['userType']) && $_SESSION['userType'] == "Admin")
+            { echo "radio"; }
+            else echo "hidden"; ?>
+            name='profileStatus' <?php if($editProfileStatus == "Unlocked") echo "checked" ?> value = "Unlocked" /><br>
+
+            <input type =
+                           <?php if(isset($_SESSION['userType']) && $_SESSION['userType'] == "Admin")
+            {echo "button";}
+            else
+            {echo "hidden";} ?>
+            value = "Save Profile Status" onclick="changeProfileStatus()" />
+        </div>
+
+        <!--- Search history button-->
+        <input type= <?php if( isset($_SESSION['searchHistory'])) {echo "button";}
+        else echo "hidden"; ?> onclick="searchHistoryChoice()" value="Back to Search Page" >
+        </input>
+    </form>
 </div>
