@@ -134,7 +134,7 @@ switch($action){
             echo"No person logged in.";
         break;
     case 'reportForm':
-        include_once('assets/forms/depReportMakerForm.html');
+        include_once('assets/forms/ReportForm.html');
         break;
     case 'reportIssues':
         addReport($db);

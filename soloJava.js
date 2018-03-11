@@ -4,10 +4,7 @@ function events(){
 
 
     $("#simpleSearchButtonNotLogged").on("click", simpleSearchNotLogged);
-    $("#simpleSearchButtonNotLogged").on("click", showAdvancedSearchNotLogged);
-
     $("#simpleSearchButtonLogged").on("click", simpleSearchLogged);
-    $("#simpleSearchButtonLogged").on("click", showAdvancedSearch);
 
     $("#modalLogin").on("click", loginClicks);
     $("#modalSignUp").on("click", signUpClicks);
@@ -533,6 +530,8 @@ function simpleSearchLogged(e)
 
     hr.send(vars);
     console.log("Processing simple logged searching..");
+
+    showAdvancedSearch();
 }
 
 
@@ -564,6 +563,8 @@ function simpleSearchNotLogged(e)
 
     hr.send(vars);
     console.log("Processing simple unlogged searching..");
+
+    showAdvancedSearchNotLogged();
 }
 
 function advancedChoice()
