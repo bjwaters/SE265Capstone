@@ -79,20 +79,20 @@ function grabProfile($db, $neededID, $type)
                 $editVideoLink = $profile['videoLink'];
                 $editProfileStatus = $profile['profileStatus'];
 
-                //Gets the end of the youtube url to embed on PublicProfileForm
-                $vLink = preg_split('~=~', $editVideoLink, PREG_SPLIT_OFFSET_CAPTURE);
-                if(count($vLink) == 1)
-                {
-                    $vLink = preg_split('~be/~', $editVideoLink, PREG_SPLIT_OFFSET_CAPTURE);
-                }
-                $videoEmbed = $vLink[1];
-
 
                 if($editGenre == 'Default') {
                     //var_dump($_SESSION['userType']);
                     $hidden = 'hidden';
                 }else {
                     $hidden = '';
+
+                    //Gets the end of the youtube url to embed on PublicProfileForm
+                    $vLink = preg_split('~=~', $editVideoLink, PREG_SPLIT_OFFSET_CAPTURE);
+                    if(count($vLink) == 1)
+                    {
+                        $vLink = preg_split('~be/~', $editVideoLink, PREG_SPLIT_OFFSET_CAPTURE);
+                    }
+                    $videoEmbed = $vLink[1];
                 }
 
 
@@ -263,6 +263,7 @@ function getUserName($db, $user_id){
         die("There was a problem getting the record."); //Error message if it fails to get the data
     }
 }
+
 
 function getLockedStatus($db, $user_id){
     try {

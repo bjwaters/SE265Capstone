@@ -17,7 +17,7 @@
             <aside id="profile-content-left" class="col col-3 ">
                 <form name = "editForm2" method = 'post' action = "indexLog.php" enctype = "multipart/form-data">
                 <div id="mediaBox" class="m-0">
-                    <h3>Edit Profile</h3>
+                    <h3 class="soloHeader">Edit Profile</h3>
                     <div id="publicPicture">
                         <div class='profile-crop-container'>
                             <img src = 'assets/Uploads/<?php echo $editPicture?>' width='350'>
@@ -26,7 +26,7 @@
 
                     <div>
                         <div id = "pic">Picture: <input type = 'file' name = 'file' id="file"></div>
-                        <div id="vid"> Video Link: <input type="text" name="videoLink" value="<?php echo $editVideoLink;?>"/></div>
+                        <div id="vid" <?php echo $hidden ?>> Video Link: <input type="text" name="videoLink" value="<?php echo $editVideoLink;?>"/></div>
 
                     </div>
                 </div>

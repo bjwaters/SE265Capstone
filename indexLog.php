@@ -134,7 +134,7 @@ switch($action){
             echo"No person logged in.";
         break;
     case 'reportForm':
-        include_once('assets/forms/ReportForm.html');
+        include_once('assets/forms/reportForm.html');
         break;
     case 'reportIssues':
         addReport($db);
@@ -225,6 +225,11 @@ switch($action){
     case 'deleteBooking' :
         include_once("navLogged.php");
         echo deleteBooking($db, $_GET['bookingID']);
+        echo getAllBookings($db, $_SESSION['userID']);
+        break;
+    case 'cancelBooking' :
+        include_once("navLogged.php");
+        echo updateBookingStatus($db, $_GET['bookingID'],  $status='canceled');
         echo getAllBookings($db, $_SESSION['userID']);
         break;
 }

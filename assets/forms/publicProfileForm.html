@@ -17,14 +17,14 @@
             <aside id="profile-content-left" class="col col-3 ">
 
                 <div id="mediaBox" class="m-0">
-                    <h3>Solo Profile</h3>
+                    <h3 class="soloHeader">Solo Profile</h3>
                     <div id="publicPicture">
                         <div class='profile-crop-container'>
                             <img src = 'assets/Uploads/<?php echo $editPicture?>' height='250'>
                         </div>
                     </div>
 
-                    <div>
+                    <div id="video" <?php echo $hidden ?>>
                         <iframe width='350' height='197' src='https://www.youtube.com/embed/<?php echo $videoEmbed ?>' frameborder='0' allowfullscreen></iframe>
                     </div>
                 </div>
@@ -69,17 +69,18 @@
             <!---Video and Comments-->
             <aside id="profile-content-right" class="col col-5 " >
                 <div id="userData" class=" mr-auto">
-                    <?php echo $editUserName?><br>
-                    <?php echo $editCity?>, <?php echo $editState?>
+                    <span class="sub-username"><?php echo $editUserName?></span><br>
+                    <span class="sub-location"><?php echo $editCity?>, <?php echo $editState?></span><br><br>
 
                     <!---Musician Only content-->
-                    <div id = "little" <?php echo $hidden ?>>
+                    <div id = "musicianContent" <?php echo $hidden ?>>
                     <label>Music genre:  </label><span id="profileGenre"><?php echo $editGenre?></span><br>
                     <label>Availability: </label><span id="profileAvailability"><?php echo $editAvailability?></span><br>
                     <label>Rate: $</label><span id="profileRate"><?php echo $editPay?></span><br>
                     </div>
                 </div>
-                <div id="commentBox">
+                <div id="commentBox" class="border">
+                    <label>Description: </label><br>
                     <?php echo $editComments?>
                 </div>
             </aside>

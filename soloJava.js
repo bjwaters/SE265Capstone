@@ -508,6 +508,7 @@ function simpleSearchLogged(e)
     e.preventDefault();
     console.log("simple search, logged");
     $('#stateProfiles').html("");
+    $('#resultDiv').html("");
 
     var hr = new XMLHttpRequest();
     var url = "indexLog.php";
@@ -542,6 +543,7 @@ function simpleSearchNotLogged(e)
      e.preventDefault();
      console.log("Simple search, not logged.");
      $('#shuffledProfiles').html("");
+     $('#resultDiv').html("");
 
     var hr = new XMLHttpRequest();
     var url = "indexNotLog.php";
@@ -799,6 +801,7 @@ function searchProfileClick(id)
 {
     $("#phpresults").html("");
     $('#stateProfiles').html("");
+    $('#resultDiv').html("");
     $('#mcOutput').html("");
 
     var userID = id;
@@ -831,7 +834,7 @@ function searchProfileClickNotLogged(id)
 {
     $("#phpresults").html("");
     $('#shuffledProfiles').html("");
-
+    $('#resultDiv').html("");
 
     var userID = id;
 

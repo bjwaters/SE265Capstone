@@ -141,9 +141,8 @@
 }
 
 #commentBox{
-
-    padding-top:60px;
-    padding-left:30px;
+    margin: 20px 20px 20px 20px;
+    padding: 20px 20px 20px 20px;
 }
 
 #mediaBox{
@@ -182,4 +181,44 @@
 
 #userData section {
     float:right;
+}
+
+#bookingDetails {
+    text-align: center;
+    padding-top:5px;
+}
+
+
+
+
+/*Home page header*/
+#homepageHeader{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#homepageHeader h1{
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    color: #00A6FF;
+
+}
+
+#homepageHeader h2{
+    text-align: center;
+    font-size: 26px;
+    color: #969FAA;
+
+}
+
+#homepageHeader h3{
+    font-size: 26px;
+    color: #00A6FF;
+}
+
+.soloHeader {
+    font-size: 26px;
+    color: #00A6FF;
 }
