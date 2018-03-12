@@ -99,7 +99,7 @@ function searchAll($db, $back){
         }
         if ($searchLocation != "") {
             $searchLocation = strtolower($searchLocation);
-            $searchString .= "AND location LIKE '%$searchLocation%'";
+            $searchString .= "AND city LIKE '%$searchLocation%'";
         }
         if ($searchGenre != "null") {
             $searchGenre = strtolower($searchGenre);
@@ -139,14 +139,12 @@ function searchAll($db, $back){
         if($sql->rowCount() > 0)
         {
             $size = $sql ->rowCount();
-            //$table = "$size rows returned. <br> <br>";
             $table = "<div class='container border' id='resultDiv'><div class='row'>";
             $table .= "<table class='table'>" . PHP_EOL;
             $intRow = 1;
             $table .= "<tr>";
             foreach ($results as $result)
             {
-                //if(isset($searchRate1) && isset($searchRate2)
                 if($searchRate1 != "" and $searchRate2 != "")  //If both are contain a value
                 {
                     settype($searchRate1, "float");

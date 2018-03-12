@@ -28,7 +28,7 @@ function loginClicks()
     hr.open("POST", url, true);
     hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-    console.log(vars);
+    //console.log(vars);
 
     hr.onreadystatechange = function () {
         if (hr.readyState == 4 && hr.status == 200) {
@@ -570,11 +570,9 @@ function simpleSearchNotLogged(e)
 function advancedChoice()
 {
     if (!document.getElementById("simpleSearchButtonNotLogged")) {
-        //console.log("Is logged.")
         advancedSearch();
     }
     else {
-        //console.log("Not logged");
         advancedSearchNotLogin();
     }
 }
@@ -582,7 +580,6 @@ function advancedChoice()
 //Code for the advanced searching method, when logged in
 function advancedSearch()
 {
-    console.log("In advanced search");
     $('#resultDiv').html("");
 
     var hr = new XMLHttpRequest();
@@ -602,14 +599,12 @@ function advancedSearch()
         + "&searchState=" + searchState + "&searchAvailability=" + searchAvailability + "&genreSearch_drop="
         + genreSearch_drop + "&searchPayRate1=" + searchPayRate1 + "&searchPayRate2=" + searchPayRate2;
 
-    console.log("vars are: " + vars);
     hr.open("POST", url, true);
     hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
     hr.onreadystatechange = function () {
         if (hr.readyState == 4 && hr.status == 200) {
             var return_data = hr.responseText;
-            //console.log(return_data);
             $("#phpresults").html(return_data);
         }
     };
@@ -621,7 +616,6 @@ function advancedSearch()
 //code for the advanced searching method, when not logged in
 function advancedSearchNotLogin()
 {
-    console.log("In advanced search");
     $('#resultDiv').html("");
 
     var hr = new XMLHttpRequest();
@@ -641,7 +635,6 @@ function advancedSearchNotLogin()
         + "&searchState=" + searchState + "&searchAvailability=" + searchAvailability + "&genreSearch_drop="
         + genreSearch_drop + "&searchPayRate1=" + searchPayRate1 + "&searchPayRate2=" + searchPayRate2;
 
-    console.log("vars are: " + vars);
     hr.open("POST", url, true);
     hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
@@ -678,7 +671,6 @@ function accountSettingsForm()
     hr.onreadystatechange = function () {
         if (hr.readyState == 4 && hr.status == 200) {
             var return_data = hr.responseText;
-            //console.log(return_data);
             $("#contentOutput").html(return_data);
         }
     };
@@ -759,7 +751,7 @@ function reportIssues()
 
     var vars = "action=" + action + "&reportType=" + type + "&reportDetails=" + details;
 
-    console.log(vars);
+    //console.log(vars);
 
     hr.open("POST", url, true);
     hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -810,7 +802,6 @@ function searchProfileClick(id)
 
     var vars = "action=" + action + "&profileID=" + userID;
 
-    console.log("Vars is " + vars);
 
     hr.open("POST", url, true);
     hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -841,8 +832,6 @@ function searchProfileClickNotLogged(id)
     var action = "searchResultClick";
 
     var vars = "action=" + action + "&profileID=" + userID;
-
-    console.log("Vars is " + vars);
 
     hr.open("POST", url, true);
     hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -875,7 +864,6 @@ function searchHistoryChoice()
 //Search history option for logged in
 function searchHistory()
 {
-    console.log("Burp");
 
     var hr = new XMLHttpRequest();
     var url = "indexLog.php";
@@ -883,7 +871,6 @@ function searchHistory()
 
     var vars = "action=" + action;
 
-    console.log("Vars is " + vars);
 
     hr.open("POST", url, true);
     hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -911,8 +898,6 @@ function searchHistoryNotLogged()
 
     var vars = "action=" + action;
 
-    console.log("Vars is " + vars);
-
     hr.open("POST", url, true);
     hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
@@ -939,7 +924,6 @@ function checkReports(){
     hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
     var vars = "action=" + action;
-    console.log(vars);
 
     hr.onreadystatechange = function () {
         if (hr.readyState == 4 && hr.status == 200) {
@@ -969,16 +953,13 @@ function changeReportStatus()
             valArray[loop] = $("#" + loop).val();
         }
     }
-    //console.log(valArray);
     valArray = valArray.filter(function(e){return e});
-    //console.log(valArray);
 
 
     hr.open("POST", url, true);
     hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
     var vars = "action=" + action + "&counter=" + count + "&valArray=" + valArray;
-    console.log(vars);
 
     hr.onreadystatechange = function () {
         if (hr.readyState == 4 && hr.status == 200) {

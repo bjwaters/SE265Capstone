@@ -81,7 +81,7 @@ switch($action){
         grabProfile($db, $profileID, $profileType);
         break;
     case 'Back to Search Page':
-        echo $_SESSION['searchHistory'];
+        //echo $_SESSION['searchHistory'];
         if(isset($_SESSION['searchHistory']) && isset($_SESSION['searchType']))
         {
             if($_SESSION['searchType'] == "simple")

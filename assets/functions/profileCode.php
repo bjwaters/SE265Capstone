@@ -89,7 +89,6 @@ function grabProfile($db, $neededID, $type)
 
 
                 if($editGenre == 'Default') {
-                    //var_dump($_SESSION['userType']);
                     $hidden = 'hidden';
                 }else {
                     $hidden = '';
@@ -115,7 +114,6 @@ function grabProfile($db, $neededID, $type)
 function editProfile($db)
 {
     $name = $_POST['userName'];
-    //var_dump($_POST);
 
 
     $editUserID = $_POST['user_id'];
@@ -206,7 +204,6 @@ function saveStatus($db)
 {
     $setID = $_POST['user_id'];
     $setProfileStatus = $_POST['profileStatus'];
-    //echo "In savestatus: ID is  " .  $setID . " status: " . $setProfileStatus;
 
     try {
         $stmt = $db->prepare("UPDATE profiles SET  profileStatus=:profileStatus WHERE user_id = :user_id");
