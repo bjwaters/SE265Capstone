@@ -1,8 +1,8 @@
 <?php ?>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" src= "messageCenter.js"></script>
 
-<div class="container my-4 border col-7">
+<!--<script type="text/javascript" src= "messageCenter.js"></script>-->
+
+<div id="profileTabsContent" class="container my-4 border col-7" onload="messageCenterEvents()">
 
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
@@ -24,7 +24,7 @@
 
         <div class="tab-pane fade" id="bookings" role="tabpanel" aria-labelledby="bookings-tab">
             <span id="allBookings"></span>
-            <form id="booking-form" action="#" method="post">
+            <form id="booking-form" class="border" action="#" method="post">
                 <h2>Book User</h2>
                 Date: <input type="date" name="booking-date" id="booking-date" required>
                 Time: <input type="time" name="start" id="booking-time" required/><br />
@@ -40,7 +40,7 @@
 
         <div class="tab-pane fade" id="messages" role="tabpanel" aria-labelledby="messages-tab">
             <span id="allMessages"></span>
-            <form id= "messageForm" action="#" method="post">
+            <form id= "message-form" class="border" action="#" method="post">
                 <h2>Message User</h2>
                 Message: <br />
                 <textarea name="message" id="message-text" rows="4" cols="50"></textarea><br />
@@ -51,4 +51,9 @@
     </div>
 </div>
 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(document).ready(messageCenterEvents());
+</script>
 

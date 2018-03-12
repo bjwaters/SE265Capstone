@@ -29,7 +29,7 @@ function addProfile($db, $new_id)
 
     $comments = "Enter comments here.";
     $picture = "Blank.jpg";
-    $videoLink = "http://google.com";
+    $videoLink = "http://www.youtube.com";
     $profileStatus = "Unlocked";
 
     try{
@@ -79,26 +79,32 @@ function grabProfile($db, $neededID, $type)
                 $editVideoLink = $profile['videoLink'];
                 $editProfileStatus = $profile['profileStatus'];
 
-                //Gets the end of the youtube url to embed on PublicProfileForm
-                $vLink = preg_split('~=~', $editVideoLink, PREG_SPLIT_OFFSET_CAPTURE);
-                if(count($vLink) == 1)
-                {
-                    $vLink = preg_split('~be/~', $editVideoLink, PREG_SPLIT_OFFSET_CAPTURE);
-                }
-                $videoEmbed = $vLink[1];
-
 
                 if($editGenre == 'Default') {
                     $hidden = 'hidden';
                 }else {
                     $hidden = '';
+
+                    //Gets the end of the youtube url to embed on PublicProfileForm
+                    if($editVideoLink != "http://www.youtube.com"){
+                        $vLink = preg_split('~=~', $editVideoLink, PREG_SPLIT_OFFSET_CAPTURE);
+                        if(count($vLink) == 1)
+                        {
+                            $vLink = preg_split('~be/~', $editVideoLink, PREG_SPLIT_OFFSET_CAPTURE);
+                        }
+                        $videoEmbed = $vLink[1];
+                    } else{
+                        //if the user didn't upload a video, they can use this one :)
+                        $videoEmbed = "BHkhIjG0DKc";
+                    }
+
                 }
 
 
                 if ($type == "Edit") {
-                    include_once("assets/forms/editProfileForm.html");
+                    include_once("assets/forms/editProfileForm.php");
                 } else if ($type == "Public")
-                    include_once("assets/forms/publicProfileForm.html");
+                    include_once("assets/forms/publicProfileForm.php");
 
             }
         } else {
@@ -127,7 +133,7 @@ function editProfile($db)
 
     if($editGenre == "null")
     {
-        $editGenre = "Other";
+        $editGenre = "Default";
     }
     if($editState == "null")
     {
@@ -260,6 +266,7 @@ function getUserName($db, $user_id){
         die("There was a problem getting the record."); //Error message if it fails to get the data
     }
 }
+
 
 function getLockedStatus($db, $user_id){
     try {

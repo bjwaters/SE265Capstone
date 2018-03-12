@@ -1,4 +1,4 @@
-$(document).ready(function() {
+/*$(document).ready(function() {
 
     getTodaysDate();
 
@@ -16,8 +16,27 @@ $(document).ready(function() {
 
     console.log($bID);
 
+});*/
 
-});
+function messageCenterEvents(){
+
+    getTodaysDate();
+
+    $userID = $('#hiddenUserID').val();
+    $userType = $('#hiddenUserType').val();
+    $profileID = $('#hiddenID').val();
+
+    if($userType == 'Booker'){
+        $bID = $userID;
+        $mID = $profileID;
+    } else if ($userType == 'Musician') {
+        $mID = $userID;
+        $bID = $profileID;
+    }
+
+    console.log($bID);
+}
+
 
 
 
@@ -55,30 +74,16 @@ function getTodaysDate(){
 
 }
 
-/*function getUrlParameter(sParam) {
-    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-        sURLVariables = sPageURL.split('&'),
-        sParameterName,
-        i;
-
-    for (i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split('=');
-
-        if (sParameterName[0] === sParam) {
-            return sParameterName[1] === undefined ? true : sParameterName[1];
-        }
-    }
-};*/
 
 function getMessages(){
-    $.get( "indexLog.php?action=getMessages&bookerID="+$bID+"&musicianID="+$mID, function( messages ) {
-        $( "#allMessages" ).html( messages );
+    $.get("indexLog.php?action=getMessages&bookerID="+$bID+"&musicianID="+$mID, function(messages) {
+        $("#allMessages").html( messages);
     });
 }
 
 function getBookings(){
-    $.get( "indexLog.php?action=getBookings&bookerID="+$bID+"&musicianID="+$mID, function( bookings ) {
-        $( "#allBookings" ).html( bookings );
+    $.get("indexLog.php?action=getBookings&bookerID="+$bID+"&musicianID="+$mID, function(bookings) {
+        $("#allBookings").html(bookings);
     });
 }
 
@@ -162,87 +167,75 @@ function sendBooking(){
 }
 
 
-function fillUpdateBookingForm() {
+function modalBookingEvents(){
 
-    var fullDate = $("#bookingDate").val();
-    var date =  fullDate.split(" ")[0];
-    var time = fullDate.split(" ")[1];
+    getTodaysDate();
 
-    console.log(fullDate);
-    console.log(date);
-    console.log(time);
+}
 
 
+function fillUpdateBookingForm(bookingID) {
 
-    var hours = $("#booking-hours").val();
+    $.get( "indexLog.php?action=getOneBooking&bookingID="+bookingID, function(booking) {
+        var details = JSON.parse(booking);
 
+        var fullDate = details['booking_date'];
+        var hours = details['number_of_hours'];
 
+        var date =  fullDate.split(" ")[0];
+        var time = fullDate.split(" ")[1];
+        var pay = "3.14";
 
-    $("#booking-date").val(date);
-    $("#booking-date").val(time);
+        $("#m-booking-date").val(date);
+        $("#m-booking-total").val(pay);
+        $("#m-booking-time").val(time);
+        $("#m-booking-hours").val(hours);
+        $("#hiddenID").val(bookingID);
 
-    $("#booking-hours").val();
-    $("#booking-pay").val();
-
-
+    });
 
 }
 
 function updateBooking(){
 
-    var requiredCheck = true;
-    var errorMsg = '';
+    var bookingID = $("#hiddenID").val();
+    var date = $("#m-booking-date").val();
+    var time = $("#m-booking-time").val();
+    var hours = $("#m-booking-hours").val();
+    var pay = $("#m-booking-total").val();
+    var text = $("#m-booking-text").val();
 
-    $('#booking-errors').val('');
-    var date = $("#booking-date").val();
-    var time = $("#booking-time").val();
-    var hours = $("#booking-hours").val();
-    var pay = $("#booking-total").val();
-    var text = $("#booking-text").val();
-
-    console.log('Time: ' + time);
-
-    if(time.length == 0 || time == undefined || time == "00:00"){
-        requiredCheck = false;
-        errorMsg += "Time is a required field. Ex: 1:00 PM"
-
+    var date = date + ' ' + time;
+    if (text.length == 0) {
+        text = "";
     }
 
+    var hr = new XMLHttpRequest();
+    var url = "indexLog.php";
+    var action = "updateBooking"
+    var data = "action=" + action + "&bookingID=" + bookingID + "&date=" + date + "&hours=" + hours  + "&pay=" + pay + "&text=" + text;
 
-    if(requiredCheck == true) {
-        var date = date + ' ' + time;
-        if (text.length == 0) {
-            text = "";
+    debugger;
+    hr.open("POST", url, true);
+    hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    hr.onreadystatechange = function(){
+        if (hr.readyState == 4 && hr.status == 200) {
+            var return_data = hr.responseText;
+            console.log("return data:" + return_data);
         }
+    };
+    hr.send(data);
 
-        var hr = new XMLHttpRequest();
-        var url = "indexLog.php";
-        var action = "updateBooking"
-        var data = "action=" + action + "&date=" + date + "&hours=" + hours  + "&pay=" + pay + "&text=" + text + "&bookerID="+$bID+"&musicianID="+$mID;
 
-        hr.open("POST", url, true);
-        hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-        hr.onreadystatechange = function(){
-            if (hr.readyState == 4 && hr.status == 200) {
-                var return_data = hr.responseText;
-                console.log("return data:" + return_data);
-            }
-        };
-        hr.send(data);
-        getBookings();
-        $("#booking-date").val('');
-        $("#booking-hours").val('');
-        $("#booking-pay").val('');
-        $("#booking-text").val('');
-        $("#booking-total").val('');
-
-    } else {
-        $('#booking-errors').html(errorMsg);
-        console.log(errorMsg);
-    }
 }
 
 
 
+/*//At the start
+$(document).ready(function(){
 
+    messageCenterEvents();
+
+});*/

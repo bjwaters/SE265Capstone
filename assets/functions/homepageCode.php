@@ -10,8 +10,10 @@ function getShuffledProfiles($db){
         shuffle($profiles);;
         $intRow = 1;
 
-        $table = "<div class='container' id='resultDiv' ><div class='row'>";
-        $table .= "<table class='table' id='shuffledProfiles'>" . PHP_EOL;
+
+        $table = "<div class='container' id='resultDiv' >";
+        $table .= "<header id='homepageHeader'><h1>Solo</h1><h2>Find musicians in your area</h2><h3>Start browsing now...</h3><br></header>";
+        $table .= "<div class='row'><table class='table' id='shuffledProfiles'>" . PHP_EOL;
         foreach ($profiles as $p) {
             $table .= "<td><div class='crop-container'><img src='assets/uploads/" . $p['picture'] . "' onclick='searchProfileClickNotLogged(" . $p['user_id'] . ")'></div>";
             $table .= "<br><span class='subheader sub-username'>" . $p['userName'] . "</span>";
@@ -22,7 +24,7 @@ function getShuffledProfiles($db){
             }
             $intRow++;
         }
-        $table .= "</tr></table></div>";
+        $table .= "</tr></table></div></div>";
         return $table;
     }
     catch (PDOException $e){
@@ -53,7 +55,8 @@ function getProfilesByState($db, $state){
         shuffle($profiles);
         $intRow = 1;
 
-        $table = "<div class='container' id='resultDiv' > <div class='row'>";
+        $table = "<div class='container' id='resultDiv' ><div class='row'>";
+        $table .= "<header id='homepageHeader'><h3>Find musicians in your area</h3><br></header>";
         $table .= "<table class='table' id='stateProfiles'>" . PHP_EOL;
         foreach ($profiles as $p) {
             $table .= "<td><div class='crop-container'><img src='assets/uploads/" . $p['picture'] . "' onclick='searchProfileClick(" . $p['user_id'] . ")'></div>";
@@ -65,7 +68,7 @@ function getProfilesByState($db, $state){
             }
             $intRow++;
         }
-        $table .= "</table>";
+        $table .= "</table></div></div>";
         return $table;
     }
     catch (PDOException $e){

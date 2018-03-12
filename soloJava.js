@@ -404,6 +404,8 @@ function publicProfile()
     $('#editProfile').html("");
     $('#editProfile').hide();
     $('#stateProfiles').html("");
+    $('#mcOutput').html("");
+    $('#resultDiv').html("");
 
     var hr = new XMLHttpRequest();
     var url = "indexLog.php";
@@ -508,6 +510,8 @@ function simpleSearchLogged(e)
     e.preventDefault();
     console.log("simple search, logged");
     $('#stateProfiles').html("");
+    $('#resultDiv').html("");
+    $('#mcOutput').html("");
 
     var hr = new XMLHttpRequest();
     var url = "indexLog.php";
@@ -542,6 +546,7 @@ function simpleSearchNotLogged(e)
      e.preventDefault();
      console.log("Simple search, not logged.");
      $('#shuffledProfiles').html("");
+     $('#resultDiv').html("");
 
     var hr = new XMLHttpRequest();
     var url = "indexNotLog.php";
@@ -657,6 +662,7 @@ function accountSettingsForm()
     $('#editProfile').html("");
     $('#editProfile').hide();
     $('#stateProfiles').html("");
+    $('#mcOutput').html("");
     $('#phpresults').html("");
     var hr = new XMLHttpRequest();
     var url = "indexLog.php";
@@ -722,6 +728,8 @@ function reportForm()
     var url = "indexLog.php";
     var action = "reportForm";
     $('#stateProfiles').html("");
+    $('#mcOutput').html("");
+    $('#resultDiv').html("");
 
     var vars = "action=" + action;
 
@@ -791,6 +799,7 @@ function searchProfileClick(id)
 {
     $("#phpresults").html("");
     $('#stateProfiles').html("");
+    $('#resultDiv').html("");
     $('#mcOutput').html("");
 
     var userID = id;
@@ -822,7 +831,7 @@ function searchProfileClickNotLogged(id)
 {
     $("#phpresults").html("");
     $('#shuffledProfiles').html("");
-
+    $('#resultDiv').html("");
 
     var userID = id;
 

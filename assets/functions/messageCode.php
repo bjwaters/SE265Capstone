@@ -37,14 +37,16 @@ function getMessagesByIDs($db, $booker_id, $musician_id){
             }
             foreach ($messages as $m) {
                 if($m['sender'] == $_SESSION['userID']){
-                    $table .= "<tr><td>" . $m['text'] . "</td><td>" . "Sent: " . $m['time'] . "</td><td><img src='assets/uploads/" . $myPic ."' height='75'></td></tr>";
+                    $table .= "<tr><td>" . $m['text'] . "</td><td>" . "Sent: " . $m['time'] . "</td><td><div class='mc-crop-container'><img src='assets/uploads/" . $myPic ."' height='75'></div></td></tr>";
                 } else {
-                    $table .= "<tr><td><div class='mc-crop-container'><img src='assets/uploads/" . $profilePic ."' height='75'></div></td><td>" . $m['text'] . "</td><td>" . "Sent: " . $m['time'] . "</td></tr>";
+                    $table .= "<tr><td><div class='mc-crop-container'><img src='assets/uploads/" . $profilePic ."' height='75'></div></td>";
+                    $table .= "<td>" . $m['text'] . "</td><td>" . "<lable>Sent:</lable> " . $m['time'] . "</td></tr>";
+
                 }
             }
             $table .= "</table>";
         } else {
-            $table = "You have no messages at this time";
+            $table = "You have no messages with this user at this time";
         }
 
         return $table;
@@ -70,6 +72,10 @@ function getAllMessages($db, $user_id){
             $table = "<div class='container col-7'><table class='table' id='mcOutput'>" . PHP_EOL;
             $table .= "<tr><th>MESSAGES</th></tr>";
             foreach ($messages as $m) {
+                //Splits dateTime table data into two variables
+                $date =  preg_split('~ ~', $m['time'], PREG_SPLIT_OFFSET_CAPTURE)[0];
+                $time = preg_split('~ ~', $m['time'], PREG_SPLIT_OFFSET_CAPTURE)[1];
+
                 if($_SESSION['userType'] == 'Booker') {
                     $picture = getProfilePicture($db, $m['musician_id']);
                     $userName = getUserName($db, $m['musician_id']);
@@ -80,11 +86,15 @@ function getAllMessages($db, $user_id){
                     $userName = getUserName($db, $m['booker_id']);
                 }
                 $table .= "<tr><td><div class='mc-crop-container'><img src = 'assets/uploads/" . $picture . "' class='img-thumbs' width='75' onclick='searchProfileClick($profileID)'></div></td>";
-                $table .= "<td>" . $userName . "</td><td>" . $m['text'] . "</td><td>" . $m['time'] . "</td></tr>";
+                $table .= "<td>" . $userName . "</td>";
+                $table .= "<td><lable>Message:</lable> " . $m['text'] . "</td>";
+                $table .= "<td><lable>Sent: </lable> " . $date;
+                $table .= "<br>" . substr($time, 0, -3) . "</td></tr>";
             }
             $table .= "</table></div>";
         } else{
-            $table = "You have no messages at this time.";
+            $table = "<div class='container col-7' id='mcOutput'>";
+            $table .= "You have no messages at this time.</div>";
         }
 
         return $table;

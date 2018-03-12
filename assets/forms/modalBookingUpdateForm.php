@@ -1,5 +1,7 @@
 <?php
 ?>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src= "messageCenter.js"></script>-->
 
 
 <!-- Modal -->
@@ -14,12 +16,13 @@
             </div>
             <form>
                 <div class="modal-body">
-                    Date: <input type="date" name="booking-date" id="booking-date" required>
-                    Time: <input type="time" name="start" id="booking-time" required/><br />
-                    Hours: <input type="text" name="hours" id="booking-hours" onfocusout="getTotal()" required/><br />
-                    Total: <input type="text" name="pay" id="booking-total" placeholder="0" disabled/><br />
+                    Date: <input type="date" name="booking-date" id="m-booking-date" required>
+                    Time: <input type="time" name="start" id="m-booking-time" required/><br />
+                    Hours: <input type="text" name="hours" id="m-booking-hours" onfocusout="getTotal()" required/><br />
+                    Total: <input type="text" name="pay" id="m-booking-total" placeholder="0" disabled/><br />
                     Message: <br />
-                    <textarea name="bookingText" rows="4" cols="50" id="booking-text"></textarea><br />
+                    <input id="hiddenID" type="hidden" />
+                    <textarea name="bookingText" rows="4" cols="50" id="m-booking-text"></textarea><br />
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -27,7 +30,12 @@
                     <div id="booking-errors"></div>
                 </div>
             </form>
+
         </div>
     </div>
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(document).ready(modalBookingEvents());
+</script>

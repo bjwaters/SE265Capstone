@@ -41,7 +41,7 @@
             <form class="form-inline my-2 mx-3 order-1">
                 <div class="soloSearch">
                     <i class="fas fa-search"></i>
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="simpleSearchLocationNotLogged">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search a city" aria-label="Search" id="simpleSearchLocationNotLogged">
                 </div>
                 <button class="btn btn-primary my-2 my-sm-0" id="simpleSearchButtonNotLogged">Search</button>
             </form>
@@ -62,6 +62,7 @@
         </div>
 
     </nav>
+    <hr>
 </div>
 
 
@@ -129,7 +130,7 @@
                             <input type="radio" name="options" value="Musician" autocomplete="off" checked> Musician
                         </label>
                         <label class="btn btn-secondary">
-                            <input type="radio" name="options" value="Booker" autocomplete="off"> Booker
+                            <input type="radio" name="options" value="Booker" autocomplete="off"> Host
                         </label>
                     </div>
 

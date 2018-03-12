@@ -32,8 +32,8 @@ function validateEmail($email){
     $isValid = true;
 
     //Check for valid email format
-    echo $email;
-    $check = preg_match('/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/', $email);
+    $alt = '/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/';
+    $check = preg_match($alt, $email);
     if ($check == 0) {
         $isValid = false;
     }
@@ -41,3 +41,4 @@ function validateEmail($email){
     return $isValid;
 
 }
+
