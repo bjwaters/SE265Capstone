@@ -40,15 +40,8 @@ switch($action){
         if($_SESSION['userType'] == "Admin") {
             include_once('assets/forms/adminForm.html');
         }
-
-        if($_SESSION['userType'] == "Booker") {
-            $state = getUserState($db, $_SESSION['userID']); //This needs to be moved to userHomepage case??
-            echo getProfilesByState($db, $state);
-        }
-
-        if($_SESSION['userType'] == "Musician") {
-            echo "IMMA MUISICAN";
-        }
+        $state = getUserState($db, $_SESSION['userID']);
+        echo getProfilesByState($db, $state);
         break;
     case 'logmeout':
         session_destroy();
@@ -94,7 +87,6 @@ switch($action){
         }
         break;
     case 'createAdmin':
-        echo ("In create admin php");
         include_once("assets/forms/adminMakerForm.html");
         break;
     case 'adminEntry':

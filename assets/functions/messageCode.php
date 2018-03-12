@@ -18,44 +18,6 @@ function newMessage($db, $booker_id, $musician_id, $sender_id, $text, $seen){
     }
 }
 
-//Function to get all of the messages based on a set of two user ids
-function getMessagesByIDs($db, $booker_id, $musician_id){
-    try {
-        $sql = $db->prepare("SELECT * FROM messages WHERE booker_id = :booker_id AND musician_id = :musician_id ORDER BY time");
-        $sql->bindParam(':booker_id', $booker_id, PDO::PARAM_INT);
-        $sql->bindParam(':musician_id', $musician_id, PDO::PARAM_INT);
-        $sql->execute();
-        $messages = $sql->fetchAll(PDO::FETCH_ASSOC);
-        if($sql->rowCount() > 0) {
-            $table = "<table class='table'>" . PHP_EOL;
-            $table .= "<tr><th>MESSAGES</th></tr>";
-            if($_SESSION['userType'] == 'Booker') {
-                $myPic = getProfilePicture($db, $booker_id);
-                $profilePic = getProfilePicture($db, $musician_id);
-            } else if ($_SESSION['userType'] == 'Musician') {
-                $myPic = getProfilePicture($db, $musician_id);
-                $profilePic = getProfilePicture($db, $booker_id);
-            }
-            foreach ($messages as $m) {
-                if($m['sender'] == $_SESSION['userID']){
-                    $table .= "<tr><td>" . $m['text'] . "</td><td>" . "Sent: " . $m['time'] . "</td><td><div class='mc-crop-container'><img src='assets/uploads/" . $myPic ."' height='75'></div></td></tr>";
-                } else {
-                    $table .= "<tr><td><div class='mc-crop-container'><img src='assets/uploads/" . $profilePic ."' height='75'></div></td>";
-                    $table .= "<td>" . $m['text'] . "</td><td>" . "<lable>Sent:</lable> " . $m['time'] . "</td></tr>";
-                }
-            }
-            $table .= "</table>";
-        } else {
-            $table = "You have no messages with this user at this time";
-        }
-        return $table;
-    }
-    catch (PDOException $e){
-        //Error message if it fails to access the db
-        die("There was a problem getting the record.");
-    }
-}
-
 //Function to get all messages sent to a specific user
 function getAllMessages($db, $user_id){
     try {
@@ -102,5 +64,49 @@ function getAllMessages($db, $user_id){
     catch (PDOException $e){
         //Error message if it fails to access the db
         die("There was a problem getting the record."); //Error message if it fails to get the data
+    }
+}
+
+//Function to get all of the messages based on a set of two user ids
+function getMessagesByIDs($db, $booker_id, $musician_id){
+    try {
+        $sql = $db->prepare("SELECT * FROM messages WHERE booker_id = :booker_id AND musician_id = :musician_id ORDER BY time");
+        $sql->bindParam(':booker_id', $booker_id, PDO::PARAM_INT);
+        $sql->bindParam(':musician_id', $musician_id, PDO::PARAM_INT);
+        $sql->execute();
+        $messages = $sql->fetchAll(PDO::FETCH_ASSOC);
+        if($sql->rowCount() > 0) {
+            $table = "<table class='table'>" . PHP_EOL;
+            $table .= "<tr><th>MESSAGES</th></tr>";
+            if($_SESSION['userType'] == 'Booker') {
+                $myPic = getProfilePicture($db, $booker_id);
+                $profilePic = getProfilePicture($db, $musician_id);
+            } else if ($_SESSION['userType'] == 'Musician') {
+                $myPic = getProfilePicture($db, $musician_id);
+                $profilePic = getProfilePicture($db, $booker_id);
+            }
+            foreach ($messages as $m) {
+                //Splits dateTime table data into two variables
+                $date =  preg_split('~ ~', $m['time'], PREG_SPLIT_OFFSET_CAPTURE)[0];
+                $time = preg_split('~ ~', $m['time'], PREG_SPLIT_OFFSET_CAPTURE)[1];
+                if($m['sender'] == $_SESSION['userID']){
+                    $table .= "<tr><td></td><td>" . $m['text'] . "<br>";
+                    $table .= "<span class='msg-date'><lable>" . "Sent: </lable>" . $m['time'] . "</td>";
+                    $table .= "<td><div class='mc-crop-container'><img src='assets/uploads/" . $myPic ."' height='75'></div></td></tr>";
+                } else {
+                    $table .= "<tr><td><div class='mc-crop-container'><img src='assets/uploads/" . $profilePic ."' height='75'></div></td>";
+                    $table .= "<td><lable>Message:</lable> " . $m['text'] . "<br>";
+                    $table .= "<span class='msg-date'><lable>Sent: </lable> " . $date . " " . substr($time, 0, -3) . "</span></td><td></td></tr>";
+                }
+            }
+            $table .= "</table>";
+        } else {
+            $table = "You have no messages with this user at this time";
+        }
+        return $table;
+    }
+    catch (PDOException $e){
+        //Error message if it fails to access the db
+        die("There was a problem getting the record.");
     }
 }

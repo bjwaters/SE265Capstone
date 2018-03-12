@@ -1,4 +1,5 @@
 
+//Function called when profileTabs page is loaded
 function messageCenterEvents(){
 
     getTodaysDate();
@@ -18,6 +19,7 @@ function messageCenterEvents(){
     console.log($bID);
 }
 
+//This gets the musician's hourly rate from their profile and  updates the booking form based on user input
 function getTotal(){
     $hours =  $('#booking-hours').val();
     $hourlyRate = $('#profileRate').text();
@@ -31,8 +33,8 @@ function getTotal(){
     $('#booking-total').val($total);
 }
 
+//Function to get the current date and disable past dates on the booking form date-picker
 function getTodaysDate(){
-
     var today = new Date();
     var year = today.getFullYear();
     var month = today.getMonth()+1;
@@ -51,18 +53,21 @@ function getTodaysDate(){
     $('#booking-date').attr('min', today);
 }
 
+//This function updates the content for the messages link on the nav bar
 function getMessages(){
     $.get("indexLog.php?action=getMessages&bookerID="+$bID+"&musicianID="+$mID, function(messages) {
         $("#allMessages").html( messages);
     });
 }
 
+//This function updates the content for the bookings link on the nav bar
 function getBookings(){
     $.get("indexLog.php?action=getBookings&bookerID="+$bID+"&musicianID="+$mID, function(bookings) {
         $("#allBookings").html(bookings);
     });
 }
 
+//This function sends a message from the messages tab on a profile page
 function sendMessage(){
     var text = $("#message-text").val();
     if (text.length > 0) {
@@ -86,6 +91,7 @@ function sendMessage(){
     }
 }
 
+//This function creates a new booking request from the bookings tab on a profile page
 function sendBooking(){
 
     var requiredCheck = true;
@@ -139,10 +145,12 @@ function sendBooking(){
     }
 }
 
+//This function is called when the modalBookingUpdateForm is loaded
 function modalBookingEvents(){
     getTodaysDate();
 }
 
+//This function populates the update booking modal
 function fillUpdateBookingForm(bookingID) {
 
     $.get( "indexLog.php?action=getOneBooking&bookingID="+bookingID, function(booking) {
@@ -164,6 +172,7 @@ function fillUpdateBookingForm(bookingID) {
     });
 }
 
+//This function sends the data to update an existing booking
 function updateBooking(){
 
     var bookingID = $("#hiddenID").val();

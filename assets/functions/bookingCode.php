@@ -26,7 +26,7 @@ function updateBookingStatus($db, $booking_id, $status){
         $sql->bindParam(':booking_id', $booking_id);
         $sql->bindParam(':status', $status);
         $sql->execute();
-        //return "Update complete.";
+        
         return $sql->rowCount() . " row updated";
     } catch (PDOException $e){
         //Error message if it fails to access the db
@@ -41,7 +41,7 @@ function getOneBooking($db, $booking_id){
         $sql->bindParam(':booking_id', $booking_id);
         $sql->execute();
         $booking = $sql->fetch(PDO::FETCH_ASSOC);
-        //var_dump($booking);
+
         return $booking;
 
     } catch (PDOException $e){
@@ -128,8 +128,8 @@ function getPendingBookings($db, $user_id){
                 }
 
                 $table .= "<tr><td><div class='mc-crop-container'><img src = 'assets/uploads/" . $picture . "' onclick='searchProfileClick($profileID)'></div></td>";
-                $table .= "<div id='bookingDetails'><td><label>Booking ID:</label><span id='bookingID'>" . $b['booking_id'] . "</span> </td>";
-                $table .= "<td><label>Date:</label><span id='bookingDate'>" . $b['booking_date'] . "</span></td>";
+                $table .= "<div id='bookingDetails'><td><label>Booking ID:</label><span id='bookingID'> " . $b['booking_id'] . "</span> </td>";
+                $table .= "<td><label>Date:</label><span id='bookingDate'> " . $b['booking_date'] . "</span></td>";
                 $table .= "<td><label>Payment Total:</label><span id='bookingPay'> $" . $b['pay'] . "</span></td></div>";
                 $table .= "<td>$buttons</td></tr>";
             }
@@ -292,7 +292,11 @@ function getBookingsByIDs($db, $booker_id, $musician_id){
             $table = "<table class='table'>" . PHP_EOL;
             $table .= "<tr><th>Bookings</th></tr>";
             foreach ($bookings as $b) {
-                $table .= "<tr><td>" . $b['booking_id'] . "</td><td>" . $b['booking_date'] . "</td><td>" . "$" . $b['pay'] . $b['number_of_hours'] . "</td>";
+                $date =  preg_split('~ ~', $b['booking_date'], PREG_SPLIT_OFFSET_CAPTURE)[0];
+                $time = preg_split('~ ~', $b['booking_date'], PREG_SPLIT_OFFSET_CAPTURE)[1];
+                $table .= "<tr><td><label>Booking ID:</label> " . $b['booking_id'] . "</td>";
+                $table .= "<td><lable>On:</lable> " . $date . "<br><label>At:</label> " . $time . "</td>";
+                $table .= "<td><label>Total: $</label>" . $b['pay'] . "</td>";
             }
             $table .= "</table>";
         } else{

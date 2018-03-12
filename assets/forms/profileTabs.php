@@ -1,7 +1,5 @@
 <?php ?>
 
-<!--<script type="text/javascript" src= "messageCenter.js"></script>-->
-
 <div id="profileTabsContent" class="container my-4 border col-7" onload="messageCenterEvents()">
 
     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -24,7 +22,7 @@
 
         <div class="tab-pane fade" id="bookings" role="tabpanel" aria-labelledby="bookings-tab">
             <span id="allBookings"></span>
-            <form id="booking-form" class="border" action="#" method="post">
+            <form id="booking-form" class="border pt-forms" action="#" method="post">
                 <h2>Book User</h2>
                 Date: <input type="date" name="booking-date" id="booking-date" required>
                 Time: <input type="time" name="start" id="booking-time" required/><br />
@@ -40,7 +38,7 @@
 
         <div class="tab-pane fade" id="messages" role="tabpanel" aria-labelledby="messages-tab">
             <span id="allMessages"></span>
-            <form id= "message-form" class="border" action="#" method="post">
+            <form id= "message-form" class="border pt-forms" action="#" method="post">
                 <h2>Message User</h2>
                 Message: <br />
                 <textarea name="message" id="message-text" rows="4" cols="50"></textarea><br />

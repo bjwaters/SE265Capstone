@@ -1,8 +1,5 @@
 <?php
 ?>
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" src= "messageCenter.js"></script>-->
-
 
 <!-- Modal -->
 <div class="modal fade" id="bookingUpdateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

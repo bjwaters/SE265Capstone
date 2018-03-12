@@ -24,7 +24,9 @@
 
                     <div>
                         <div id="pic">Picture: <input type = 'file' name='file' id="file"></div>
-                        <div id="vid" <?php echo $hidden ?>> Video Link: <input type="text" name="videoLink" value="<?php echo $editVideoLink;?>"/></div>
+                        <div id="vid" <?php echo $hidden ?>> Video Link: <input type="text" name="videoLink" value="<?php echo $editVideoLink;?>"/><br>
+                            <p>Please enter a youtube link only.</p>
+                        </div>
 
                     </div>
                 </div>
