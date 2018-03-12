@@ -1,7 +1,7 @@
 <?php
+//Homepage functions
 
-
-//Function to get all of the messages based on a set of two user ids
+//Function to get all musician profiles and randomize the display
 function getShuffledProfiles($db){
     try {
         $sql = $db->prepare("SELECT * FROM profiles WHERE genre <> 'Default'");
@@ -9,7 +9,6 @@ function getShuffledProfiles($db){
         $profiles = $sql->fetchAll(PDO::FETCH_ASSOC);
         shuffle($profiles);;
         $intRow = 1;
-
 
         $table = "<div class='container' id='resultDiv' >";
         $table .= "<header id='homepageHeader'><h1>Solo</h1><h2>Find musicians in your area</h2><h3>Start browsing now...</h3><br></header>";
@@ -28,10 +27,12 @@ function getShuffledProfiles($db){
         return $table;
     }
     catch (PDOException $e){
-        die("There was a problem getting the record."); //Error message if it fails to get the data
+        //Error message if it fails to access the db
+        die("There was a problem getting the record.");
     }
 }
 
+//Function to get the state for one user based on userID
 function getUserState($db, $user_id){
     try {
         $sql = $db->prepare("SELECT state FROM profiles WHERE user_id = :user_id");
@@ -41,14 +42,15 @@ function getUserState($db, $user_id){
         return $state['state'];
     }
     catch (PDOException $e){
-        die("There was a problem getting the record."); //Error message if it fails to get the data
+        //Error message if it fails to access the db
+        die("There was a problem getting the record.");
     }
 }
 
-
+//Function to get get all of the musician profiles based on the logged in user's state and randomize the results
 function getProfilesByState($db, $state){
     try {
-        $sql = $db->prepare("SELECT * FROM profiles WHERE state = :state AND genre <> 'Default'"); //need to add search parameter to only return Musicians
+        $sql = $db->prepare("SELECT * FROM profiles WHERE state = :state AND genre <> 'Default'");
         $sql->bindParam(':state', $state);
         $sql->execute();
         $profiles = $sql->fetchAll(PDO::FETCH_ASSOC);
@@ -72,6 +74,7 @@ function getProfilesByState($db, $state){
         return $table;
     }
     catch (PDOException $e){
-        die("There was a problem getting the record."); //Error message if it fails to get the data
+        //Error message if it fails to access the db
+        die("There was a problem getting the record.");
     }
 }

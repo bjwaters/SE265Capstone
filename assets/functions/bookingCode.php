@@ -1,12 +1,10 @@
 <?php
-
 //Booking functions
-
 
 //Function to add a new booking to the bookings table
 function newBooking($db, $booker_id, $musician_id, $booking_date, $hours, $pay, $status){
     try{
-        $sql = $db->prepare("INSERT INTO bookings VALUES (null, :booker_id, :musician_id, :booking_date, :hours, :pay, :status)"); //sql statement to add placeholders to database
+        $sql = $db->prepare("INSERT INTO bookings VALUES (null, :booker_id, :musician_id, :booking_date, :hours, :pay, :status)");
         $sql->bindParam(':booker_id', $booker_id);
         $sql->bindParam(':musician_id', $musician_id);
         $sql->bindParam(':booking_date', $booking_date);
@@ -16,7 +14,8 @@ function newBooking($db, $booker_id, $musician_id, $booking_date, $hours, $pay, 
         $sql->execute();
         return $sql->rowCount() . " rows inserted";
     } catch (PDOException $e) {
-        die("There was a problem adding the record."); //Error message if it fails to add new data to the db
+        //Error message if it fails to access the db
+        die("There was a problem adding the record.");
     }
 }
 
@@ -30,7 +29,8 @@ function updateBookingStatus($db, $booking_id, $status){
         //return "Update complete.";
         return $sql->rowCount() . " row updated";
     } catch (PDOException $e){
-        die("There was a problem updating the record."); //Error message if it fails to add new data to the db
+        //Error message if it fails to access the db
+        die("There was a problem updating the record.");
     }
 }
 
@@ -45,7 +45,8 @@ function getOneBooking($db, $booking_id){
         return $booking;
 
     } catch (PDOException $e){
-        die("There was a problem updating the record."); //Error message if it fails to add new data to the db
+        //Error message if it fails to access the db
+        die("There was a problem updating the record.");
     }
 }
 
@@ -61,7 +62,8 @@ function updateBooking($db, $booking_id, $booking_date, $hours, $pay, $status){ 
         $sql->execute();
         return $sql->rowCount() . " rows inserted";
     } catch (PDOException $e) {
-        die("There was a problem adding the record."); //Error message if it fails to add new data to the db
+        //Error message if it fails to access the db
+        die("There was a problem adding the record.");
     }
 }
 
@@ -72,7 +74,8 @@ function deleteBooking($db, $booking_id) {
         $sql->execute();
         return $sql->rowCount() . " rows inserted";
     } catch (PDOException $e) {
-        die("There was a problem adding the record."); //Error message if it fails to add new data to the db
+        //Error message if it fails to access the db
+        die("There was a problem adding the record.");
     }
 }
 
@@ -135,15 +138,15 @@ function getPendingBookings($db, $user_id){
             $table = "";
         }
 
-
-
         return $table;
     }
     catch (PDOException $e){
-        die("There was a problem deleting the record."); //Error message if it fails to add new data to the db
+        //Error message if it fails to access the db
+        die("There was a problem deleting the record.");
     }
 }
 
+//Function to get all bookings with a status of accepted from the db
 function getAcceptedBookings($db, $user_id){
     try {
         if($_SESSION['userType'] == 'Booker'){
@@ -183,10 +186,12 @@ function getAcceptedBookings($db, $user_id){
         return $table;
     }
     catch (PDOException $e){
-        die("There was a problem deleting the record."); //Error message if it fails to add new data to the db
+        //Error message if it fails to access the db
+        die("There was a problem deleting the record.");
     }
 }
 
+//Function to get all bookings with a status of completed from the db
 function getCompletedBookings($db, $user_id){
     try {
         if($_SESSION['userType'] == 'Booker'){
@@ -225,10 +230,12 @@ function getCompletedBookings($db, $user_id){
         return $table;
     }
     catch (PDOException $e){
-        die("There was a problem deleting the record."); //Error message if it fails to add new data to the db
+        //Error message if it fails to access the db
+        die("There was a problem deleting the record.");
     }
 }
 
+//Function to get all bookings with a status of canceled from the db
 function getCanceledBookings($db, $user_id){
     try {
         if($_SESSION['userType'] == 'Booker'){
@@ -267,78 +274,13 @@ function getCanceledBookings($db, $user_id){
         return $table;
     }
     catch (PDOException $e){
-        die("There was a problem deleting the record."); //Error message if it fails to add new data to the db
+        //Error message if it fails to access the db
+        die("There was a problem deleting the record.");
     }
 }
-/*
-//This function gets all bookings with a status of accepted for the logged in user
-function getAcceptedBookings($db, $user_id){
-    try {
-        if($_SESSION['userType'] == 'Booker'){
-            $sql = $db->prepare("SELECT * FROM bookings WHERE booker_id = :user_id AND status = 'accepted'");
-        } else {
-            $sql = $db->prepare("SELECT * FROM bookings WHERE musician_id = :user_id AND status = 'accepted'");
-        }
 
-        $sql->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-        $sql->execute();
-        $bookings = $sql->fetchAll(PDO::FETCH_ASSOC);
-        $table = "<table class='table'>" . PHP_EOL;
-        $table .= "<tr><th>Accepted Bookings</th></tr>";
-        foreach ($bookings as $b) {
-            if($_SESSION['userType'] == 'Booker') {
-                $picture = getProfilePicture($db, $b['musician_id']);
-                $profileID = $b['musician_id'];
-                $buttons = "<div><a href = '#' data-toggle='modal' data-target='#bookingUpdateModal' onclick='fillUpdateBookingForm()'>Update</a> | <a href = 'indexLog.php?action=deleteBooking&bookingID=" . $b['booking_id'] .  "'>Cancel</a></div>";
-            } else {
-                $picture = getProfilePicture($db, $b['booker_id']);
-                $profileID = $b['booker_id'];
-                $buttons = "<div><a href = 'indexLog.php?action=deleteBooking&bookingID=" . $b['booking_id'] .  "'>Cancel</a></div>";
-            }
-
-            $table .= "<tr><td><div class='mc-crop-container'><img src = 'assets/uploads/" . $picture . "' class='img-thumbs' width='75' onclick='searchProfileClick($profileID)'></div></td>";
-            $table .= "<td id='bookingID'>" . $b['booking_id'] . "</td><td id='bookingDate'>" . $b['booking_date'] . "</td><td id='bookingPay'>" . "$" . $b['pay'] . $b['number_of_hours'] . "</td>";
-            $table .= "<td>$buttons</td></tr>";
-        }
-        $table .= "</table>";
-        return $table;
-    }
-    catch (PDOException $e){
-        die("There was a problem deleting the record."); //Error message if it fails to add new data to the db
-    }
-}*/
-
-/*//This function gets all bookings with a status of complete for the logged in user
-function getCompletedBookings($db, $user_id){
-    try {
-        if($_SESSION['userType'] == 'Booker'){
-            $sql = $db->prepare("SELECT * FROM bookings WHERE booker_id = :user_id AND status = 'completed'");
-        } else {
-            $sql = $db->prepare("SELECT * FROM bookings WHERE musician_id = :user_id AND status = 'completed'");
-        }
-
-        $sql->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-        $sql->execute();
-        $bookings = $sql->fetchAll(PDO::FETCH_ASSOC);
-        $table = "<table class='table'>" . PHP_EOL;
-        $table .= "<tr><th>Completed Bookings</th></tr>";
-        foreach ($bookings as $b) {
-            $table .= "<tr><td>" . $b['booking_id'] . "</td><td>" . $b['booking_date'] . "</td><td>" . "$" . $b['pay'] . $b['number_of_hours'] . "</td>";
-            if($_SESSION['userType'] == 'Booker') {
-                $table .= "<td><div class='mc-crop-container'><a href='indexLog.php?action=Profile&bookerID=" . $user_id . "&musicianID=" . $b['musician_id']."'>UserID: " . $b['musician_id'] . "</a></div>";
-            } else{
-                $table .= "<td><div class='mc-crop-container'><a href='indexLog.php?action=Profile&musicianID=" . $user_id . "&bookerID=" . $b['booker_id']."'>UserID: " . $b['booker_id'] . "</a></div>";
-            }
-        }
-        $table .= "</table>";
-        return $table;
-    }
-    catch (PDOException $e){
-        die("There was a problem deleting the record."); //Error message if it fails to add new data to the db
-    }
-}*/
-
-function getBookingsByIDs($db, $booker_id, $musician_id){ //Function to view products in a table with links to edit product details
+//Function to bookings based on two userIDs
+function getBookingsByIDs($db, $booker_id, $musician_id){
     try {
         $sql = $db->prepare("SELECT * FROM bookings WHERE booker_id = :booker_id AND musician_id = :musician_id");
         $sql->bindParam(':booker_id', $booker_id);
@@ -351,8 +293,6 @@ function getBookingsByIDs($db, $booker_id, $musician_id){ //Function to view pro
             $table .= "<tr><th>Bookings</th></tr>";
             foreach ($bookings as $b) {
                 $table .= "<tr><td>" . $b['booking_id'] . "</td><td>" . $b['booking_date'] . "</td><td>" . "$" . $b['pay'] . $b['number_of_hours'] . "</td>";
-                //$table .= "<td><img src='images/" . $prod['image'] . "'></td>";
-                //$table .= "<td><a href='prodcrud.php?action=Edit&prodID=".$prod['product_id']."&Categories=".$prod['category_id']."'>Edit</a> | <a href='prodcrud.php?action=Delete&prodID=".$prod['product_id']."'>Delete</a></td></tr>";
             }
             $table .= "</table>";
         } else{
@@ -362,6 +302,7 @@ function getBookingsByIDs($db, $booker_id, $musician_id){ //Function to view pro
         return $table;
     }
     catch (PDOException $e){
-        die("There was a problem getting the record."); //Error message if it fails to add new data to the db
+        //Error message if it fails to access the db
+        die("There was a problem getting the record.");
     }
 }

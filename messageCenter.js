@@ -1,22 +1,3 @@
-/*$(document).ready(function() {
-
-    getTodaysDate();
-
-    $userID = $('#hiddenUserID').val();
-    $userType = $('#hiddenUserType').val();
-    $profileID = $('#hiddenID').val();
-
-    if($userType == 'Booker'){
-        $bID = $userID;
-        $mID = $profileID;
-    } else if ($userType == 'Musician') {
-        $mID = $userID;
-        $bID = $profileID;
-    }
-
-    console.log($bID);
-
-});*/
 
 function messageCenterEvents(){
 
@@ -36,9 +17,6 @@ function messageCenterEvents(){
 
     console.log($bID);
 }
-
-
-
 
 function getTotal(){
     $hours =  $('#booking-hours').val();
@@ -71,9 +49,7 @@ function getTodaysDate(){
     var today = year+'-'+month+'-'+day;
 
     $('#booking-date').attr('min', today);
-
 }
-
 
 function getMessages(){
     $.get("indexLog.php?action=getMessages&bookerID="+$bID+"&musicianID="+$mID, function(messages) {
@@ -108,7 +84,6 @@ function sendMessage(){
         getMessages();
         $("#message-text").val('');
     }
-
 }
 
 function sendBooking(){
@@ -128,9 +103,7 @@ function sendBooking(){
     if(time.length == 0 || time == undefined || time == "00:00"){
         requiredCheck = false;
         errorMsg += "Time is a required field. Ex: 1:00 PM"
-
     }
-
 
     if(requiredCheck == true) {
         var date = date + ' ' + time;
@@ -166,13 +139,9 @@ function sendBooking(){
     }
 }
 
-
 function modalBookingEvents(){
-
     getTodaysDate();
-
 }
-
 
 function fillUpdateBookingForm(bookingID) {
 
@@ -184,7 +153,7 @@ function fillUpdateBookingForm(bookingID) {
 
         var date =  fullDate.split(" ")[0];
         var time = fullDate.split(" ")[1];
-        var pay = "3.14";
+        var pay = "10";
 
         $("#m-booking-date").val(date);
         $("#m-booking-total").val(pay);
@@ -193,7 +162,6 @@ function fillUpdateBookingForm(bookingID) {
         $("#hiddenID").val(bookingID);
 
     });
-
 }
 
 function updateBooking(){
@@ -215,7 +183,6 @@ function updateBooking(){
     var action = "updateBooking"
     var data = "action=" + action + "&bookingID=" + bookingID + "&date=" + date + "&hours=" + hours  + "&pay=" + pay + "&text=" + text;
 
-    debugger;
     hr.open("POST", url, true);
     hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
@@ -226,16 +193,4 @@ function updateBooking(){
         }
     };
     hr.send(data);
-
-
-
 }
-
-
-
-/*//At the start
-$(document).ready(function(){
-
-    messageCenterEvents();
-
-});*/

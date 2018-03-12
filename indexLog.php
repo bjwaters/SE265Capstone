@@ -57,7 +57,6 @@ switch($action){
         $logged = true;
         $category = "location";
         searchLoc($db, $logged);
-        //echo($_SESSION['searchHistory']);
         break;
     case 'showAdvancedSearch':
         showAdvancedSearch();
@@ -111,7 +110,6 @@ switch($action){
         grabProfile($db, $editID, $profileType);
         break;
     case 'Save Edit':
-        //echo "TEST";
         include_once('navLogged.php');
         if(validateProfile()){
             editProfile($db);
@@ -210,10 +208,7 @@ switch($action){
         $bDate = date("Y-m-d H:i", $bTime);
 
         echo updateBooking($db, $bookingID, $bDate, $hours, $pay, $status='pending');
-
-        if(strlen($bookingText) > 0){
-            //echo newMessage($db, $_POST['bookerID'], $_POST['musicianID'],  $_SESSION['userID'] , $bookingText, $seen=false);
-        }
+        break;
     case 'acceptBooking' :
         include_once("navLogged.php");
         echo updateBookingStatus($db, $_GET['bookingID'], $status='accepted');

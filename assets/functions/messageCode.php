@@ -13,7 +13,8 @@ function newMessage($db, $booker_id, $musician_id, $sender_id, $text, $seen){
         return $sql->rowCount() . " rows inserted";
     } catch (PDOException $e) {
         echo $e;
-        die("There was a problem adding the record."); //Error message if it fails to add new data to the db
+        //Error message if it fails to access the db
+        die("There was a problem adding the record.");
     }
 }
 
@@ -41,18 +42,17 @@ function getMessagesByIDs($db, $booker_id, $musician_id){
                 } else {
                     $table .= "<tr><td><div class='mc-crop-container'><img src='assets/uploads/" . $profilePic ."' height='75'></div></td>";
                     $table .= "<td>" . $m['text'] . "</td><td>" . "<lable>Sent:</lable> " . $m['time'] . "</td></tr>";
-
                 }
             }
             $table .= "</table>";
         } else {
             $table = "You have no messages with this user at this time";
         }
-
         return $table;
     }
     catch (PDOException $e){
-        die("There was a problem getting the record."); //Error message if it fails to get the data
+        //Error message if it fails to access the db
+        die("There was a problem getting the record.");
     }
 }
 
@@ -100,7 +100,7 @@ function getAllMessages($db, $user_id){
         return $table;
     }
     catch (PDOException $e){
-        echo $e;
+        //Error message if it fails to access the db
         die("There was a problem getting the record."); //Error message if it fails to get the data
     }
 }
