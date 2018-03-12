@@ -404,6 +404,8 @@ function publicProfile()
     $('#editProfile').html("");
     $('#editProfile').hide();
     $('#stateProfiles').html("");
+    $('#mcOutput').html("");
+    $('#resultDiv').html("");
 
     var hr = new XMLHttpRequest();
     var url = "indexLog.php";
@@ -735,6 +737,7 @@ function reportForm()
     var action = "reportForm";
     $('#stateProfiles').html("");
     $('#mcOutput').html("");
+    $('#resultDiv').html("");
 
     var vars = "action=" + action;
 

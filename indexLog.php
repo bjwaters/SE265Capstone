@@ -175,7 +175,7 @@ switch($action){
         echo getBookingsByIDs($db, $_GET['bookerID'], $_GET['musicianID']);
         break;
     case 'getOneBooking':
-        echo getOneBooking($db, $_GET['bookingID']);
+        echo json_encode(getOneBooking($db, $_GET['bookingID']));
         break;
     case 'sendMessage':
         $text = $_POST['text'];
@@ -200,6 +200,7 @@ switch($action){
         break;
     case 'updateBooking' :
         // Convert booking date to format
+        $bookingID = $_POST['bookingID'];
         $bookingDate = $_POST['date'];
         $hours = $_POST['hours'];
         $pay = $_POST['pay'];
@@ -208,10 +209,10 @@ switch($action){
         $bTime = strtotime($bookingDate);
         $bDate = date("Y-m-d H:i", $bTime);
 
-        echo updateBooking($db, $_POST['bookerID'], $_POST['musicianID'], $bDate, $hours, $pay, $status='pending');
+        echo updateBooking($db, $bookingID, $bDate, $hours, $pay, $status='pending');
 
         if(strlen($bookingText) > 0){
-            echo newMessage($db, $_POST['bookerID'], $_POST['musicianID'],  $_SESSION['userID'] , $bookingText, $seen=false);
+            //echo newMessage($db, $_POST['bookerID'], $_POST['musicianID'],  $_SESSION['userID'] , $bookingText, $seen=false);
         }
     case 'acceptBooking' :
         include_once("navLogged.php");

@@ -21,7 +21,8 @@
                     Hours: <input type="text" name="hours" id="m-booking-hours" onfocusout="getTotal()" required/><br />
                     Total: <input type="text" name="pay" id="m-booking-total" placeholder="0" disabled/><br />
                     Message: <br />
-                    <textarea name="bookingText" rows="4" cols="50" id="booking-text"></textarea><br />
+                    <input id="hiddenID" type="hidden" />
+                    <textarea name="bookingText" rows="4" cols="50" id="m-booking-text"></textarea><br />
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -29,7 +30,7 @@
                     <div id="booking-errors"></div>
                 </div>
             </form>
-            <div id="test"></div>
+
         </div>
     </div>
 </div>

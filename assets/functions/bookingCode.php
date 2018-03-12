@@ -40,8 +40,8 @@ function getOneBooking($db, $booking_id){
         $sql = $db->prepare("SELECT * FROM bookings WHERE booking_id = :booking_id");
         $sql->bindParam(':booking_id', $booking_id);
         $sql->execute();
-        $booking = $sql->fetchAll(PDO::FETCH_ASSOC);
-        var_dump($booking);
+        $booking = $sql->fetch(PDO::FETCH_ASSOC);
+        //var_dump($booking);
         return $booking;
 
     } catch (PDOException $e){
@@ -50,12 +50,11 @@ function getOneBooking($db, $booking_id){
 }
 
 //This function updated the booking details for a specific booking
-function updateBooking($db, $booking_id, $musician_id, $booking_date, $hours, $pay, $status){  //Function to update a booking in the bookings table
+function updateBooking($db, $booking_id, $booking_date, $hours, $pay, $status){  //Function to update a booking in the bookings table
     try{
-        $sql = $db->prepare("UPDATE bookings SET booking_date = :booking_date, hours = :hours, pay = :pay, status = :status WHERE booking_id = :booking_id"); //sql statement to add placeholders to database
-        $sql->bindParam(':booking_date', $booking_date);
+        $sql = $db->prepare("UPDATE bookings SET booking_date = :booking_date, number_of_hours = :hours, pay = :pay, status = :status WHERE booking_id = :booking_id"); //sql statement to add placeholders to database
         $sql->bindParam(':booking_id', $booking_id);
-        $sql->bindParam(':musician_id', $musician_id);
+        $sql->bindParam(':booking_date', $booking_date);
         $sql->bindParam(':hours', $hours);
         $sql->bindParam(':pay', $pay);
         $sql->bindParam(':status', $status);
@@ -125,7 +124,7 @@ function getPendingBookings($db, $user_id){
                     $buttons .= "<a href = 'indexLog.php?action=declineBooking&bookingID=" . $b['booking_id'] . "&musicianID=" . $b['musician_id'] . "&bookerID=" . $b['booker_id']."' >Decline</a></div>";
                 }
 
-                $table .= "<tr><td><div class='mc-crop-container'><img src = 'assets/uploads/" . $picture . "' onclick='searchProfileClick($profileID)'></div><div id='profileID' hidden>". $profileID . "</div></td>";
+                $table .= "<tr><td><div class='mc-crop-container'><img src = 'assets/uploads/" . $picture . "' onclick='searchProfileClick($profileID)'></div></td>";
                 $table .= "<div id='bookingDetails'><td><label>Booking ID:</label><span id='bookingID'>" . $b['booking_id'] . "</span> </td>";
                 $table .= "<td><label>Date:</label><span id='bookingDate'>" . $b['booking_date'] . "</span></td>";
                 $table .= "<td><label>Payment Total:</label><span id='bookingPay'> $" . $b['pay'] . "</span></td></div>";
@@ -163,7 +162,7 @@ function getAcceptedBookings($db, $user_id){
                     if ($_SESSION['userType'] == 'Booker') {
                         $picture = getProfilePicture($db, $b['musician_id']);
                         $profileID = $b['musician_id'];
-                        $buttons = "<div><a href = '#' data-toggle='modal' data-target='#bookingUpdateModal' onclick='fillUpdateBookingForm()'>Update</a> | ";
+                        $buttons = "<div><a href = '#' data-toggle='modal' data-target='#bookingUpdateModal' onclick='fillUpdateBookingForm(" . $b['booking_id']. ")'>Update</a> | ";
                         $buttons .= "<a href = 'indexLog.php?action=cancelBooking&bookingID=" . $b['booking_id'] . "'>Cancel</a></div>";
                     } else {
                         $picture = getProfilePicture($db, $b['booker_id']);
