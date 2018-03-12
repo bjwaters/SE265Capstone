@@ -224,3 +224,12 @@
     font-size: 26px;
     color: #00A6FF;
 }
+
+#profileTabsContent {
+    margin-bottom: 30px;
+    padding: 20px 20px 20px 20px;
+}
+
+#message-form {
+    text-align: center;
+}

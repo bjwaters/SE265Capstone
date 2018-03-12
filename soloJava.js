@@ -509,6 +509,7 @@ function simpleSearchLogged(e)
     console.log("simple search, logged");
     $('#stateProfiles').html("");
     $('#resultDiv').html("");
+    $('#mcOutput').html("");
 
     var hr = new XMLHttpRequest();
     var url = "indexLog.php";
@@ -666,6 +667,7 @@ function accountSettingsForm()
     $('#editProfile').html("");
     $('#editProfile').hide();
     $('#stateProfiles').html("");
+    $('#mcOutput').html("");
     $('#phpresults').html("");
     var hr = new XMLHttpRequest();
     var url = "indexLog.php";
@@ -732,6 +734,7 @@ function reportForm()
     var url = "indexLog.php";
     var action = "reportForm";
     $('#stateProfiles').html("");
+    $('#mcOutput').html("");
 
     var vars = "action=" + action;
 

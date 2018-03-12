@@ -87,12 +87,18 @@ function grabProfile($db, $neededID, $type)
                     $hidden = '';
 
                     //Gets the end of the youtube url to embed on PublicProfileForm
-                    $vLink = preg_split('~=~', $editVideoLink, PREG_SPLIT_OFFSET_CAPTURE);
-                    if(count($vLink) == 1)
-                    {
-                        $vLink = preg_split('~be/~', $editVideoLink, PREG_SPLIT_OFFSET_CAPTURE);
+                    if($editVideoLink != "http://www.youtube.com"){
+                        $vLink = preg_split('~=~', $editVideoLink, PREG_SPLIT_OFFSET_CAPTURE);
+                        if(count($vLink) == 1)
+                        {
+                            $vLink = preg_split('~be/~', $editVideoLink, PREG_SPLIT_OFFSET_CAPTURE);
+                        }
+                        $videoEmbed = $vLink[1];
+                    } else{
+                        //if the user didn't upload a video, they can use this one :)
+                        $videoEmbed = "BHkhIjG0DKc";
                     }
-                    $videoEmbed = $vLink[1];
+
                 }
 
 

@@ -37,7 +37,7 @@ function getMessagesByIDs($db, $booker_id, $musician_id){
             }
             foreach ($messages as $m) {
                 if($m['sender'] == $_SESSION['userID']){
-                    $table .= "<tr><td>" . $m['text'] . "</td><td>" . "Sent: " . $m['time'] . "</td><td><img src='assets/uploads/" . $myPic ."' height='75'></td></tr>";
+                    $table .= "<tr><td>" . $m['text'] . "</td><td>" . "Sent: " . $m['time'] . "</td><td><div class='mc-crop-container'><img src='assets/uploads/" . $myPic ."' height='75'></div></td></tr>";
                 } else {
                     $table .= "<tr><td><div class='mc-crop-container'><img src='assets/uploads/" . $profilePic ."' height='75'></div></td>";
                     $table .= "<td>" . $m['text'] . "</td><td>" . "<lable>Sent:</lable> " . $m['time'] . "</td></tr>";
@@ -46,7 +46,7 @@ function getMessagesByIDs($db, $booker_id, $musician_id){
             }
             $table .= "</table>";
         } else {
-            $table = "You have no messages at this time";
+            $table = "You have no messages with this user at this time";
         }
 
         return $table;

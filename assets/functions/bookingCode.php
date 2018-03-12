@@ -357,7 +357,7 @@ function getBookingsByIDs($db, $booker_id, $musician_id){ //Function to view pro
             }
             $table .= "</table>";
         } else{
-            $table = "You have no bookings at this time.";
+            $table = "You have no bookings with this user at this time.";
         }
 
         return $table;
