@@ -1,4 +1,4 @@
-$(document).ready(function() {
+/*$(document).ready(function() {
 
     getTodaysDate();
 
@@ -16,8 +16,27 @@ $(document).ready(function() {
 
     console.log($bID);
 
+});*/
 
-});
+function messageCenterEvents(){
+
+    getTodaysDate();
+
+    $userID = $('#hiddenUserID').val();
+    $userType = $('#hiddenUserType').val();
+    $profileID = $('#hiddenID').val();
+
+    if($userType == 'Booker'){
+        $bID = $userID;
+        $mID = $profileID;
+    } else if ($userType == 'Musician') {
+        $mID = $userID;
+        $bID = $profileID;
+    }
+
+    console.log($bID);
+}
+
 
 
 
@@ -55,20 +74,6 @@ function getTodaysDate(){
 
 }
 
-/*function getUrlParameter(sParam) {
-    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-        sURLVariables = sPageURL.split('&'),
-        sParameterName,
-        i;
-
-    for (i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split('=');
-
-        if (sParameterName[0] === sParam) {
-            return sParameterName[1] === undefined ? true : sParameterName[1];
-        }
-    }
-};*/
 
 function getMessages(){
     $.get( "indexLog.php?action=getMessages&bookerID="+$bID+"&musicianID="+$mID, function( messages ) {
@@ -162,9 +167,23 @@ function sendBooking(){
 }
 
 
-function fillUpdateBookingForm() {
+function modalBookingEvents(){
 
-    var fullDate = $("#bookingDate").val();
+    getTodaysDate();
+
+}
+
+
+function fillUpdateBookingForm(bookingID) {
+
+    console.log(bookingID);
+
+    $.get( "indexLog.php?action=getOneBooking&bookingID="+bookingID, function(booking) {
+        /*console.log(toString(booking['booking_date']));*/
+        $( "#test" ).html( booking );
+    });
+
+/*    var fullDate = $("#bookingDate").text();
     var date =  fullDate.split(" ")[0];
     var time = fullDate.split(" ")[1];
 
@@ -173,16 +192,17 @@ function fillUpdateBookingForm() {
     console.log(time);
 
 
-
-    var hours = $("#booking-hours").val();
-
+    var hours = $("#m-booking-hours").text();
 
 
-    $("#booking-date").val(date);
-    $("#booking-date").val(time);
 
-    $("#booking-hours").val();
+    $("#m-booking-date").val(date);
+    $("#m-booking-time").val(time);*/
+
+/*
+    $("#m-booking-hours").val();
     $("#booking-pay").val();
+*/
 
 
 
@@ -245,4 +265,9 @@ function updateBooking(){
 
 
 
+/*//At the start
+$(document).ready(function(){
 
+    messageCenterEvents();
+
+});*/

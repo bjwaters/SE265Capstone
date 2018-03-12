@@ -14,7 +14,7 @@
 
     <div class="d-flex ">
         <div class="row ">
-            <aside id="profile-content-left" class="col col-3 ">
+            <aside id="profile-content-left" class="col">
 
                 <div id="mediaBox" class="m-0">
                     <h3 class="soloHeader">Solo Profile</h3>
@@ -32,7 +32,7 @@
 
                 <div id="adminContent">
                     <!-- Admin controls and search button-->
-                    <form method = 'get' action = "#">
+                    <form method='get' action="#">
                         <div>
                             <?php
                 if(isset($_SESSION['userType']) && $_SESSION['userType'] == "Admin")
@@ -59,7 +59,7 @@
                         </div>
 
                         <!--- Search history button-->
-                        <input type= <?php if( isset($_SESSION['searchHistory'])) {echo "button";}
+                        <input type=<?php if( isset($_SESSION['searchHistory'])) {echo "button";}
                         else echo "hidden"; ?> onclick="searchHistoryChoice()" value="Back to Search Page" >
                         </input>
                     </form>
@@ -67,15 +67,15 @@
             </aside>
 
             <!---Video and Comments-->
-            <aside id="profile-content-right" class="col col-5 " >
-                <div id="userData" class=" mr-auto">
+            <aside id="profile-content-right" class="col">
+                <div id="userData" class="mr-auto">
                     <span class="sub-username"><?php echo $editUserName?></span><br>
                     <span class="sub-location"><?php echo $editCity?>, <?php echo $editState?></span><br><br>
 
                     <!---Musician Only content-->
-                    <div id = "musicianContent" <?php echo $hidden ?>>
-                    <label>Music genre:  </label><span id="profileGenre"><?php echo $editGenre?></span><br>
-                    <label>Availability: </label><span id="profileAvailability"><?php echo $editAvailability?></span><br>
+                    <div id="musicianContent" <?php echo $hidden ?>>
+                    <label>Music genre: </label> <span id="profileGenre"><?php echo $editGenre?></span><br>
+                    <label>Availability: </label> <span id="profileAvailability"><?php echo $editAvailability?></span><br>
                     <label>Rate: $</label><span id="profileRate"><?php echo $editPay?></span><br>
                     </div>
                 </div>

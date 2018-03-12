@@ -174,6 +174,9 @@ switch($action){
         echo $booker_id;
         echo getBookingsByIDs($db, $_GET['bookerID'], $_GET['musicianID']);
         break;
+    case 'getOneBooking':
+        echo getOneBooking($db, $_GET['bookingID']);
+        break;
     case 'sendMessage':
         $text = $_POST['text'];
         echo "text on index: " . $text;

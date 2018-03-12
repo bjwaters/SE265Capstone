@@ -34,6 +34,21 @@ function updateBookingStatus($db, $booking_id, $status){
     }
 }
 
+//This function updates a booking status for a specific booking in the bookings table
+function getOneBooking($db, $booking_id){
+    try {
+        $sql = $db->prepare("SELECT * FROM bookings WHERE booking_id = :booking_id");
+        $sql->bindParam(':booking_id', $booking_id);
+        $sql->execute();
+        $booking = $sql->fetchAll(PDO::FETCH_ASSOC);
+        var_dump($booking);
+        return $booking;
+
+    } catch (PDOException $e){
+        die("There was a problem updating the record."); //Error message if it fails to add new data to the db
+    }
+}
+
 //This function updated the booking details for a specific booking
 function updateBooking($db, $booking_id, $musician_id, $booking_date, $hours, $pay, $status){  //Function to update a booking in the bookings table
     try{
@@ -101,7 +116,7 @@ function getPendingBookings($db, $user_id){
                 if($_SESSION['userType'] == 'Booker') {
                     $picture = getProfilePicture($db, $b['musician_id']);
                     $profileID = $b['musician_id'];
-                    $buttons = "<div><a href = '#' data-toggle='modal' data-target='#bookingUpdateModal' onclick='fillUpdateBookingForm()'>Update</a> | ";
+                    $buttons = "<div><a href = '#' data-toggle='modal' data-target='#bookingUpdateModal' onclick='fillUpdateBookingForm(" . $b['booking_id']. ")'>Update</a> | ";
                     $buttons .= "<a href = 'indexLog.php?action=deleteBooking&bookingID=" . $b['booking_id'] .  "'>Cancel</a></div>";
                 } else {
                     $picture = getProfilePicture($db, $b['booker_id']);
@@ -110,10 +125,10 @@ function getPendingBookings($db, $user_id){
                     $buttons .= "<a href = 'indexLog.php?action=declineBooking&bookingID=" . $b['booking_id'] . "&musicianID=" . $b['musician_id'] . "&bookerID=" . $b['booker_id']."' >Decline</a></div>";
                 }
 
-                $table .= "<tr><td><div class='mc-crop-container'><img src = 'assets/uploads/" . $picture . "' onclick='searchProfileClick($profileID)'></div></td>";
-                $table .= "<div id='bookingDetails'><td id='bookingID'><label>Booking ID:</label> " . $b['booking_id'] . "</td>";
-                $table .= "<td id='bookingDate'><label>Date:</label> " . $b['booking_date'] . "</td>";
-                $table .= "<td id='bookingPay'><label>Payment Total:</label> $" . $b['pay'] . "</td></div>";
+                $table .= "<tr><td><div class='mc-crop-container'><img src = 'assets/uploads/" . $picture . "' onclick='searchProfileClick($profileID)'></div><div id='profileID' hidden>". $profileID . "</div></td>";
+                $table .= "<div id='bookingDetails'><td><label>Booking ID:</label><span id='bookingID'>" . $b['booking_id'] . "</span> </td>";
+                $table .= "<td><label>Date:</label><span id='bookingDate'>" . $b['booking_date'] . "</span></td>";
+                $table .= "<td><label>Payment Total:</label><span id='bookingPay'> $" . $b['pay'] . "</span></td></div>";
                 $table .= "<td>$buttons</td></tr>";
             }
             $table .= "</table>";

@@ -29,7 +29,7 @@ function addProfile($db, $new_id)
 
     $comments = "Enter comments here.";
     $picture = "Blank.jpg";
-    $videoLink = "http://google.com";
+    $videoLink = "http://www.youtube.com";
     $profileStatus = "Unlocked";
 
     try{
@@ -97,9 +97,9 @@ function grabProfile($db, $neededID, $type)
 
 
                 if ($type == "Edit") {
-                    include_once("assets/forms/editProfileForm.html");
+                    include_once("assets/forms/editProfileForm.php");
                 } else if ($type == "Public")
-                    include_once("assets/forms/publicProfileForm.html");
+                    include_once("assets/forms/publicProfileForm.php");
 
             }
         } else {
@@ -129,7 +129,7 @@ function editProfile($db)
 
     if($editGenre == "null")
     {
-        $editGenre = "Other";
+        $editGenre = "Default";
     }
     if($editState == "null")
     {
